@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"><!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>
+      ProActive
+    </title><!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"><!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"><!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet"><!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet"><!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet"><!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"><!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"><!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet"><!-- // Sweet Alert -->
+    <!-- <script src="../vendors/sweetalert2/dist/sweetalert2.all.min.js"></script> -->
+
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
+  </head>
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a class="site_title" href="index.html"><i class="fa fa-paw"></i> <span>ProActive</span></a>
+            </div>
+            <div class="clearfix"></div><!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img alt="..." class="img-circle profile_img" src="images/ava.jpg">
+              </div>
+              <div class="profile_info">
+                <span>Welcome</span>
+                <p id="name_of_employee"></p>
+              </div>
+            </div><!-- /menu profile quick info -->
+            <!-- sidebar menu -->
+            <div class="main_menu_side hidden-print main_menu" id="sidebar-menu">
+              <div class="menu_section">
+                <ul class="nav side-menu">
+                  <li>
+                    <a><i class="fa fa-home"></i> Complaints <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                        <a class="notif" onlick="document.getElementById('NewDiv').style.display='block'; 
+                        document.getElementById('RejectedDiv').style.display='none';">New<span class="num" id="newCom" ></span></a>
+                      </li>
+                      <li>
+                        <a class="notif">In Process<span class="num_process" id="in_Process"></span></a>
+                      </li>
+                      <li>
+                        <a class="notif">Completed<span class="num_completed" id="completedMess"></span></a>
+                      </li>
+                      <li onclick="document.getElementById('RejectedDiv').style.display='block'; document.getElementById('NewDiv').style.display='none'">
+                        <a class="notif" >Rejected<span class="num_rejected" id="rejected"></span></a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a><i class="fa fa-edit"></i> Statistics <span class="fa"></span></a>
+                  </li>
+                  <li>
+                    <a><i class="fa fa-desktop"></i>About<span class="fa"></span></a>
+                  </li>
+                  <li>
+                    <a><i class="fa fa-table"></i> Addational <span class="fa"></span></a>
+                  </li>
+                  <li>
+                    <a><i class="fa fa-bar-chart-o"></i>Settings<span class="fa"></span></a>
+                  </li>
+                </ul>
+              </div>
+            </div><!-- /sidebar menu -->
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-placement="top" data-toggle="tooltip" title="Settings"><span aria-hidden="true" class="glyphicon glyphicon-cog"></span></a> <a data-placement="top" data-toggle="tooltip" title="FullScreen"><span aria-hidden="true" class="glyphicon glyphicon-fullscreen"></span></a> <a data-placement="top" data-toggle="tooltip" title="Lock"><span aria-hidden="true" class="glyphicon glyphicon-eye-close"></span></a> <a data-placement="top" data-toggle="tooltip" href="login.html" title="Logout"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></a>
+            </div><!-- /menu footer buttons -->
+          </div>
+        </div>
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              <h1 id="organization_name"></h1>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a aria-expanded="false" class="user-profile dropdown-toggle" data-toggle="dropdown" href="javascript:;"><img alt="" src="images/ava.jpg"> <span class=" fa fa-angle-down"></span></a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li>
+                      <a href="javascript:;">Name</a>
+                    </li>
+                    <li>
+                      <h5 id="name_of_employee1"></h5>
+                    </li>
+                    <li>
+                      <a href="javascript:;">Position</a>
+                    </li>
+                    <li>
+                      <h5 id="get_position"></h5>
+                    </li>
+                    <li>
+                      <a href="javascript:;">Number</a>
+                    </li>
+                    <li>
+                      <h5 id="get_number"></h5>
+                    </li>
+                    <li>
+                      <a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="right_col" role="main">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12" id="NewDiv">
+              <div class="dashboard_graph">
+                <h1>
+                 New Complaints
+                </h1>
+                <div class="row" id="contain">
+                  <div class="col-md-3" id="listviewNew"></div>
+                  <div class="col-md-9" id="complainDetails">
+                    <h4 id="complainCategory">
+                      Complain Category
+                    </h4><img id="userPhoto">
+                    <h2 id="userName">
+                      User Name
+                    </h2>
+                    <h6 id="userPhoneNumber">
+                      User Phone Number
+                    </h6><img id="complainPhoto">
+                    <h6 id="comment">
+                      Comment
+                    </h6>
+                    <h6 id="location">
+                      Location
+                    </h6>
+                    <h6 id="time">
+                      Time
+                    </h6><button onclick="document.getElementById('CompleteForm').style.display='block'" style="width:auto;">Completed</button>
+                    <div class="modal" id="CompleteForm">
+                      <!--<span onclick="document.getElementById('CompleteForm').style.display='none'" class="close" title="Close Modal">×</span>-->
+                      <form class="form-horizontal form-label-left" data-parsley-validate="">
+                        <div class="form-group">
+                          <span></span>
+                          <center>
+                            <span>Completed Form</span>
+                          </center><br>
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Organization</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <span id="organization_name_form"></span>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Responsible Person</label>
+                          <div class="col-md-3 col-sm-3 col-xs-12">
+                            <!--<input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">-->
+                            <input id="responsible_person" type="text">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Photo Attachment</label>
+                          <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="btn-group">
+                              <input id="imgInput" type="file"> <img id="image" src="#"><br>
+                            </div>
+                          </div>
+                        </div><br>
+                        <br>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Completion Date</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="completion_date" type="date">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="middle-name">Organization's Rate</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="rating">
+                              <label><input name="stars" type="radio" value="1"> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="2"> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="3"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="4"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="5"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Scope</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select id="scope_of_work">
+                              <option value="little">
+                                Little
+                              </option>
+                              <option value="medium">
+                                Medium
+                              </option>
+                              <option value="big">
+                                Big
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Finance</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="finance_of_work" type="text"> <span>sum</span>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Comment</label>
+                          <div class="col-md-5 col-sm-5 col-xs-12">
+                            <textarea class="form-control" data-parsley-trigger="keyup" data-parsley-validation-threshold="10" id="message" name="message" required="required"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button class="btn btn-primary" type="button">Cancel</button> <button class="btn btn-primary" type="reset">Reset</button> <button class="btn btn-primary" onclick="FirebaseSubmit();" type="button">Submit</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div><button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Rejected</button>
+                    <div class="modal" id="id02">
+                      <span class="close" onclick="document.getElementById('id02').style.display='none'" title="Close Modal">×</span>
+                      <form class="modal-content animate">
+                        <div class="container">
+                          <label><b>Reason for being rejected:</b></label> <select id="reasonsRejected">
+                            <option value="1">
+                              already done
+                            </option>
+                            <option value="2">
+                              inacceptable complaint
+                            </option>
+                            <option value="3">
+                              bad photo quality
+                            </option>
+                            <option value="4">
+                              problem not found in located area
+                            </option>
+                          </select> <label><b>Comments</b></label> <input id="commentRejected" name="description" placeholder="Description" type="text">
+                          <div class="clearfix">
+                            <button class="cancelbtn" onclick="document.getElementById('id02').style.display='none'" type="button">Cancel</button> <button onclick="rejectedSubmit()" type="button">Submit</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div><button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">In Process</button>
+                    <div class="modal" id="id03">
+                      <span class="close" onclick="document.getElementById('id03').style.display='none'" title="Close Modal">×</span>
+                      <form action="/action_page.php" class="modal-content animate">
+                        <div class="container">
+                          <label><b>Responsible Person:</b></label> <input id="responsible" name="rate" placeholder="Name" required="" type="text"> <label><b>Expected Date of newmplation:</b></label><br>
+                          <input id="expected_date" name="rate" placeholder="Date" required="" type="date"><br>
+                          <br>
+                          <label><b>Budjet:</b></label> <input id="budjet" name="rate" placeholder="Budjet" required="" type="text"> <label><b>Note:</b></label> <!-- <input type=text placeholder="Note" name="description" required> -->
+                           
+                          <textarea cols="1010" id="note" name="Text1" rows="6"></textarea>
+                          <div class="clearfix">
+                            <button class="cancelbtn" onclick="document.getElementById('id03').style.display='none'" type="button">Cancel</button> <button onclick="inProcessSubmit()" type="button">Submit</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <script src="code.js">
+              </script>
+            </div>
+
+
+
+
+
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12" id="RejectedDiv" >
+              <div class="dashboard_graph">
+                <h1>
+                  Rejected Complaints
+                </h1>
+                <div class="row" id="contain">
+                  <div class="col-md-3" id="listviewRejected"></div>
+                  <div class="col-md-9" id="complainDetails">
+                    <h4 id="complainCategory">
+                      Complain Category
+                    </h4><img id="userPhoto">
+                    <h2 id="userName">
+                      User Name
+                    </h2>
+                    <h6 id="userPhoneNumber">
+                      User Phone Number
+                    </h6><img id="complainPhoto">
+                    <h6 id="comment">
+                      Comment
+                    </h6>
+                    <h6 id="location">
+                      Location
+                    </h6>
+                    <h6 id="time">
+                      Time
+                    </h6>
+                  </div>
+            </div>
+            <link href="css/style.css" rel="stylesheet" type="text/css">
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /page content -->
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js">
+    </script> <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js">
+    </script> <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js">
+    </script> <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js">
+    </script> <!-- Chart.js -->
+    <script src="../vendors/Chart.js/dist/Chart.min.js">
+    </script> <!-- gauge.js -->
+    <script src="../vendors/gauge.js/dist/gauge.min.js">
+    </script> <!-- bootstrap-progressbar -->
+    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script> <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js">
+    </script> <!-- Skycons -->
+    <script src="../vendors/skycons/skycons.js">
+    </script> <!-- Flot -->
+    <script src="../vendors/Flot/jquery.flot.js">
+    </script> 
+    <script src="../vendors/Flot/jquery.flot.pie.js">
+    </script> 
+    <script src="../vendors/Flot/jquery.flot.time.js">
+    </script> 
+    <script src="../vendors/Flot/jquery.flot.stack.js">
+    </script> 
+    <script src="../vendors/Flot/jquery.flot.resize.js">
+    </script> <!-- Flot plugins -->
+    <script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js">
+    </script> 
+    <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js">
+    </script> 
+    <script src="../vendors/flot.curvedlines/curvedLines.js">
+    </script> <!-- DateJS -->
+    <script src="../vendors/DateJS/build/date.js">
+    </script> <!-- JQVMap -->
+    <script src="../vendors/jqvmap/dist/jquery.vmap.js">
+    </script> 
+    <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js">
+    </script> 
+    <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js">
+    </script> <!-- bootstrap-daterangepicker -->
+    <script src="../vendors/moment/min/moment.min.js">
+    </script> 
+    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js">
+    </script> <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js">
+    </script><!-- oxirgisi -->
+  </body>
+</html>
