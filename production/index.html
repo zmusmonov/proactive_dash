@@ -35,7 +35,6 @@
   <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-  <!--<link rel="stylesheet" type="text/css" href="app.js">-->
 
 
 
@@ -74,10 +73,10 @@
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i> Complaints <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="index.html" class="notif">New<span id = "newCom" class="num"></span></a></li>
-                    <li><a href="index.html" class = "notif">In Process<span id = "in_Process" class = "num_process"></span></a></li>
-                    <li><a href="index.html" class="notif">Completed<span id = "completedMess" class = "num_completed"></span></a></li>
-                    <li><a href="index.html" class = "notif">Rejected<span id = "rejected" class = "num_rejected"></span></a></li>
+                    <li><a class="notif">New<span id = "newCom" class="num"></span></a></li>
+                    <li><a  class = "notif">In Process<span id = "in_Process" class = "num_process"></span></a></li>
+                    <li><a  class="notif">Completed<span id = "completedMess" class = "num_completed"></span></a></li>
+                    <li><a  class = "notif">Rejected<span id = "rejected" class = "num_rejected"></span></a></li>
                   </ul>
                 </li>
                 <li>
@@ -175,7 +174,7 @@
           </div>
                     <h1>Inbox messages</h1>
                     <div id="contain" class="row">
-                    <div id="listview" class="col-md-3"></div>
+                    <div id="listviewNew" class="col-md-3"></div>
                     <div id="complainDetails" class="col-md-9">
                     <h4 id="complainCategory">Complain Category</h4>
                     <img id="userPhoto">
@@ -189,10 +188,10 @@
 
                     
 
-              <button onclick="document.getElementById('id00').style.display='block'" style="width:auto;">Completed</button>
+              <button onclick="document.getElementById('CompleteForm').style.display='block'" style="width:auto;">Completed</button>
 
-              <div id="id00" class="modal">
-                <span onclick="document.getElementById('id00').style.display='none'" class="close" title="Close Modal">×</span>
+              <div id="CompleteForm" class="modal">
+                <span onclick="document.getElementById('CompleteForm').style.display='none'" class="close" title="Close Modal">×</span>
                 <form class="modal-content animate" action="/action_page.php">
                   <div class="container">
                     
@@ -258,16 +257,13 @@
                     <label><b>Finance:</b></label> </br>
                     <input id = "finance_of_work" type=text placeholder="Finance" name="rate" required>
 
-
-
-
                     <label><b>Comment:</b></label>
                     <input id="message" type=text placeholder="Comment" name="rate" required>                                        
 
         
                     <div class="clearfix">
-                      <button type="button" class="cancelbtn" onclick="document.getElementById('id00').style.display='none'" >Cancel</button>
-                      <button  type="button" class="submitbtn" onclick="inProcessSubmit()" >Submit</button>
+                      <button type="button" class="cancelbtn" onclick="document.getElementById('CompleteForm').style.display='none'" >Cancel</button>
+                      <button  type="button" class="submitbtn" onclick="FirebaseSubmit()" >Submit</button>
                     </div>
                   </div>
                 </form>
@@ -326,7 +322,6 @@
                       <button type="button" class="cancelbtn" onclick="document.getElementById('id03').style.display='none'" >Cancel</button>
                       <button  type="button" class="submitbtn" onclick="FirebaseSubmit()" >Submit</button>
 
-                      <!-- <script src="app.js"></script> -->
                     </div>
                   </div>
                 </form>
@@ -401,8 +396,6 @@
 <!-- bootstrap-daterangepicker -->
 <script src="../vendors/moment/min/moment.min.js"></script>
 <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-
-<link rel="stylesheet" type="text/css" href="app.js">
 
 
 <!-- Custom Theme Scripts -->
