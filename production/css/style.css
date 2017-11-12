@@ -1,0 +1,552 @@
+body {
+  margin: 0px;
+  padding: 0px; }
+
+div#contain {
+  margin-left: 10px;
+  width: 100%;
+  height: 900px; 
+}
+div#contain #listviewNew {
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 1px 1px 0 #ccc;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+    div#contain #listviewNew div.contentNew {
+      padding-left: 10px; 
+
+    }
+     div#contain #listviewNew div.contentNew:hover {
+     cursor: pointer;
+      
+    }
+      div#contain #listviewNew div.contentNew div.item {
+        border-bottom: 1px solid #ccc; }
+        div#contain #listviewNew div.contentNew div.item.active::after {
+          contentNew: "";
+          display: block;
+          width: 50%;
+          height: 3px;
+          background: transparent;
+          box-shadow: 0 2px 1px 0 #FF5A60; }
+        div#contain #listviewNew div.contentNew div.item span.time {
+          position: static;
+          padding-left: 50%;
+          top: -150px;
+          color: #aaa;
+          font-family: monospace; }
+        div#contain #listviewNew div.contentNew div.item span.avatar {
+          position: absolute; }
+          div#contain #listviewNew div.contentNew div.item span.avatar img {
+            max-width: 60px;
+            width: 60px;
+            height: 60px;
+            background: #ccc;
+            margin-top: 20px;
+            display: block;
+            border-radius: 50%; }
+        div#contain #listviewNew div.contentNew div.item div.desc {
+          padding-top: 10px;
+          padding-left: 25%; }
+          div#contain #listviewNew div.contentNew div.item div.desc h2 {
+            margin: 5px;
+            color: #555;
+            font-weight: 500; }
+          div#contain #listviewNew div.contentNew div.item div.desc h6 {
+            color: #999;
+            margin: 5px;
+            font-size: 18px;
+            font-weight: 400; }
+          div#contain #listviewNew div.contentNew div.item div.desc p {
+            color: #777;
+            font-weight: 400;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; }
+
+#complainDetailsNew{
+    padding-left: 30px;
+}
+
+section#complainDetailsNew {
+  width: 70%;
+  margin-left: 330px; }
+  section#complainDetailsNew p2#complainCategory {
+    position: relative;
+    margin: auto; }
+  section#complainDetailsNew p4#userName {
+    position: relative;
+    left: 0px;
+    top: 20px; }
+  section#complainDetailsNew p6#userPhoneNumber {
+    position: absolute;
+    left: 0px;
+    top: 40px; }
+  section#complainDetailsNew p6#comment {
+    position: absolute;
+    left: 0px;
+    top: 60px;
+    width: 150px; }
+  section#complainDetailsNew img#userPhoto {
+    border-radius: 100%;
+    width: 250px;
+    height: 250px; }
+  section#complainDetailsNew img#complainPhoto {
+    width: 450px;
+    height: 450px; }
+
+div#contain #listviewRejected {
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 1px 1px 0 #ccc;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+    div#contain #listviewRejected div.contentRejected {
+      padding-left: 10px; 
+
+    }
+     div#contain #listviewRejected div.contentRejected:hover {
+     cursor: pointer;
+      
+    }
+      div#contain #listviewRejected div.contentRejected div.item {
+        border-bottom: 1px solid #ccc; }
+        div#contain #listviewRejected div.contentRejected div.item.active::after {
+          contentNew: "";
+          display: block;
+          width: 50%;
+          height: 3px;
+          background: transparent;
+          box-shadow: 0 2px 1px 0 #FF5A60; }
+        div#contain #listviewRejected div.contentRejected div.item span.time {
+          position: static;
+          padding-left: 50%;
+          top: -150px;
+          color: #aaa;
+          font-family: monospace; }
+        div#contain #listviewRejected div.contentRejected div.item span.avatar {
+          position: absolute; }
+          div#contain #listviewRejected div.contentRejected div.item span.avatar img {
+            max-width: 60px;
+            width: 60px;
+            height: 60px;
+            background: #ccc;
+            margin-top: 20px;
+            display: block;
+            border-radius: 50%; }
+        div#contain #listviewRejected div.contentRejected div.item div.desc {
+          padding-top: 10px;
+          padding-left: 25%; }
+          div#contain #listviewRejected div.contentRejected div.item div.desc h2 {
+            margin: 5px;
+            color: #555;
+            font-weight: 500; }
+          div#contain #listviewRejected div.contentRejected div.item div.desc h6 {
+            color: #999;
+            margin: 5px;
+            font-size: 18px;
+            font-weight: 400; }
+          div#contain #listviewRejected div.contentRejected div.item div.desc p {
+            color: #777;
+            font-weight: 400;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; }
+
+#complainDetailsRejected{
+    padding-left: 30px;
+}
+
+section#complainDetailsRejected {
+  width: 70%;
+  margin-left: 330px; }
+  section#complainDetailsRejected p2#complainCategory {
+    position: relative;
+    margin: auto; }
+  section#complainDetailsRejected p4#userName {
+    position: relative;
+    left: 0px;
+    top: 20px; }
+  section#complainDetailsRejected p6#userPhoneNumber {
+    position: absolute;
+    left: 0px;
+    top: 40px; }
+  section#complainDetailsRejected p6#comment {
+    position: absolute;
+    left: 0px;
+    top: 60px;
+    width: 150px; }
+  section#complainDetailsRejected img#userPhoto {
+    border-radius: 100%;
+    width: 250px;
+    height: 250px; }
+  section#complainDetailsRejected img#complainPhoto {
+    width: 450px;
+    height: 450px; }
+
+div#contain #listviewCompleted {
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 1px 1px 0 #ccc;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+    div#contain #listviewCompleted div.contentCompleted {
+      padding-left: 10px; 
+
+    }
+     div#contain #listviewCompleted div.contentCompleted:hover {
+     cursor: pointer;
+      
+    }
+      div#contain #listviewCompleted div.contentCompleted div.item {
+        border-bottom: 1px solid #ccc; }
+        div#contain #listviewCompleted div.contentCompleted div.item.active::after {
+          contentNew: "";
+          display: block;
+          width: 50%;
+          height: 3px;
+          background: transparent;
+          box-shadow: 0 2px 1px 0 #FF5A60; }
+        div#contain #listviewCompleted div.contentCompleted div.item span.time {
+          position: static;
+          padding-left: 50%;
+          top: -150px;
+          color: #aaa;
+          font-family: monospace; }
+        div#contain #listviewCompleted div.contentCompleted div.item span.avatar {
+          position: absolute; }
+          div#contain #listviewCompleted div.contentCompleted div.item span.avatar img {
+            max-width: 60px;
+            width: 60px;
+            height: 60px;
+            background: #ccc;
+            margin-top: 20px;
+            display: block;
+            border-radius: 50%; }
+        div#contain #listviewCompleted div.contentCompleted div.item div.desc {
+          padding-top: 10px;
+          padding-left: 25%; }
+          div#contain #listviewCompleted div.contentCompleted div.item div.desc h2 {
+            margin: 5px;
+            color: #555;
+            font-weight: 500; }
+          div#contain #listviewCompleted div.contentCompleted div.item div.desc h6 {
+            color: #999;
+            margin: 5px;
+            font-size: 18px;
+            font-weight: 400; }
+          div#contain #listviewCompleted div.contentCompleted div.item div.desc p {
+            color: #777;
+            font-weight: 400;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; }
+
+#complainDetailsCompleted{
+    padding-left: 30px;
+}
+
+section#complainDetailsCompleted {
+  width: 70%;
+  margin-left: 330px; }
+  section#complainDetailsCompleted p2#complainCategory {
+    position: relative;
+    margin: auto; }
+  section#complainDetailsCompleted p4#userName {
+    position: relative;
+    left: 0px;
+    top: 20px; }
+  section#complainDetailsCompleted p6#userPhoneNumber {
+    position: absolute;
+    left: 0px;
+    top: 40px; }
+  section#complainDetailsCompleted p6#comment {
+    position: absolute;
+    left: 0px;
+    top: 60px;
+    width: 150px; }
+  section#complainDetailsCompleted img#userPhoto {
+    border-radius: 100%;
+    width: 250px;
+    height: 250px; }
+  section#complainDetailsCompleted img#complainPhoto {
+    width: 450px;
+    height: 450px; }
+
+hr.clearfix {
+  visibility: hidden;
+  clear: both; 
+  overflow-y: scroll;
+}
+
+div.divs {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  heght: 100%;
+  overflow: auto;
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.4); }
+
+
+
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button{
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+        background-color: #679eea;
+
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    float:left;
+    width:50%;
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+.submitbtn {
+    float:right;
+    width:50%;
+    padding: 14px 20px;
+    background-color: #4CAF50;
+}
+
+
+/* Float cancel and signup buttons and add an equal width */
+/*.cancelbtn,.signupbtn {float:left;width:50%}*/
+
+/* Add padding to container elements */
+.container {
+    padding: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+    z-index: 99;
+}
+
+/* Modal contentNew/Box */
+.modal-contentNew {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.modal-contentRejected {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.modal-contentCompleted {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    color: #000;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+    contentNew: "";
+    clear: both;
+    display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+    .cancelbtn, .signupbtn {
+       width: 100%;
+    }
+}
+
+a.notif {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+}
+.num {
+  background-color: #008abd;
+  padding: 3px 7px;
+  border-radius: 9px;
+  margin-left: 120px;
+  color: #fff;
+}
+
+.num_completed {
+  background-color: #008abd;
+  padding: 3px 7px;
+  border-radius: 9px;
+  margin-left: 86px;
+  color: #fff;
+}
+.num_process {
+  background-color: #008abd;
+  padding: 3px 7px;
+  border-radius: 9px;
+  margin-left: 87px;
+  color: #fff;
+}
+.num_rejected {
+  background-color: #008abd;
+  padding: 3px 7px;
+  border-radius: 9px;
+  margin-left: 95px;
+  color: #fff;
+}
+.dashboard_graph {
+  height: 100vh;
+  overflow: scroll;
+}
+textarea { 
+  width: 100%; 
+}
+
+#RejectedDiv{
+  display:none;
+}
+
+#NewDiv{
+  display:block;
+}
+
+#CompletedDiv{
+  display:none;
+}
+
+.user_info {
+  padding-top: 10px;
+  padding-left: 20px;
+}
+
+.rating {
+  display: inline-block;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  font-size: 50px;
+}
+
+.rating label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  cursor: pointer;
+}
+
+.rating label:last-child {
+  position: static;
+}
+
+.rating label:nth-child(1) {
+  z-index: 5;
+}
+
+.rating label:nth-child(2) {
+  z-index: 4;
+}
+
+.rating label:nth-child(3) {
+  z-index: 3;
+}
+
+.rating label:nth-child(4) {
+  z-index: 2;
+}
+
+.rating label:nth-child(5) {
+  z-index: 1;
+}
+
+.rating label input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.rating label .icon {
+  float: left;
+  color: transparent;
+}
+
+.rating label:last-child .icon {
+  color: #000;
+}
+
+.rating:not(:hover) label input:checked ~ .icon,
+.rating:hover label:hover input ~ .icon {
+  color: #09f;
+}
+
+.rating label input:focus:not(:checked) ~ .icon:last-child {
+  color: #000;
+  text-shadow: 0 0 5px #09f;
+}
+
+.status-btn{
+    background-color: #f44336;
+}
+/*# sourceMappingURL=style.css.map */

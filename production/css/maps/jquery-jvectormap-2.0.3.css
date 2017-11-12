@@ -133,3 +133,15 @@ svg {
     line-height: 20px;
     padding-left: 3px;
 }
+
+section#listview{
+    float: left;
+    box-shadow: 0 1px 1px 0 #ccc;
+    width: 35%;
+    height: 100pt;
+}
+
+hr.clearfix{
+    visibility: hidden;
+    clear: both;
+}
