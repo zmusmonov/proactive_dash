@@ -5,8 +5,9 @@ body {
 div#contain {
   margin-left: 10px;
   width: 100%;
-  height: 900px; }
-  div#contain #listviewNew {
+  height: 900px; 
+}
+div#contain #listviewNew {
     position: relative;
     z-index: 2;
     box-shadow: 0 1px 1px 0 #ccc;
@@ -69,34 +70,128 @@ div#contain {
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2; }
 
-#complainDetails{
+#complainDetailsNew{
     padding-left: 30px;
 }
 
-section#complainDetails {
+section#complainDetailsNew {
   width: 70%;
   margin-left: 330px; }
-  section#complainDetails p2#complainCategory {
+  section#complainDetailsNew p2#complainCategory {
     position: relative;
     margin: auto; }
-  section#complainDetails p4#userName {
+  section#complainDetailsNew p4#userName {
     position: relative;
     left: 0px;
     top: 20px; }
-  section#complainDetails p6#userPhoneNumber {
+  section#complainDetailsNew p6#userPhoneNumber {
     position: absolute;
     left: 0px;
     top: 40px; }
-  section#complainDetails p6#comment {
+  section#complainDetailsNew p6#comment {
     position: absolute;
     left: 0px;
     top: 60px;
     width: 150px; }
-  section#complainDetails img#userPhoto {
+  section#complainDetailsNew img#userPhoto {
     border-radius: 100%;
     width: 250px;
     height: 250px; }
-  section#complainDetails img#complainPhoto {
+  section#complainDetailsNew img#complainPhoto {
+    width: 450px;
+    height: 450px; }
+
+div#contain #listviewRejected {
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 1px 1px 0 #ccc;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+    div#contain #listviewRejected div.contentRejected {
+      padding-left: 10px; 
+
+    }
+     div#contain #listviewRejected div.contentRejected:hover {
+     cursor: pointer;
+      
+    }
+      div#contain #listviewRejected div.contentRejected div.item {
+        border-bottom: 1px solid #ccc; }
+        div#contain #listviewRejected div.contentRejected div.item.active::after {
+          contentNew: "";
+          display: block;
+          width: 50%;
+          height: 3px;
+          background: transparent;
+          box-shadow: 0 2px 1px 0 #FF5A60; }
+        div#contain #listviewRejected div.contentRejected div.item span.time {
+          position: static;
+          padding-left: 50%;
+          top: -150px;
+          color: #aaa;
+          font-family: monospace; }
+        div#contain #listviewRejected div.contentRejected div.item span.avatar {
+          position: absolute; }
+          div#contain #listviewRejected div.contentRejected div.item span.avatar img {
+            max-width: 60px;
+            width: 60px;
+            height: 60px;
+            background: #ccc;
+            margin-top: 20px;
+            display: block;
+            border-radius: 50%; }
+        div#contain #listviewRejected div.contentRejected div.item div.desc {
+          padding-top: 10px;
+          padding-left: 25%; }
+          div#contain #listviewRejected div.contentRejected div.item div.desc h2 {
+            margin: 5px;
+            color: #555;
+            font-weight: 500; }
+          div#contain #listviewRejected div.contentRejected div.item div.desc h6 {
+            color: #999;
+            margin: 5px;
+            font-size: 18px;
+            font-weight: 400; }
+          div#contain #listviewRejected div.contentRejected div.item div.desc p {
+            color: #777;
+            font-weight: 400;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; }
+
+#complainDetailsRejected{
+    padding-left: 30px;
+}
+
+section#complainDetailsRejected {
+  width: 70%;
+  margin-left: 330px; }
+  section#complainDetailsRejected p2#complainCategory {
+    position: relative;
+    margin: auto; }
+  section#complainDetailsRejected p4#userName {
+    position: relative;
+    left: 0px;
+    top: 20px; }
+  section#complainDetailsRejected p6#userPhoneNumber {
+    position: absolute;
+    left: 0px;
+    top: 40px; }
+  section#complainDetailsRejected p6#comment {
+    position: absolute;
+    left: 0px;
+    top: 60px;
+    width: 150px; }
+  section#complainDetailsRejected img#userPhoto {
+    border-radius: 100%;
+    width: 250px;
+    height: 250px; }
+  section#complainDetailsRejected img#complainPhoto {
     width: 450px;
     height: 450px; }
 
@@ -188,6 +283,13 @@ button{
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
+.modal-contentRejected {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
 /* The Close Button (x) */
 .close {
     position: absolute;
@@ -258,6 +360,14 @@ a.notif {
 }
 textarea { 
   width: 100%; 
+}
+
+#RejectedDiv{
+  display:none;
+}
+
+#NewDiv{
+  display:block;
 }
 
 .user_info {
