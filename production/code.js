@@ -12,6 +12,7 @@ var complaintId;
 var senderEmailNew;
 var senderEmailRejected;
 var senderEmailCompleted;
+var senderEmailInProcess;
 var starRating;
 func();
 var pObject = $( '#name_of_employee' );
@@ -215,6 +216,61 @@ function func() {
 
   /////////////////// ENDS HERE
 
+  ////////////////////// SAME STAFF FOR IN_PROCESS
+    var itemInProcess = $( '#listviewInProcess' );
+    var queryToInProcess = firebase.database().ref( "Complain/Tashkent/Nam-gu/Trash/inProcess/" ).orderByKey();
+    queryToInProcess.once( "value" ).then( function( snapshot ) {
+
+    snapshot.forEach( function( childSnapshot ) {
+
+      var key = childSnapshot.key;
+      var childData = childSnapshot.val();
+      var comment = childData.comment;
+      var location = childData.location;
+      var photo = childData.photo;
+      var sender = childData.sender;
+      senderEmailInProcess = childData.emailCOMP;
+      var status = childData.status;
+      var time = childData.time;
+      var type = childData.type;
+      var contentDiv = document.createElement( 'div' );
+      contentDiv.id = key;
+      contentDiv.className = 'contentInProcess';
+      var itemActiveDiv = document.createElement( 'div' );
+      itemActiveDiv.className = 'item';
+      var avatar = document.createElement( 'span' );
+      avatar.className = 'avatar';
+      var img = document.createElement( 'img' );
+      var userRef = dbRef.ref( "user/" + senderEmailInProcess + "/" );
+      userRef.once( 'value' ).then( function( datashot ) {
+        img.setAttribute( 'src', datashot.val().photo );
+      } );
+      img.setAttribute( 'height', '60px' );
+      img.setAttribute( 'width', '60px' );
+      avatar.append( img );
+      var descDiv = document.createElement( 'div' );
+      descDiv.className = 'desc';
+      var h2 = document.createElement( 'h2' );
+      h2.innerHTML = sender;
+      var h6 = document.createElement( 'h6' );
+      h6.innerHTML = type;
+      var p = document.createElement( 'p' );
+      p.innerHTML = comment;
+      var timeSpan = document.createElement( 'span' );
+      timeSpan.className = 'time';
+      timeSpan.innerHTML = time;
+      descDiv.appendChild( h2 );
+      descDiv.appendChild( h6 );
+      descDiv.appendChild( p );
+      itemActiveDiv.appendChild( avatar );
+      itemActiveDiv.appendChild( descDiv );
+      itemActiveDiv.appendChild( timeSpan );
+      contentDiv.appendChild( itemActiveDiv );
+      itemInProcess.append( contentDiv );
+    } )
+  } );
+
+  /////////////////////// ENDS HERE
 
   $( 'div' ).on( 'click', ".contentNew", function() {
     var id = $( this ).attr( "id" );
@@ -284,6 +340,28 @@ function func() {
     } )
   } );
 
+  $( 'div' ).on( 'click', ".contentInProcess", function() {
+    var id = $( this ).attr( "id" );
+    complaintId = id;
+    var sender;
+    var ref = dbRef.ref( 'Complain/Tashkent/Nam-gu/Trash/inProcess/' + id );
+    ref.once( 'value' ).then( function( snapshot ) {
+      $( '#complainCategoryInProcess' ).html( snapshot.val().type );
+      $( '#commentInProcess' ).html( snapshot.val().comment );
+      sender = snapshot.val().sender;
+      $( '#userNameInProcess' ).html( sender );
+      senderEmailInProcess = snapshot.val().emailCOMP;
+      $( '#locationInProcess' ).html( snapshot.val().location );
+      $( '#timeInProcess' ).html( snapshot.val().time );
+      $( '#complainPhotoInProcess' ).attr( 'src', snapshot.val().photo );
+      var userRef = dbRef.ref( "user/" + senderEmailInProcess+ "/" );
+      userRef.once( 'value' ).then( function( datashot ) {
+        $( '#userPhoneNumberInProcess' ).html( datashot.val().number );
+        $( '#userPhotoInProcess' ).attr( 'src', datashot.val().photo );
+      } )
+    } )
+  } );
+
   $( '#in_Process' ).on( 'click', function() {
     $( '#inProcessDiv' ).css( "display", "block" );
   } );
@@ -295,6 +373,8 @@ function func() {
   $('#completedMess').on('click', function(){
     $('#CompletedDiv').css("display","block");
   });
+
+  
 
   var modal = $( '#CompleteForm' );
   // When the user clicks anywhere outside of the modal, close it
