@@ -43,16 +43,17 @@
 									<a><i class="fa fa-home"></i> Complaints <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li>
-											<a class="notif" onclick="document.getElementById('NewDiv').style.display='block'; document.getElementById('RejectedDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none';">New<span class="num" id="newCom"></span></a>
+											<a class="notif" onclick="document.getElementById('NewDiv').style.display='block'; document.getElementById('RejectedDiv').style.display='none';
+											document.getElementById('InProcessDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none';">New<span class="num" id="newCom"></span></a>
 										</li>
 										<li>
-											<a class="notif" onclick ="document.getElementById('InProcessDiv').style.display='block';document.getElementById('listviewInProcess').style.display='block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none';document.getElementById('RejectedDiv').style.display='none';">In Process<span class="num_process" id="in_Process"></span></a>
+											<a class="notif" onclick ="document.getElementById('InProcessDiv').style.display='block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none';document.getElementById('RejectedDiv').style.display='none';">In Process<span class="num_process" id="in_Process"></span></a>
 										</li>
 										<li>
-											<a class = "notif" onclick="document.getElementById('CompletedDiv').style.display='block';document.getElementById('listviewCompleted').style.display='block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('RejectedDiv').style.display = 'none';document.getElementById('InProcessDiv').style.display='none';">Completed<span class = "num_completed" id = "completedMess"></span></a>
+											<a class = "notif" onclick="document.getElementById('CompletedDiv').style.display='block';document.getElementById('NewDiv').style.display='none'; document.getElementById('RejectedDiv').style.display = 'none';document.getElementById('InProcessDiv').style.display='none';">Completed<span class = "num_completed" id = "completedMess"></span></a>
 										</li>
 										<li>
-										    <a class="notif" onclick="document.getElementById('RejectedDiv').style.display='block'; document.getElementById('listviewRejected').style.display='block';document.getElementById('NewDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none'; document.getElementById('InProcessDiv').style.display='none';">Rejected<span class="num_rejected" id="rejected"></span></a>
+										    <a class="notif" onclick="document.getElementById('RejectedDiv').style.display='block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none'; document.getElementById('InProcessDiv').style.display='none';">Rejected<span class="num_rejected" id="rejected"></span></a>
 										</li>
 									</ul>
 								</li>
@@ -220,10 +221,15 @@
 								<div class="col-md-9" id="complainDetailsRejected">
 									<h4 id="complainCategoryRejected">Complain Category</h4><img id="userPhotoRejected">
 									<h2 id="userNameRejected">User Name</h2>
-									<h6 id="userPhoneNumberRejected">User Phone Number</h6><img id="complainPhotoRejected">
+									<h6 id="userPhoneNumberRejected">User Phone Number</h6>
+									<img id="complainPhotoRejected">
 									<h6 id="commentRejected">Comment</h6>
 									<h6 id="locationRejected">Location</h6>
 									<h6 id="timeRejected">Time</h6>
+									<h6 id="CompletionDateRejected">Completion Date</h6>
+									<h6 id="CommentsOfOrgRejected">Comments of Organization</h6>
+									<h6 id="reasonRejected">Reason why complaint was rejected</h6>
+									<h6 id=""></h6>
 								</div>
 							</div>
 						</div>
@@ -241,7 +247,14 @@
 									<h6 id="userPhoneNumberCompleted">User Phone Number</h6><img id="complainPhotoCompleted">
 									<h6 id="commentCompleted">Comment</h6>
 									<h6 id="locationCompleted">Location</h6>
+									<img id="responsePhotoCompleted">
 									<h6 id="timeCompleted">Time</h6>
+									<h6 id="commentsOfOrgCompleted">Comments of Org</h6>
+									<h6 id="completionDateCompleted">Completion Date</h6>
+									<h6 id="financeOfWorkCompleted">Work expanse</h6>
+									<h6 id="organizationRateCompleted">Organization rated complaint for</h6>
+									<h6 id="scopeCompleted">scope</h6>
+
 								</div>
 							</div>
 						</div>
