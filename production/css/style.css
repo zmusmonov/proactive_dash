@@ -289,6 +289,101 @@ section#complainDetailsCompleted {
     width: 450px;
     height: 450px; }
 
+
+    div#contain #listviewInProcess {
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 1px 1px 0 #ccc;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+    div#contain #listviewInProcess div.contentInProcess {
+      padding-left: 10px; 
+
+    }
+     div#contain #listviewInProcess div.contentInProcess:hover {
+     cursor: pointer;
+      
+    }
+      div#contain #listviewInProcess div.contentInProcess div.item {
+        border-bottom: 1px solid #ccc; }
+        div#contain #listviewInProcess div.contentInProcess div.item.active::after {
+          contentNew: "";
+          display: block;
+          width: 50%;
+          height: 3px;
+          background: transparent;
+          box-shadow: 0 2px 1px 0 #FF5A60; }
+        div#contain #listviewInProcess div.contentInProcess div.item span.time {
+          position: static;
+          padding-left: 50%;
+          top: -150px;
+          color: #aaa;
+          font-family: monospace; }
+        div#contain #listviewInProcess div.contentInProcess div.item span.avatar {
+          position: absolute; }
+          div#contain #listviewInProcess div.contentInProcess div.item span.avatar img {
+            max-width: 60px;
+            width: 60px;
+            height: 60px;
+            background: #ccc;
+            margin-top: 20px;
+            display: block;
+            border-radius: 50%; }
+        div#contain #listviewInProcess div.contentInProcess div.item div.desc {
+          padding-top: 10px;
+          padding-left: 25%; }
+          div#contain #listviewInProcess div.contentInProcess div.item div.desc h2 {
+            margin: 5px;
+            color: #555;
+            font-weight: 500; }
+          div#contain #listviewInProcess div.contentInProcess div.item div.desc h6 {
+            color: #999;
+            margin: 5px;
+            font-size: 18px;
+            font-weight: 400; }
+          div#contain #listviewInProcess div.contentInProcess div.item div.desc p {
+            color: #777;
+            font-weight: 400;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; }
+
+#complainDetailsInProcess{
+    padding-left: 30px;
+}
+
+section#complainDetailsInProcess {
+  width: 70%;
+  margin-left: 330px; }
+  section#complainDetailsInProcess p2#complainCategory {
+    position: relative;
+    margin: auto; }
+  section#complainDetailsInProcess p4#userName {
+    position: relative;
+    left: 0px;
+    top: 20px; }
+  section#complainDetailsInProcess p6#userPhoneNumber {
+    position: absolute;
+    left: 0px;
+    top: 40px; }
+  section#complainDetailsInProcess p6#comment {
+    position: absolute;
+    left: 0px;
+    top: 60px;
+    width: 150px; }
+  section#complainDetailsInProcess img#userPhoto {
+    border-radius: 100%;
+    width: 250px;
+    height: 250px; }
+  section#complainDetailsInProcess img#complainPhoto {
+    width: 450px;
+    height: 450px; }
+
 hr.clearfix {
   visibility: hidden;
   clear: both; 
@@ -391,6 +486,13 @@ button{
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
+.modal-contentInProcess {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
 /* The Close Button (x) */
 .close {
     position: absolute;
@@ -472,6 +574,10 @@ textarea {
 }
 
 #CompletedDiv{
+  display:none;
+}
+
+#InProcessDiv{
   display:none;
 }
 
