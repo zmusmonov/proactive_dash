@@ -11,6 +11,7 @@ const dbRef = firebase.database();
 var complaintId;
 var senderEmailNew;
 var senderEmailRejected;
+var senderEmailCompleted;
 var starRating;
 func();
 var pObject = $( '#name_of_employee' );
@@ -156,6 +157,64 @@ function func() {
 
   /////////// ENDS HERE
 
+  /////////////////// SAME STAFF FOR COMPLETED
+
+    var itemCompleted = $( '#listviewCompleted' );
+  
+    var queryToCompleted = firebase.database().ref( "Complain/Tashkent/Nam-gu/Trash/Completed/" ).orderByKey();
+    queryToCompleted.once( "value" ).then( function( snapshot ) {
+
+    snapshot.forEach( function( childSnapshot ) {
+
+      var key = childSnapshot.key;
+      var childData = childSnapshot.val();
+      var comment = childData.comment;
+      var location = childData.location;
+      var photo = childData.photo;
+      var sender = childData.sender;
+      senderEmailCompleted = childData.emailCOMP;
+      var status = childData.status;
+      var time = childData.time;
+      var type = childData.type;
+      var contentDiv = document.createElement( 'div' );
+      contentDiv.id = key;
+      contentDiv.className = 'contentCompleted';
+      var itemActiveDiv = document.createElement( 'div' );
+      itemActiveDiv.className = 'item';
+      var avatar = document.createElement( 'span' );
+      avatar.className = 'avatar';
+      var img = document.createElement( 'img' );
+      var userRef = dbRef.ref( "user/" + senderEmailCompleted + "/" );
+      userRef.once( 'value' ).then( function( datashot ) {
+        img.setAttribute( 'src', datashot.val().photo );
+      } );
+      img.setAttribute( 'height', '60px' );
+      img.setAttribute( 'width', '60px' );
+      avatar.append( img );
+      var descDiv = document.createElement( 'div' );
+      descDiv.className = 'desc';
+      var h2 = document.createElement( 'h2' );
+      h2.innerHTML = sender;
+      var h6 = document.createElement( 'h6' );
+      h6.innerHTML = type;
+      var p = document.createElement( 'p' );
+      p.innerHTML = comment;
+      var timeSpan = document.createElement( 'span' );
+      timeSpan.className = 'time';
+      timeSpan.innerHTML = time;
+      descDiv.appendChild( h2 );
+      descDiv.appendChild( h6 );
+      descDiv.appendChild( p );
+      itemActiveDiv.appendChild( avatar );
+      itemActiveDiv.appendChild( descDiv );
+      itemActiveDiv.appendChild( timeSpan );
+      contentDiv.appendChild( itemActiveDiv );
+      itemCompleted.append( contentDiv );
+    } )
+  } );
+
+  /////////////////// ENDS HERE
+
 
   $( 'div' ).on( 'click', ".contentNew", function() {
     var id = $( this ).attr( "id" );
@@ -202,14 +261,40 @@ function func() {
     } )
   } );
 
+  $( 'div' ).on( 'click', ".contentCompleted", function() {
+    var id = $( this ).attr( "id" );
+    complaintId = id;
+    var sender;
+    var ref = dbRef.ref( 'Complain/Tashkent/Nam-gu/Trash/Completed/' + id );
+    ref.once( 'value' ).then( function( snapshot ) {
+      $( '#complainCategoryCompleted' ).html( snapshot.val().type );
+      $( '#commentCompleted' ).html( snapshot.val().comment );
+      sender = snapshot.val().sender;
+      $( '#userNameCompleted' ).html( sender );
+      senderEmailCompleted = snapshot.val().emailCOMP;
+      //console.log("you are inside click of contentRejected");
+      $( '#locationCompleted' ).html( snapshot.val().location );
+      $( '#timeCompleted' ).html( snapshot.val().time );
+      $( '#complainPhotoCompleted' ).attr( 'src', snapshot.val().photo );
+      var userRef = dbRef.ref( "user/" + senderEmailCompleted + "/" );
+      userRef.once( 'value' ).then( function( datashot ) {
+        $( '#userPhoneNumberCompleted' ).html( datashot.val().number );
+        $( '#userPhotoCompleted' ).attr( 'src', datashot.val().photo );
+      } )
+    } )
+  } );
+
   $( '#in_Process' ).on( 'click', function() {
     $( '#inProcessDiv' ).css( "display", "block" );
   } );
 
   $( '#rejected' ).on( 'click', function() {
     $( '#rejectedDiv' ).css( "display", "block" );
-    //$('#NewDiv').css("display", "none");
   } );
+
+  $('#completedMess').on('click', function(){
+    $('#CompletedDiv').css("display","block");
+  });
 
   var modal = $( '#CompleteForm' );
   // When the user clicks anywhere outside of the modal, close it
@@ -232,14 +317,6 @@ function func() {
   firebase.database().ref( 'organization/employee/number/' ).on( 'value', snap => {
     numberObject.text( snap.val() );
   } );
-
- 
-
-
-  
-
-  
-
   $( ':radio' ).change( function() {
     console.log( 'New star rating: ' + this.value );
     starRating = this.value;

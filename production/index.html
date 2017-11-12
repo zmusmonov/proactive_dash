@@ -16,10 +16,8 @@
 	<link href="../build/css/custom.min.css" rel="stylesheet"><!-- // Sweet Alert -->
 	<!-- <script src="../vendors/sweetalert2/dist/sweetalert2.all.min.js"></script> -->
 
-	<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js">
-	</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-	</script>
+	<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body class="nav-md">
 	<div class="container body">
@@ -45,16 +43,17 @@
 									<a><i class="fa fa-home"></i> Complaints <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li>
-											<a class="notif" onclick="document.getElementById('NewDiv').style.display='block'; document.getElementById('RejectedDiv').style.display='none';">New<span class="num" id="newCom"></span></a>
+											<a class="notif" onclick="document.getElementById('NewDiv').style.display='block'; document.getElementById('RejectedDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none';">New<span class="num" id="newCom"></span></a>
 										</li>
 										<li>
 											<a class="notif">In Process<span class="num_process" id="in_Process"></span></a>
 										</li>
 										<li>
-											<a class="notif">Completed<span class="num_completed" id="completedMess"></span></a>
+											<!-- <a class="notif" onclick= "document.getElementById('CompletedDiv').style.display= 'block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('RejectedDiv').style.display='none';" >Completed<span class="num_completed" id="completedMess"></span></a> -->
+											<a class = "notif" onclick="document.getElementById('CompletedDiv').style.display='block';document.getElementById('listviewCompleted').style.display='block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('RejectedDiv').style.display = 'none';">Completed<span class = "num_completed" id = "completedMess"></span></a>
 										</li>
-										<li onclick="document.getElementById('RejectedDiv').style.display='block'; document.getElementById('listviewRejected').style.display='block';document.getElementById('NewDiv').style.display='none'">
-											<a class="notif">Rejected<span class="num_rejected" id="rejected"></span></a>
+										<li>
+										    <a class="notif" onclick="document.getElementById('RejectedDiv').style.display='block'; document.getElementById('listviewRejected').style.display='block';document.getElementById('NewDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none';">Rejected<span class="num_rejected" id="rejected"></span></a>
 										</li>
 									</ul>
 								</li>
@@ -229,10 +228,31 @@
 								</div>
 							</div>
 						</div>
+						<!-- <link href="css/style.css" rel="stylesheet" type="text/css">
+						<script src="code.js"></script> -->
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="col-md-12 col-sm-12 col-xs-12" id="CompletedDiv">
+						<div class="dashboard_graph">
+							<h1>Completed</h1>
+							<div class="row" id="contain">
+								<div class="col-md-3" id="listviewCompleted"></div>
+								<div class="col-md-9" id="complainDetailsCompleted">
+									<h4 id="complainCategoryCompleted">Complain Category</h4><img id="userPhotoCompleted">
+									<h2 id="userNameCompleted">User Name</h2>
+									<h6 id="userPhoneNumberCompleted">User Phone Number</h6><img id="complainPhotoCompleted">
+									<h6 id="commentCompleted">Comment</h6>
+									<h6 id="locationCompleted">Location</h6>
+									<h6 id="timeCompleted">Time</h6>
+								</div>
+							</div>
+						</div>
 						<link href="css/style.css" rel="stylesheet" type="text/css">
 						<script src="code.js"></script>
 						<div class="clearfix"></div>
 					</div>
+
 				</div>				
 			</div>
 		</div><!-- /page content -->
