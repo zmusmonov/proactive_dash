@@ -305,9 +305,11 @@ function func() {
       sender = snapshot.val().sender;
       $( '#userNameRejected' ).html( sender );
       senderEmailRejected = snapshot.val().emailCOMP;
-      //console.log("you are inside click of contentRejected");
       $( '#locationRejected' ).html( snapshot.val().location );
       $( '#timeRejected' ).html( snapshot.val().time );
+      $('#CompletionDateRejected').html(snapshot.val().CompletionDate);
+      $('#CommentsOfOrgRejected').html(snapshot.val().CommentsOfOrg);
+      $('#reasonRejected').html(snapshot.val().reason);
       $( '#complainPhotoRejected' ).attr( 'src', snapshot.val().photo );
       var userRef = dbRef.ref( "user/" + senderEmailRejected + "/" );
       userRef.once( 'value' ).then( function( datashot ) {
@@ -328,9 +330,14 @@ function func() {
       sender = snapshot.val().sender;
       $( '#userNameCompleted' ).html( sender );
       senderEmailCompleted = snapshot.val().emailCOMP;
-      //console.log("you are inside click of contentRejected");
+      $('#responsePhotoCompleted').attr('src', snapshot.val().response_image);
       $( '#locationCompleted' ).html( snapshot.val().location );
       $( '#timeCompleted' ).html( snapshot.val().time );
+      $('#commentsOfOrgCompleted').html(snapshot.val().commentsOfOrg);
+      $('#completionDateCompleted').html(snapshot.val().completion_date);
+      $('#financeOfWorkCompleted').html(snapshot.val().finance_of_work);
+      $('#organizationRateCompleted').html(snapshot.val().organization_rate);
+      $('#scopeCompleted').html(snapshot.val().scope);
       $( '#complainPhotoCompleted' ).attr( 'src', snapshot.val().photo );
       var userRef = dbRef.ref( "user/" + senderEmailCompleted + "/" );
       userRef.once( 'value' ).then( function( datashot ) {
