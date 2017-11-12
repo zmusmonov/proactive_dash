@@ -346,13 +346,25 @@ function func() {
     var sender;
     var ref = dbRef.ref( 'Complain/Tashkent/Nam-gu/Trash/inProcess/' + id );
     ref.once( 'value' ).then( function( snapshot ) {
-      $( '#complainCategoryInProcess' ).html( snapshot.val().type );
-      $( '#commentInProcess' ).html( snapshot.val().comment );
+
+      $( '#complainCategoryInProcess1').show();
+      $( '#complainCategoryInProcess').html(snapshot.val().type );
+
+      $( '#commentInProcess1' ).show();
+      $( '#commentInProcess' ).html(snapshot.val().comment );
+
+      $( '#userNameInProcess1').show();
       sender = snapshot.val().sender;
-      $( '#userNameInProcess' ).html( sender );
+      $( '#userNameInProcess').html( sender );
+
+      $( '#locationInProcess1' ).show();
       senderEmailInProcess = snapshot.val().emailCOMP;
       $( '#locationInProcess' ).html( snapshot.val().location );
+
+      $( '#timeInProcess1' ).show();      
       $( '#timeInProcess' ).html( snapshot.val().time );
+
+      $( '#userPhoneNumberInProcess1' ).show();
       $( '#complainPhotoInProcess' ).attr( 'src', snapshot.val().photo );
       var userRef = dbRef.ref( "user/" + senderEmailInProcess+ "/" );
       userRef.once( 'value' ).then( function( datashot ) {
