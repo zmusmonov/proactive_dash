@@ -659,6 +659,8 @@ textarea {
 .report-detail {
   color: #555;
 }
-
+.complaint-image {
+  border-radius: 8px;
+}
 
 

@@ -124,12 +124,30 @@
 							<div class="row" id="contain">
 								<div class="col-md-3" id="listviewNew"></div>
 								<div class="col-md-9" id="complainDetailsNew">
-									<h4 id="complainCategoryNew">Complaint Category</h4><img id="userPhotoNew">
-									<h2 id="userNameNew">User Name</h2>
-									<h6 id="userPhoneNumberNew">User Phone Number</h6><img id="complainPhotoNew">
-									<h6 id="commentNew">Comment</h6>
-									<h6 id="locationNew">Location</h6>
-									<h6 id="timeNew">Time</h6><button onclick="document.getElementById('CompleteForm').style.display='block'" style="width:auto;">Completed</button>
+
+									<h4 id="complainCategoryNew1" style="display: none">Complaint Category:</h4>
+									<h2 id="complainCategoryNew" class = "report-detail" ></h2>
+									
+									<h4 id="userNameNew1" style="display: none" >User Name:</h4>
+									<h2 id="userNameNew" class = "report-detail"></h2>
+
+									<img id="userPhotoNew">
+
+									<h4 id="userPhoneNumberNew1" style="display: none">User Phone Number:</h4>
+									<h2 id="userPhoneNumberNew" class = "report-detail"></h2>
+									
+									<h4 id="commentNew1" style="display: none">Comment:</h4>
+									<h2 id="commentNew" class = "report-detail"></h2>
+									
+									<img id="complainPhotoNew" class="complaint-image"  width="300" >
+
+									<h4 id="locationNew1" style="display: none">Location:</h4>
+									<h2 id="locationNew" class = "report-detail"></h2>
+
+									<h4 id="timeNew1" style="display: none">Time:</h4>
+									<h2 id="timeNew" class = "report-detail"></h2>
+
+									<button onclick="document.getElementById('CompleteForm').style.display='block'" style="width:auto;">Completed</button>
 									<div class="modal" id="CompleteForm">
 										<span class="close" onclick="document.getElementById('CompleteForm').style.display='none'" title="Close Modal">×</span>
 										<form action="/action_page.php" class="modal-content animate">
@@ -247,7 +265,7 @@
 									<h6 id="userPhoneNumberCompleted">User Phone Number</h6><img id="complainPhotoCompleted">
 									<h6 id="commentCompleted">Comment</h6>
 									<h6 id="locationCompleted">Location</h6>
-									<img id="responsePhotoCompleted">
+									<img id="responsePhotoCompleted" class="complaint-image"  width="300" >
 									<h6 id="timeCompleted">Time</h6>
 									<h6 id="commentsOfOrgCompleted">Comments of Org</h6>
 									<h6 id="completionDateCompleted">Completion Date</h6>
@@ -280,7 +298,7 @@
 									<h4 id="userPhoneNumberInProcess1" style="display: none">User Phone Number:</h4>
 									<h2 id="userPhoneNumberInProcess" class = "report-detail"></h2>
 
-									<img id="complainPhotoInProcess">
+									<img id="complainPhotoInProcess" class="complaint-image"  width="300">
 
 									<h4 id="commentInProcess1"  style="display: none">Comment:</h4>									
 									<h2 id="commentInProcess" class = "report-detail"></h2>

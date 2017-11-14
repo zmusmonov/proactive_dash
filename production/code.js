@@ -278,17 +278,34 @@ function func() {
     var sender;
     var ref = dbRef.ref( 'Complain/Tashkent/Nam-gu/Trash/New/' + id );
     ref.once( 'value' ).then( function( snapshot ) {
+
+      $( '#complainCategoryNew1' ).show();
       $( '#complainCategoryNew' ).html( snapshot.val().type );
-      $( '#commentNew' ).html( snapshot.val().comment );
+
+      $( '#userNameNew1' ).show();
       sender = snapshot.val().sender;
       $( '#userNameNew' ).html( sender );
+
+
+      $( '#userPhoneNumberNew1' ).show();
+
+      $( '#commentNew1' ).show();
+      $( '#commentNew' ).html( snapshot.val().comment );
+
       senderEmail = snapshot.val().emailCOMP;
+
+      $( '#locationNew1' ).show();
       $( '#locationNew' ).html( snapshot.val().location );
+
+      $( '#timeNew1' ).show();
       $( '#timeNew' ).html( snapshot.val().time );
+
+
       $( '#complainPhotoNew' ).attr( 'src', snapshot.val().photo );
       var userRef = dbRef.ref( "user/" + senderEmailNew + "/" );
       userRef.once( 'value' ).then( function( datashot ) {
         $( '#userPhoneNumberNew' ).html( datashot.val().number );
+        $( '#userPhotoNew').show();
         $( '#userPhotoNew' ).attr( 'src', datashot.val().photo );
       } )
     } )
