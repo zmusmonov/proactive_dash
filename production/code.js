@@ -304,7 +304,7 @@ function func() {
       $( '#commentRejected' ).html( snapshot.val().comment );
       sender = snapshot.val().sender;
       $( '#userNameRejected' ).html( sender );
-      senderEmailRejected = snapshot.val().emailCOMP;
+      senderEmailRejected=snapshot.val().emailCOMP;
       $( '#locationRejected' ).html( snapshot.val().location );
       $( '#timeRejected' ).html( snapshot.val().time );
       $('#CompletionDateRejected').html(snapshot.val().CompletionDate);
@@ -494,17 +494,17 @@ function FirebaseSubmit() {
   }
 
 function rejectedSubmit() {
-    var complaintNumberInRejected = genKey();
+    var keygen = genKey();
     var reason = $( '#reasonsRejected option:selected' ).text();
     var comment = $( '#commentRejected' ).val();
     var nameOfOrganization = $( '#organization_name' ).text();
     var d = new Date();
     var rejectedDate = d.getFullYear() + "/" + ( d.getMonth() + 1 ) + "/" + d.getDate();
     var oldRef = dbRef.ref( "Complain/Tashkent/Nam-gu/Trash/New/" + complaintId + '/' );
-    var newRef_rejected = dbRef.ref( "user/" + senderEmailRejected + "/complains/rejected/" + complaintNumberInRejected );
-    var newRefToCopy_rejected = dbRef.ref( "Complain/Tashkent/Nam-gu/Trash/Rejected/" + complaintNumberInRejected );
+    var newRef_rejected = dbRef.ref( "user/" + senderEmailNew + "/complains/rejected/" + keygen );
+    var newRefToCopy_rejected = dbRef.ref( "Complain/Tashkent/Nam-gu/Trash/Rejected/" + keygen );
     oldRef.child( "Organization" ).set( nameOfOrganization );
-    oldRef.child( "Key" ).set( complaintNumberInRejected );
+    oldRef.child( "Key" ).set( keygen );
     oldRef.child( "reason" ).set( reason );
     oldRef.child( "CommentsOfOrg" ).set( comment );
     oldRef.child( "CompletionDate" ).set( rejectedDate );
@@ -565,4 +565,3 @@ function copyFbRecord( oldRef, newRef ) {
 // ////test
 //test
 //test
-
