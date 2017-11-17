@@ -43,16 +43,21 @@
 									<a><i class="fa fa-home"></i> Complaints <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li>
+<<<<<<< HEAD
 											<a class="notif" onclick="document.getElementById('NewDiv').style.display='block'; document.getElementById('RejectedDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none'; document.getElementById('InProcessDiv').style.display='none';">New<span class="num" id="newCom"></span></a>
+=======
+											<a class="notif" onclick="document.getElementById('NewDiv').style.display='block'; document.getElementById('RejectedDiv').style.display='none';
+											document.getElementById('InProcessDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none';">New<span class="num" id="newCom"></span></a>
+>>>>>>> aaf18747186eef8602e62cfeaf089edb233fc47d
 										</li>
 										<li>
-											<a class="notif" onclick ="document.getElementById('InProcessDiv').style.display='block';document.getElementById('listviewInProcess').style.display='block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none';document.getElementById('RejectedDiv').style.display='none';">In Process<span class="num_process" id="in_Process"></span></a>
+											<a class="notif" onclick ="document.getElementById('InProcessDiv').style.display='block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none';document.getElementById('RejectedDiv').style.display='none';">In Process<span class="num_process" id="in_Process"></span></a>
 										</li>
 										<li>
-											<a class = "notif" onclick="document.getElementById('CompletedDiv').style.display='block';document.getElementById('listviewCompleted').style.display='block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('RejectedDiv').style.display = 'none';document.getElementById('InProcessDiv').style.display='none';">Completed<span class = "num_completed" id = "completedMess"></span></a>
+											<a class = "notif" onclick="document.getElementById('CompletedDiv').style.display='block';document.getElementById('NewDiv').style.display='none'; document.getElementById('RejectedDiv').style.display = 'none';document.getElementById('InProcessDiv').style.display='none';">Completed<span class = "num_completed" id = "completedMess"></span></a>
 										</li>
 										<li>
-										    <a class="notif" onclick="document.getElementById('RejectedDiv').style.display='block'; document.getElementById('listviewRejected').style.display='block';document.getElementById('NewDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none'; document.getElementById('InProcessDiv').style.display='none';">Rejected<span class="num_rejected" id="rejected"></span></a>
+										    <a class="notif" onclick="document.getElementById('RejectedDiv').style.display='block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none'; document.getElementById('InProcessDiv').style.display='none';">Rejected<span class="num_rejected" id="rejected"></span></a>
 										</li>
 									</ul>
 								</li>
@@ -123,12 +128,30 @@
 							<div class="row" id="contain">
 								<div class="col-md-3" id="listviewNew"></div>
 								<div class="col-md-9" id="complainDetailsNew">
-									<h4 id="complainCategoryNew">Complain Category</h4><img id="userPhotoNew">
-									<h2 id="userNameNew">User Name</h2>
-									<h6 id="userPhoneNumberNew">User Phone Number</h6><img id="complainPhotoNew">
-									<h6 id="commentNew">Comment</h6>
-									<h6 id="locationNew">Location</h6>
-									<h6 id="timeNew">Time</h6><button onclick="document.getElementById('CompleteForm').style.display='block'" style="width:auto;">Completed</button>
+
+									<h4 id="complainCategoryNew1" style="display: none">Complaint Category:</h4>
+									<h2 id="complainCategoryNew" class = "report-detail" ></h2>
+									
+									<h4 id="userNameNew1" style="display: none" >User Name:</h4>
+									<h2 id="userNameNew" class = "report-detail"></h2>
+
+									<img id="userPhotoNew">
+
+									<h4 id="userPhoneNumberNew1" style="display: none">User Phone Number:</h4>
+									<h2 id="userPhoneNumberNew" class = "report-detail"></h2>
+									
+									<h4 id="commentNew1" style="display: none">Comment:</h4>
+									<h2 id="commentNew" class = "report-detail"></h2>
+									
+									<img id="complainPhotoNew" class="complaint-image"  width="300" >
+
+									<h4 id="locationNew1" style="display: none">Location:</h4>
+									<h2 id="locationNew" class = "report-detail"></h2>
+
+									<h4 id="timeNew1" style="display: none">Time:</h4>
+									<h2 id="timeNew" class = "report-detail"></h2>
+
+									<button onclick="document.getElementById('CompleteForm').style.display='block'" style="width:auto;">Completed</button>
 									<div class="modal" id="CompleteForm">
 										<span class="close" onclick="document.getElementById('CompleteForm').style.display='none'" title="Close Modal">×</span>
 										<form action="/action_page.php" class="modal-content animate">
@@ -220,15 +243,18 @@
 								<div class="col-md-9" id="complainDetailsRejected">
 									<h4 id="complainCategoryRejected">Complain Category</h4><img id="userPhotoRejected">
 									<h2 id="userNameRejected">User Name</h2>
-									<h6 id="userPhoneNumberRejected">User Phone Number</h6><img id="complainPhotoRejected">
+									<h6 id="userPhoneNumberRejected">User Phone Number</h6>
+									<img id="complainPhotoRejected">
 									<h6 id="commentRejected">Comment</h6>
 									<h6 id="locationRejected">Location</h6>
 									<h6 id="timeRejected">Time</h6>
+									<h6 id="CompletionDateRejected">Completion Date</h6>
+									<h6 id="CommentsOfOrgRejected">Comments of Organization</h6>
+									<h6 id="reasonRejected">Reason why complaint was rejected</h6>
+									<h6 id=""></h6>
 								</div>
 							</div>
 						</div>
-						<!-- <link href="css/style.css" rel="stylesheet" type="text/css">
-						<script src="code.js"></script> -->
 						<div class="clearfix"></div>
 					</div>
 
@@ -243,7 +269,14 @@
 									<h6 id="userPhoneNumberCompleted">User Phone Number</h6><img id="complainPhotoCompleted">
 									<h6 id="commentCompleted">Comment</h6>
 									<h6 id="locationCompleted">Location</h6>
+									<img id="responsePhotoCompleted" class="complaint-image"  width="300" >
 									<h6 id="timeCompleted">Time</h6>
+									<h6 id="commentsOfOrgCompleted">Comments of Org</h6>
+									<h6 id="completionDateCompleted">Completion Date</h6>
+									<h6 id="financeOfWorkCompleted">Work expanse</h6>
+									<h6 id="organizationRateCompleted">Organization rated complaint for</h6>
+									<h6 id="scopeCompleted">scope</h6>
+
 								</div>
 							</div>
 						</div>
@@ -257,6 +290,7 @@
 							<div class="row" id="contain">
 								<div class="col-md-3" id="listviewInProcess"></div>
 								<div class="col-md-9" id="complainDetailsInProcess">
+<<<<<<< HEAD
 									<h4 id="complainCategoryInProcess">Complain Category</h4><img id="userPhotoInProcess">
 									<h2 id="userNameInProcess">User Name</h2>
 									<h6 id="userPhoneNumberInProcess">User Phone Number</h6><img id="complainPhotoInProcess">
@@ -328,16 +362,37 @@
 									</div>
 									
 									
+=======
+
+									<h4 id="complainCategoryInProcess1" style="display: none">Complain Category:</h4>
+									<h2 id="complainCategoryInProcess" class = "report-detail"></h2>
+
+									<h4 id="userNameInProcess1" style="display: none">User Name:</h4>
+									<h2 id="userNameInProcess" class = "report-detail"></h2>
+
+									<img id="userPhotoInProcess">
+
+									<h4 id="userPhoneNumberInProcess1" style="display: none">User Phone Number:</h4>
+									<h2 id="userPhoneNumberInProcess" class = "report-detail"></h2>
+
+									<img id="complainPhotoInProcess" class="complaint-image"  width="300">
+
+									<h4 id="commentInProcess1"  style="display: none">Comment:</h4>									
+									<h2 id="commentInProcess" class = "report-detail"></h2>
+
+									<h4 id="locationInProcess1" style="display: none">Location:</h4>									
+									<h2 id="locationInProcess" class = "report-detail"></h2>
+
+									<h4 id="timeInProcess1" style="display: none">Time</h4>									
+									<h2 id="timeInProcess" class = "report-detail"></h2>
+>>>>>>> aaf18747186eef8602e62cfeaf089edb233fc47d
 								</div>
 							</div>
 						</div>
-						<!-- <link href="css/style.css" rel="stylesheet" type="text/css">
-						<script src="code.js"></script> -->
 						<link href="css/style.css" rel="stylesheet" type="text/css">
 						<script src="code.js"></script>
 						<div class="clearfix"></div>
 					</div>
-
 				</div>				
 			</div>
 		</div><!-- /page content -->

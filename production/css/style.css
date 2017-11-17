@@ -655,4 +655,12 @@ textarea {
 .status-btn{
     background-color: #f44336;
 }
-/*# sourceMappingURL=style.css.map */
+
+.report-detail {
+  color: #555;
+}
+.complaint-image {
+  border-radius: 8px;
+}
+
+

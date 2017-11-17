@@ -279,17 +279,34 @@ function func() {
     var sender;
     var ref = dbRef.ref( 'Complain/Tashkent/Nam-gu/Trash/New/' + id );
     ref.once( 'value' ).then( function( snapshot ) {
+
+      $( '#complainCategoryNew1' ).show();
       $( '#complainCategoryNew' ).html( snapshot.val().type );
-      $( '#commentNew' ).html( snapshot.val().comment );
+
+      $( '#userNameNew1' ).show();
       sender = snapshot.val().sender;
       $( '#userNameNew' ).html( sender );
+
+
+      $( '#userPhoneNumberNew1' ).show();
+
+      $( '#commentNew1' ).show();
+      $( '#commentNew' ).html( snapshot.val().comment );
+
       senderEmail = snapshot.val().emailCOMP;
+
+      $( '#locationNew1' ).show();
       $( '#locationNew' ).html( snapshot.val().location );
+
+      $( '#timeNew1' ).show();
       $( '#timeNew' ).html( snapshot.val().time );
+
+
       $( '#complainPhotoNew' ).attr( 'src', snapshot.val().photo );
       var userRef = dbRef.ref( "user/" + senderEmailNew + "/" );
       userRef.once( 'value' ).then( function( datashot ) {
         $( '#userPhoneNumberNew' ).html( datashot.val().number );
+        $( '#userPhotoNew').show();
         $( '#userPhotoNew' ).attr( 'src', datashot.val().photo );
       } )
     } )
@@ -305,10 +322,12 @@ function func() {
       $( '#commentRejected' ).html( snapshot.val().comment );
       sender = snapshot.val().sender;
       $( '#userNameRejected' ).html( sender );
-      senderEmailRejected = snapshot.val().emailCOMP;
-      //console.log("you are inside click of contentRejected");
+      senderEmailRejected=snapshot.val().emailCOMP;
       $( '#locationRejected' ).html( snapshot.val().location );
       $( '#timeRejected' ).html( snapshot.val().time );
+      $('#CompletionDateRejected').html(snapshot.val().CompletionDate);
+      $('#CommentsOfOrgRejected').html(snapshot.val().CommentsOfOrg);
+      $('#reasonRejected').html(snapshot.val().reason);
       $( '#complainPhotoRejected' ).attr( 'src', snapshot.val().photo );
       var userRef = dbRef.ref( "user/" + senderEmailRejected + "/" );
       userRef.once( 'value' ).then( function( datashot ) {
@@ -329,9 +348,14 @@ function func() {
       sender = snapshot.val().sender;
       $( '#userNameCompleted' ).html( sender );
       senderEmailCompleted = snapshot.val().emailCOMP;
-      //console.log("you are inside click of contentRejected");
+      $('#responsePhotoCompleted').attr('src', snapshot.val().response_image);
       $( '#locationCompleted' ).html( snapshot.val().location );
       $( '#timeCompleted' ).html( snapshot.val().time );
+      $('#commentsOfOrgCompleted').html(snapshot.val().commentsOfOrg);
+      $('#completionDateCompleted').html(snapshot.val().completion_date);
+      $('#financeOfWorkCompleted').html(snapshot.val().finance_of_work);
+      $('#organizationRateCompleted').html(snapshot.val().organization_rate);
+      $('#scopeCompleted').html(snapshot.val().scope);
       $( '#complainPhotoCompleted' ).attr( 'src', snapshot.val().photo );
       var userRef = dbRef.ref( "user/" + senderEmailCompleted + "/" );
       userRef.once( 'value' ).then( function( datashot ) {
@@ -347,13 +371,25 @@ function func() {
     var sender;
     var ref = dbRef.ref( 'Complain/Tashkent/Nam-gu/Trash/inProcess/' + id );
     ref.once( 'value' ).then( function( snapshot ) {
-      $( '#complainCategoryInProcess' ).html( snapshot.val().type );
-      $( '#commentInProcess' ).html( snapshot.val().comment );
+
+      $( '#complainCategoryInProcess1').show();
+      $( '#complainCategoryInProcess').html(snapshot.val().type );
+
+      $( '#commentInProcess1' ).show();
+      $( '#commentInProcess' ).html(snapshot.val().comment );
+
+      $( '#userNameInProcess1').show();
       sender = snapshot.val().sender;
-      $( '#userNameInProcess' ).html( sender );
+      $( '#userNameInProcess').html( sender );
+
+      $( '#locationInProcess1' ).show();
       senderEmailInProcess = snapshot.val().emailCOMP;
       $( '#locationInProcess' ).html( snapshot.val().location );
+
+      $( '#timeInProcess1' ).show();      
       $( '#timeInProcess' ).html( snapshot.val().time );
+
+      $( '#userPhoneNumberInProcess1' ).show();
       $( '#complainPhotoInProcess' ).attr( 'src', snapshot.val().photo );
       var userRef = dbRef.ref( "user/" + senderEmailInProcess+ "/" );
       userRef.once( 'value' ).then( function( datashot ) {
@@ -488,13 +524,14 @@ function FirebaseSubmit() {
   }
 
 function rejectedSubmit() {
-    var complaintNumberInRejected = genKey();
+    var keygen = genKey();
     var reason = $( '#reasonsRejected option:selected' ).text();
     var comment = $( '#commentRejected' ).val();
     var nameOfOrganization = $( '#organization_name' ).text();
     var d = new Date();
     var rejectedDate = d.getFullYear() + "/" + ( d.getMonth() + 1 ) + "/" + d.getDate();
     var oldRef = dbRef.ref( "Complain/Tashkent/Nam-gu/Trash/New/" + complaintId + '/' );
+<<<<<<< HEAD
     var newRef_rejected = dbRef.ref( "user/" + senderEmailRejected + "/complains/rejected/" + complaintNumberInRejected );
     var newRefToCopy_rejected = dbRef.ref( "Complain/Tashkent/Nam-gu/Trash/Rejected/" + complaintNumberInRejected );
     console.log("Sender Emial:" + senderEmailRejected);
@@ -502,6 +539,12 @@ function rejectedSubmit() {
     console.log("Created child "+nameOfOrganization);
     oldRef.child( "Key" ).set( complaintNumberInRejected );
     console.log("Created child "+complaintNumberInRejected);
+=======
+    var newRef_rejected = dbRef.ref( "user/" + senderEmailNew + "/complains/rejected/" + keygen );
+    var newRefToCopy_rejected = dbRef.ref( "Complain/Tashkent/Nam-gu/Trash/Rejected/" + keygen );
+    oldRef.child( "Organization" ).set( nameOfOrganization );
+    oldRef.child( "Key" ).set( keygen );
+>>>>>>> aaf18747186eef8602e62cfeaf089edb233fc47d
     oldRef.child( "reason" ).set( reason );
     console.log("Created child "+reason);
     oldRef.child( "CommentsOfOrg" ).set( comment );
@@ -562,6 +605,7 @@ function copyFbRecord( oldRef, newRef ) {
       } );
     } );
   }
+<<<<<<< HEAD
 
 
 
@@ -605,3 +649,8 @@ function FirebaseSubmitInProcess() {
     } );
   }
 // oxirgisi
+=======
+// ////test
+//test
+//test
+>>>>>>> aaf18747186eef8602e62cfeaf089edb233fc47d
