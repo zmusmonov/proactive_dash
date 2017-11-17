@@ -142,6 +142,7 @@ function func() {
       avatar.className = 'avatar';
       var img = document.createElement( 'img' );
       var userRef = dbRef.ref( "user/" + senderEmailRejected + "/" );
+      console.log("Sender Email from listviewRejected " + senderEmailRejected);
       userRef.once( 'value' ).then( function( datashot ) {
         img.setAttribute( 'src', datashot.val().photo );
       } );
@@ -420,7 +421,7 @@ function func() {
     $('#CompletedDiv').css("display","block");
   });
 
-  
+  id03
 
   var modal = $( '#CompleteForm' );
   // When the user clicks anywhere outside of the modal, close it
@@ -507,7 +508,12 @@ function FirebaseSubmit() {
       oldReference.child( "Checked" ).set( "false" );
       moveFbRecord( oldReference, newReference_completed );
       copyFbRecord( newReference_completed, newReferenceToCopy_completed );
+
       func();
+
+      document.getElementById( 'CompleteForm' ).style.display = 'none';
+      document.getElementById( 'CompleteFormInProcess' ).style.display = 'none';
+
     } );
   }
 
@@ -537,11 +543,17 @@ function rejectedSubmit() {
     oldRef.child( "Organization" ).set( nameOfOrganization );
     oldRef.child( "Key" ).set( keygen );
     oldRef.child( "reason" ).set( reason );
+    console.log("Created child "+reason);
     oldRef.child( "CommentsOfOrg" ).set( comment );
+    console.log("Created child "+comment);
     oldRef.child( "CompletionDate" ).set( rejectedDate );
+    console.log("Created child "+rejectedDate);
     oldRef.child( "Checked" ).set( "false" );
-    moveFbRecord( oldRef, newRef_rejected );
-    copyFbRecord( newRef_rejected, newRefToCopy_rejected );
+    console.log("Created child "+"checked");
+    moveFbRecord( oldRef, newRefToCopy_rejected );
+    console.log("Moved in database");
+    copyFbRecord( newRefToCopy_rejected, newRef_rejected );
+    console.log("Copied to userDb");
     $( '#id02' ).css( 'display', 'none' );
     func();
   }
@@ -588,9 +600,44 @@ function copyFbRecord( oldRef, newRef ) {
       } );
     } );
   }
-// ////test
-//test
-//test
 
- 
+function FirebaseSubmitInProcess() {
+    var keygen = genKey();
+    var oldReference = firebase.database().ref( "Complain/Tashkent/Nam-gu/Trash/inProcess/" + complaintId + '/' );
+    var newReference_completed = firebase.database().ref( "Complain/Tashkent/Nam-gu/Trash/Completed/" + complaintId + '/' );
+    var newReferenceToCopy_completed = firebase.database().ref( 'user/' + senderEmail + '/complains/completed/' + complaintId + '/' );
+    var oldRefToDelete = firebase.database().ref( 'user/' + senderEmail + '/complains/inProcess/' + complaintId + '/' );
+    var storageRef = firebase.storage().ref( 'response_images/' + filename );
+    var uploadTask = storageRef.put( file );
 
+    uploadTask.on( 'state_changed', function( snapshot ) {
+
+    }, function( error ) {
+
+    }, function() {
+      var responsible_person = $( '#responsible_person' ).val();
+      var downloadURL = uploadTask.snapshot.downloadURL;
+      var completion_date = $( '#completion_date' ).val();
+      var e = document.getElementById( "scope_of_work" );
+      var scope = e.options[ e.selectedIndex ].text;
+      var finance_of_work = $( '#finance_of_work' ).val();
+      var commentsOfOrg = $( '#message' ).val();
+      
+
+      oldReference.child( "responsible_person" ).set( responsible_person );
+      oldReference.child( "response_image" ).set( downloadURL );
+      oldReference.child( "completion_date" ).set( completion_date );
+      oldReference.child( "scope" ).set( scope );
+      oldReference.child( "finance_of_work" ).set( finance_of_work );
+      oldReference.child( "commentsOfOrg" ).set( commentsOfOrg );
+      oldReference.child( "organization_rate" ).set( starRating );
+      oldReference.child( "Key" ).set( keygen );
+      oldReference.child( "Checked" ).set( "false" );
+
+      moveFbRecord( oldReference, newReference_completed );
+      moveFbRecord( oldRefToDelete, newReferenceToCopy_completed );
+      document.getElementById( 'CompleteForm' ).style.display = 'none';
+      document.getElementById( 'CompleteFormInProcess' ).style.display = 'none';
+    } );
+  }
+// oxirgisi
