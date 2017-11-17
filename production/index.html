@@ -14,7 +14,7 @@
 	<link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"><!-- bootstrap-daterangepicker -->
 	<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"><!-- Custom Theme Style -->
 	<link href="../build/css/custom.min.css" rel="stylesheet"><!-- // Sweet Alert -->
-	<!-- <script src="../vendors/sweetalert2/dist/sweetalert2.all.min.js"></script> -->
+	
 
 	<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -140,7 +140,10 @@
 									<h2 id="commentNew" class = "report-detail"></h2>
 									
 									<img id="complainPhotoNew" class="complaint-image"  width="300" >
-
+									<div id="googleMap" style="width:100%;height:400px;"></div>
+									<script src="http://maps.googleapis.com/maps/api/js"></script>
+									<h6 id="long"></h6>
+									<h6 id="lat"></h6>
 									<h4 id="locationNew1" style="display: none">Location:</h4>
 									<h2 id="locationNew" class = "report-detail"></h2>
 
@@ -154,7 +157,7 @@
 											<div class="container">
 												<label><b>Organization:</b></label> <input id="organization_name_form" name="rate" placeholder="Organization" required="" type="text"> <label><b>Responsible Person:</b></label> <input id="responsible_person" name="rate" placeholder="Name" required="" type="text"> <label><b>Photo Attachment:</b></label><br>
 												<div class="btn-group">
-													<input id="imgInput" type="file"> <img id="image" src="#"><br>
+												<input id="imgInput" type="file"> <img id="image" src="#"><br>
 												</div><br>
 												<label><b>Complation Date:</b></label><br>
 												<input id="completion_date" name="rate" placeholder="Date" required="" type="date"><br>
@@ -189,18 +192,10 @@
 										<form class="modal-animate">
 											<div class="container">
 												<label><b>Reason for being rejected:</b></label> <select id="reasonsRejected">
-													<option value="1">
-														already done
-													</option>
-													<option value="2">
-														inacceptable complaint
-													</option>
-													<option value="3">
-														bad photo quality
-													</option>
-													<option value="4">
-														problem not found in located area
-													</option>
+													<option value="1">already done</option>
+													<option value="2">inacceptable complaint</option>
+													<option value="3">bad photo quality</option>
+													<option value="4">problem not found in located area</option>
 												</select><br>
 												<br>
 												<label><b>Comments:</b></label> <input id="commentRejected" name="description" placeholder="Description" type="text">
@@ -317,70 +312,39 @@
 					</div>
 				</div>				
 			</div>
-		</div><!-- /page content -->
+		</div>
 	</div>
-	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js">
 	</script> <!-- Bootstrap -->
-	 
 	<script src="../vendors/bootstrap/dist/js/bootstrap.min.js">
 	</script> <!-- FastClick -->
-	 
 	<script src="../vendors/fastclick/lib/fastclick.js">
 	</script> <!-- NProgress -->
-	 
 	<script src="../vendors/nprogress/nprogress.js">
 	</script> <!-- Chart.js -->
-	 
 	<script src="../vendors/Chart.js/dist/Chart.min.js">
 	</script> <!-- gauge.js -->
-	 
 	<script src="../vendors/gauge.js/dist/gauge.min.js">
 	</script> <!-- bootstrap-progressbar -->
-	 
-	<script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js">
-	</script> <!-- iCheck -->
-	 
-	<script src="../vendors/iCheck/icheck.min.js">
-	</script> <!-- Skycons -->
-	 
-	<script src="../vendors/skycons/skycons.js">
-	</script> <!-- Flot -->
-	 
-	<script src="../vendors/Flot/jquery.flot.js">
-	</script> 
-	<script src="../vendors/Flot/jquery.flot.pie.js">
-	</script> 
-	<script src="../vendors/Flot/jquery.flot.time.js">
-	</script> 
-	<script src="../vendors/Flot/jquery.flot.stack.js">
-	</script> 
-	<script src="../vendors/Flot/jquery.flot.resize.js">
-	</script> <!-- Flot plugins -->
-	 
-	<script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js">
-	</script> 
-	<script src="../vendors/flot-spline/js/jquery.flot.spline.min.js">
-	</script> 
-	<script src="../vendors/flot.curvedlines/curvedLines.js">
-	</script> <!-- DateJS -->
-	 
-	<script src="../vendors/DateJS/build/date.js">
-	</script> <!-- JQVMap -->
-	 
-	<script src="../vendors/jqvmap/dist/jquery.vmap.js">
-	</script> 
-	<script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js">
-	</script> 
-	<script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js">
-	</script> <!-- bootstrap-daterangepicker -->
-	 
-	<script src="../vendors/moment/min/moment.min.js">
-	</script> 
-	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js">
-	</script> <!-- Custom Theme Scripts -->
-	 
-	<script src="../build/js/custom.min.js">
-	</script><!-- oxirgisi -->
+	<script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script> <!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<script src="../vendors/skycons/skycons.js"></script>
+	<script src="../vendors/Flot/jquery.flot.js"></script> 
+	<script src="../vendors/Flot/jquery.flot.pie.js"></script> 
+	<script src="../vendors/Flot/jquery.flot.time.js"></script> 
+	<script src="../vendors/Flot/jquery.flot.stack.js"></script> 
+	<script src="../vendors/Flot/jquery.flot.resize.js"></script>
+	<script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script> 
+	<script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script> 
+	<script src="../vendors/flot.curvedlines/curvedLines.js"></script>
+	<script src="../vendors/DateJS/build/date.js"></script>
+	<script src="../vendors/jqvmap/dist/jquery.vmap.js"></script> 
+	<script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script> 
+	<script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+	<script src="../vendors/moment/min/moment.min.js"></script> 
+	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="../vendors/sweetalert2/dist/sweetalert2.all.min.js"></script> 
+	<script src="../build/js/custom.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/"  async defer>></script>
 </body>
 </html>
