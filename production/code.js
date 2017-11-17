@@ -1,6 +1,6 @@
 const config = {
   apiKey: "AIzaSyClq2kdiDboyMJs1QxISwIMT5VpUZKOGVU",
-  authDomain: "proactiveweb-1e68d.firebaseapp.com",
+  authDomain: "proactiveweb-1e68d.firebaseapp.com", 
   databaseURL: "https://proactiveweb-1e68d.firebaseio.com/",
   storageBucket: "proactiveweb-1e68d.appspot.com",
 };
@@ -14,12 +14,25 @@ var senderEmailRejected;
 var senderEmailCompleted;
 var senderEmailInProcess;
 var starRating;
-func();
+
 var pObject = $( '#name_of_employee' );
 var pObject1 = $( '#name_of_employee1' );
 var titleObject = $( '#organization_name' );
 var posObject = $( '#get_position' );
 var numberObject = $( '#get_number' );
+var longitute=51.508742;
+var latitude=-0.120850;
+function myMap(latitude, longitute) {
+var mapProp= {
+    center:new google.maps.LatLng(latitude,longitute),
+    zoom:19,
+};
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+var marker = new google.maps.Marker({
+          position: mapProp,
+          map: map
+        });
+}
 
 
 var counter = $( '#newCom' );
@@ -46,7 +59,9 @@ counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
   counterRejected.text( snapshot.numChildren() );
 } );
 
+
 // Synchronizing object changes
+func();
 function func() {
   var itemNew = $( '#listviewNew' );
   var organName = $( '#organization_name' );
@@ -127,7 +142,6 @@ function func() {
       avatar.className = 'avatar';
       var img = document.createElement( 'img' );
       var userRef = dbRef.ref( "user/" + senderEmailRejected + "/" );
-      console.log("Sender Email from listviewRejected " + senderEmailRejected);
       userRef.once( 'value' ).then( function( datashot ) {
         img.setAttribute( 'src', datashot.val().photo );
       } );
@@ -279,29 +293,24 @@ function func() {
     var sender;
     var ref = dbRef.ref( 'Complain/Tashkent/Nam-gu/Trash/New/' + id );
     ref.once( 'value' ).then( function( snapshot ) {
-
       $( '#complainCategoryNew1' ).show();
       $( '#complainCategoryNew' ).html( snapshot.val().type );
-
       $( '#userNameNew1' ).show();
       sender = snapshot.val().sender;
       $( '#userNameNew' ).html( sender );
-
-
       $( '#userPhoneNumberNew1' ).show();
-
       $( '#commentNew1' ).show();
       $( '#commentNew' ).html( snapshot.val().comment );
-
       senderEmail = snapshot.val().emailCOMP;
-
       $( '#locationNew1' ).show();
       $( '#locationNew' ).html( snapshot.val().location );
-
       $( '#timeNew1' ).show();
       $( '#timeNew' ).html( snapshot.val().time );
-
-
+      latitude=snapshot.val().latitude;
+      longitute=snapshot.val().longitute;
+      myMap(latitude, longitute);
+      $("#lat").html(latitude);
+      $("#long").html(longitute);
       $( '#complainPhotoNew' ).attr( 'src', snapshot.val().photo );
       var userRef = dbRef.ref( "user/" + senderEmailNew + "/" );
       userRef.once( 'value' ).then( function( datashot ) {
@@ -435,37 +444,27 @@ function func() {
     numberObject.text( snap.val() );
   } );
   $( ':radio' ).change( function() {
-    console.log( 'New star rating: ' + this.value );
     starRating = this.value;
-
   } );
 
   // function for displaying image downloaded by the user
   function readURL( input ) {
     if ( input.files && input.files[ 0 ] ) {
       var reader = new FileReader();
-
-
       reader.onload = function( e ) {
         $( '#image' ).attr( 'src', e.target.result );
       }
-
       reader.readAsDataURL( input.files[ 0 ] );
     }
   }
-
   $( "#imgInput" ).change( function() {
     readURL( this );
   } );
-
   var fileButton = document.getElementById( 'imgInput' );
-
   fileButton.addEventListener( 'change', function( e ) {
     file = e.target.files[ 0 ];
     filename = file.name;
   } );
-
-
 }
 
 /////////////////////////////////////
@@ -476,7 +475,7 @@ function FirebaseSubmit() {
     var oldReference = firebase.database().ref( "Complain/Tashkent/Nam-gu/Trash/New/" + complaintId + '/' );
     var newReference_completed = firebase.database().ref( "Complain/Tashkent/Nam-gu/Trash/Completed/" + keygen + '/' );
     var newReferenceToCopy_completed = firebase.database().ref( 'user/' + senderEmail + '/complains/completed/' + keygen + '/' );
-
+    var nameOfOrganization = $( '#organization_name' ).text();
     var storageRef = firebase.storage().ref( 'response_images/' + filename );
     var uploadTask = storageRef.put( file );
 
@@ -492,8 +491,10 @@ function FirebaseSubmit() {
       var scope = e.options[ e.selectedIndex ].text;
       var finance_of_work = $( '#finance_of_work' ).val();
       var commentsOfOrg = $( '#message' ).val();
-      
-
+      oldReference.child( "Checked" ).set( "flase" );
+      oldReference.child( "Organization" ).set( nameOfOrganization );
+      oldReference.child( "latercomment" ).set( "" );
+      oldReference.child( "RespondRateFromUser" ).set( 0 );
       oldReference.child( "responsible_person" ).set( responsible_person );
       oldReference.child( "response_image" ).set( downloadURL );
       oldReference.child( "completion_date" ).set( completion_date );
@@ -503,11 +504,14 @@ function FirebaseSubmit() {
       oldReference.child( "organization_rate" ).set( starRating );
       oldReference.child( "Key" ).set( keygen );
       oldReference.child( "Checked" ).set( "false" );
-
       moveFbRecord( oldReference, newReference_completed );
       copyFbRecord( newReference_completed, newReferenceToCopy_completed );
+
+      func();
+
       document.getElementById( 'CompleteForm' ).style.display = 'none';
       document.getElementById( 'CompleteFormInProcess' ).style.display = 'none';
+
     } );
   }
 
@@ -531,18 +535,12 @@ function rejectedSubmit() {
     var d = new Date();
     var rejectedDate = d.getFullYear() + "/" + ( d.getMonth() + 1 ) + "/" + d.getDate();
     var oldRef = dbRef.ref( "Complain/Tashkent/Nam-gu/Trash/New/" + complaintId + '/' );
-    var newRef_rejected = dbRef.ref( "user/" + senderEmailRejected + "/complains/rejected/" + complaintNumberInRejected );
-    var newRefToCopy_rejected = dbRef.ref( "Complain/Tashkent/Nam-gu/Trash/Rejected/" + complaintNumberInRejected );
-   
-    oldRef.child( "Organization" ).set( nameOfOrganization );
-    
-    oldRef.child( "Key" ).set( complaintNumberInRejected );
-    
     var newRef_rejected = dbRef.ref( "user/" + senderEmailNew + "/complains/rejected/" + keygen );
     var newRefToCopy_rejected = dbRef.ref( "Complain/Tashkent/Nam-gu/Trash/Rejected/" + keygen );
     oldRef.child( "Organization" ).set( nameOfOrganization );
     oldRef.child( "Key" ).set( keygen );
     oldRef.child( "reason" ).set( reason );
+
     
     oldRef.child( "CommentsOfOrg" ).set( comment );
     
@@ -553,8 +551,9 @@ function rejectedSubmit() {
     moveFbRecord( oldRef, newRefToCopy_rejected );
    
     copyFbRecord( newRefToCopy_rejected, newRef_rejected );
-    
+
     $( '#id02' ).css( 'display', 'none' );
+    func();
   }
 
 function inProcessSubmit() {
@@ -566,18 +565,15 @@ function inProcessSubmit() {
     var date = $( '#expected_date' ).val();
     var budjet = $( '#budjet' ).val();
     var note = $( '#note' ).val();
-
-
     oldRef.child( "Key" ).set( complaintKey );
     oldRef.child( "ResponsiblePerson" ).set( responsible );
     oldRef.child( "ExpectedDate" ).set( budjet );
     oldRef.child( "Note" ).set( note );
     oldRef.child( "Checked" ).set( "false" );
-
     moveFbRecord( oldRef, newRef_inProcess );
     copyFbRecord( newRef_inProcess, newRefToCopy_inProcess );
-
     document.getElementById( 'id03' ).style.display = 'none';
+    func();
   }
 
  function moveFbRecord( oldRef, newRef ) {
@@ -602,9 +598,6 @@ function copyFbRecord( oldRef, newRef ) {
       } );
     } );
   }
-
-
-
 
 function FirebaseSubmitInProcess() {
     var keygen = genKey();
