@@ -142,7 +142,6 @@ function func() {
       avatar.className = 'avatar';
       var img = document.createElement( 'img' );
       var userRef = dbRef.ref( "user/" + senderEmailRejected + "/" );
-      console.log("Sender Email from listviewRejected " + senderEmailRejected);
       userRef.once( 'value' ).then( function( datashot ) {
         img.setAttribute( 'src', datashot.val().photo );
       } );
@@ -445,7 +444,6 @@ function func() {
     numberObject.text( snap.val() );
   } );
   $( ':radio' ).change( function() {
-    console.log( 'New star rating: ' + this.value );
     starRating = this.value;
   } );
 
@@ -532,7 +530,6 @@ function FirebaseSubmit() {
 function rejectedSubmit() {
     var keygen = genKey();
     var reason = $( '#reasonsRejected option:selected' ).text();
-    console.log(reason);
     var comment = $( '#commentRejected' ).val();
     var nameOfOrganization = $( '#organization_name' ).text();
     var d = new Date();
