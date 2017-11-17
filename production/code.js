@@ -543,17 +543,11 @@ function rejectedSubmit() {
     oldRef.child( "Organization" ).set( nameOfOrganization );
     oldRef.child( "Key" ).set( keygen );
     oldRef.child( "reason" ).set( reason );
-    console.log("Created child "+reason);
     oldRef.child( "CommentsOfOrg" ).set( comment );
-    console.log("Created child "+comment);
     oldRef.child( "CompletionDate" ).set( rejectedDate );
-    console.log("Created child "+rejectedDate);
     oldRef.child( "Checked" ).set( "false" );
-    console.log("Created child "+"checked");
     moveFbRecord( oldRef, newRefToCopy_rejected );
-    console.log("Moved in database");
     copyFbRecord( newRefToCopy_rejected, newRef_rejected );
-    console.log("Copied to userDb");
     $( '#id02' ).css( 'display', 'none' );
     func();
   }
