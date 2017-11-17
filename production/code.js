@@ -531,32 +531,29 @@ function rejectedSubmit() {
     var d = new Date();
     var rejectedDate = d.getFullYear() + "/" + ( d.getMonth() + 1 ) + "/" + d.getDate();
     var oldRef = dbRef.ref( "Complain/Tashkent/Nam-gu/Trash/New/" + complaintId + '/' );
-<<<<<<< HEAD
     var newRef_rejected = dbRef.ref( "user/" + senderEmailRejected + "/complains/rejected/" + complaintNumberInRejected );
     var newRefToCopy_rejected = dbRef.ref( "Complain/Tashkent/Nam-gu/Trash/Rejected/" + complaintNumberInRejected );
-    console.log("Sender Emial:" + senderEmailRejected);
+   
     oldRef.child( "Organization" ).set( nameOfOrganization );
-    console.log("Created child "+nameOfOrganization);
+    
     oldRef.child( "Key" ).set( complaintNumberInRejected );
-    console.log("Created child "+complaintNumberInRejected);
-=======
+    
     var newRef_rejected = dbRef.ref( "user/" + senderEmailNew + "/complains/rejected/" + keygen );
     var newRefToCopy_rejected = dbRef.ref( "Complain/Tashkent/Nam-gu/Trash/Rejected/" + keygen );
     oldRef.child( "Organization" ).set( nameOfOrganization );
     oldRef.child( "Key" ).set( keygen );
->>>>>>> aaf18747186eef8602e62cfeaf089edb233fc47d
     oldRef.child( "reason" ).set( reason );
-    console.log("Created child "+reason);
+    
     oldRef.child( "CommentsOfOrg" ).set( comment );
-    console.log("Created child "+comment);
+    
     oldRef.child( "CompletionDate" ).set( rejectedDate );
-    console.log("Created child "+rejectedDate);
+    
     oldRef.child( "Checked" ).set( "false" );
-    console.log("Created child "+"checked");
+    
     moveFbRecord( oldRef, newRefToCopy_rejected );
-    console.log("Moved in database");
+   
     copyFbRecord( newRefToCopy_rejected, newRef_rejected );
-    console.log("Copied to userDb");
+    
     $( '#id02' ).css( 'display', 'none' );
   }
 
@@ -605,7 +602,7 @@ function copyFbRecord( oldRef, newRef ) {
       } );
     } );
   }
-<<<<<<< HEAD
+
 
 
 
@@ -648,9 +645,4 @@ function FirebaseSubmitInProcess() {
       document.getElementById( 'CompleteFormInProcess' ).style.display = 'none';
     } );
   }
-// oxirgisi
-=======
-// ////test
-//test
-//test
->>>>>>> aaf18747186eef8602e62cfeaf089edb233fc47d
+
