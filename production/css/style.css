@@ -663,4 +663,9 @@ textarea {
   border-radius: 8px;
 }
 
+.container_for_chart {
+  width: 30%;
+  margin: 15px auto;
+}
+
 
