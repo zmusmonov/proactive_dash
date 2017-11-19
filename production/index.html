@@ -305,13 +305,11 @@
 										<span class="close" onclick="document.getElementById('CompleteFormInProcess').style.display='none'" title="Close Modal">×</span>
 										<form action="/action_page.php" class="modal-content animate">
 											<div class="container">
-												<label><b>Organization:</b></label> <input id="organization_name_form" name="rate" placeholder="Organization" required="" type="text"> <label><b>Responsible Person:</b></label> <input id="responsible_person" name="rate" placeholder="Name" required="" type="text"> <label><b>Photo Attachment:</b></label><br>
+												<label><b>Photo Attachment:</b></label><br>
 												<div class="btn-group">
 													<input id="imgInput" type="file"> <img id="image" src="#"><br>
 												</div><br>
-												<label><b>Complation Date:</b></label><br>
-												<input id="completion_date" name="rate" placeholder="Date" required="" type="date"><br>
-												<br>
+												
 												<label><b>Organization Rate:</b></label><br>
 												<div class="rating">
 													<label><input name="stars" type="radio" value="1"> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="2"> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="3"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="4"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="5"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label>
@@ -407,6 +405,9 @@
 	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 	<script src="../vendors/sweetalert2/dist/sweetalert2.all.min.js"></script> 
 	<script src="../build/js/custom.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	<script type="text/javascript">
+
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClq2kdiDboyMJs1QxISwIMT5VpUZKOGVU&zallback=myMap"></script>
 </body>
 </html>

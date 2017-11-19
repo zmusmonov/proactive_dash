@@ -20,18 +20,19 @@ var pObject1 = $( '#name_of_employee1' );
 var titleObject = $( '#organization_name' );
 var posObject = $( '#get_position' );
 var numberObject = $( '#get_number' );
-var longitute=51.508742;
-var latitude=-0.120850;
+var longitute;
+var latitude;
 function myMap(latitude, longitute) {
-/*var mapProp= {
-    center:new google.maps.LatLng(latitude,longitute),
-    zoom:19,
-};
-var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  var mapProp= {lat: Number(latitude), lng: Number(longitute)};
+var map = new google.maps.Map(document.getElementById("googleMap"),{
+  zoom: 19,
+  center: mapProp
+  });
 var marker = new google.maps.Marker({
           position: mapProp,
-          map: map
-        });*/
+          map: map,
+          title: 'Hello World!'
+        });
 }
 
 
@@ -598,14 +599,13 @@ function InProcessToCompleted() {
     uploadTask.on( 'state_changed', function( snapshot ) {
     }, function( error ) {
     }, function() {
-      var responsible_person = $( '#responsible_person' ).val();
+      var d = new Date();
+    var completion_date = d.getFullYear() + "/" + ( d.getMonth() + 1 ) + "/" + d.getDate();
       var downloadURL = uploadTask.snapshot.downloadURL;
-      var completion_date = $( '#completion_date' ).val();
       var e = document.getElementById( "scope_of_work" );
       var scope = e.options[ e.selectedIndex ].text;
       var finance_of_work = $( '#finance_of_work' ).val();
       var commentsOfOrg = $( '#message' ).val();
-      oldReference.child( "Checked" ).set( "false" );
       oldReference.child( "Organization" ).set( organName );
       oldReference.child( "latercomment" ).set( "" );
       oldReference.child( "RespondRateFromUser" ).set( 0 );
