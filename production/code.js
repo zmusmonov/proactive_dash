@@ -14,7 +14,7 @@ var senderEmailRejected;
 var senderEmailCompleted;
 var senderEmailInProcess;
 var starRating;
-
+var counterFORread = 0;
 var pObject = $( '#name_of_employee' );
 var pObject1 = $( '#name_of_employee1' );
 var titleObject = $( '#organization_name' );
@@ -22,6 +22,7 @@ var posObject = $( '#get_position' );
 var numberObject = $( '#get_number' );
 var longitute=51.508742;
 var latitude=-0.120850;
+
 function myMap(latitude, longitute) {
 /*var mapProp= {
     center:new google.maps.LatLng(latitude,longitute),
@@ -35,31 +36,31 @@ var marker = new google.maps.Marker({
 }
 
 
-var counter = $( '#newCom' );
-var counterCompleted = $( '#completedMess' );
-var counterProcess = $( '#in_Process' );
-var counterRejected = $( '#rejected' );
-var organName;
-const dbRefObject = firebase.database().ref( 'organization/employee/name/' );
-const nameObject = firebase.database().ref( 'organization/employee/name/' );
-const getPosition = firebase.database().ref( 'organization/employee/position/' );
-const getNumber = firebase.database().ref( 'organization/employee/number/' );
-const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/Trash/' );
+    var counter = $( '#newCom' );
+    var counterCompleted = $( '#completedMess' );
+    var counterProcess = $( '#in_Process' );
+    var counterRejected = $( '#rejected' );
+    var organName;
+    const dbRefObject = firebase.database().ref( 'organization/employee/name/' );
+    const nameObject = firebase.database().ref( 'organization/employee/name/' );
+    const getPosition = firebase.database().ref( 'organization/employee/position/' );
+    const getNumber = firebase.database().ref( 'organization/employee/number/' );
+    const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/Trash/' );
 
-counterFirebase.child( "New" ).on( "value", function( snapshot ) {
-  counter.text( snapshot.numChildren() );
-} );
-counterFirebase.child( "Completed" ).on( "value", function( snapshot ) {
-  counterCompleted.text( snapshot.numChildren() );
-} );
-counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
-  counterProcess.text( snapshot.numChildren() );
-} );
-counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
-  counterRejected.text( snapshot.numChildren() );
-} );
+    counterFirebase.child( "New" ).on( "value", function( snapshot ) {
+      counter.text( snapshot.numChildren() );
+    } );
+    counterFirebase.child( "Completed" ).on( "value", function( snapshot ) {
+      counterCompleted.text( snapshot.numChildren() );
+    } );
+    counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
+      counterProcess.text( snapshot.numChildren() );
+    } );
+    counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
+      counterRejected.text( snapshot.numChildren() );
+    } );
 
-firebase.database().ref( 'organization/employee/name' ).on( "value", function( snapshot ) {
+  firebase.database().ref( 'organization/employee/name' ).on( "value", function( snapshot ) {
     pObject.text( snapshot.val() );
     pObject1.text( snapshot.val() );
   } );
@@ -75,7 +76,8 @@ firebase.database().ref( 'organization/employee/name' ).on( "value", function( s
   } );
   
 // Synchronizing object changes
-func();
+  func();
+
 function func() {
   var itemNew = $( '#listviewNew' );
  
@@ -84,6 +86,8 @@ function func() {
     snapshot.forEach( function( childSnapshot ) {
       var key = childSnapshot.key;
       var childData = childSnapshot.val();
+      
+
       var comment = childData.comment;
       var location = childData.location;
       var photo = childData.photo;
@@ -432,7 +436,6 @@ function func() {
     $('#CompletedDiv').css("display","block");
   });
 
-  id03
 
   var modal = $( '#CompleteForm' );
   // When the user clicks anywhere outside of the modal, close it
@@ -447,25 +450,38 @@ function func() {
   } );
 
   // function for displaying image downloaded by the user
-  function readURL( input ) {
-    if ( input.files && input.files[ 0 ] ) {
-      var reader = new FileReader();
-      reader.onload = function( e ) {
-        $( '#image' ).attr( 'src', e.target.result );
-      }
-      reader.readAsDataURL( input.files[ 0 ] );
-    }
-  }
+  
   $( "#imgInput" ).change( function() {
     readURL( this );
-  } );
+  });
+
+   $( "#imgInput2" ).change( function() {
+    readURL( this );
+  });
+
   var fileButton = document.getElementById( 'imgInput' );
   fileButton.addEventListener( 'change', function( e ) {
     file = e.target.files[ 0 ];
     filename = file.name;
   } );
+
+  var fileButton2 = document.getElementById( 'imgInput2' );
+  fileButton2.addEventListener( 'change', function( e ) {
+    file2 = e.target.files[ 0 ];
+    filename2 = file2.name;
+  } );
 }
 
+function readURL( input ) {
+    if ( input.files && input.files[ 0 ] ) {
+      var reader = new FileReader();
+      
+      reader.onload = function( e ) {
+        $( '#image' ).attr( 'src', e.target.result );
+      }
+      reader.readAsDataURL( input.files[ 0 ] );
+    }
+  };
 /////////////////////////////////////
 ///OUTSIDE func /////////////////////
 /////////////////////////////////////
@@ -600,8 +616,8 @@ function InProcessToCompleted() {
     var newReferenceToCopy_completed = firebase.database().ref( 'user/' + senderEmailInProcess + '/complains/completed/' + complaintId + '/' );
     var oldRefToDelete = firebase.database().ref( 'user/' + senderEmailInProcess + '/complains/inProcess/' + complaintId + '/' );
     oldRefToDelete.remove();
-    var storageRef = firebase.storage().ref( 'response_images/' + filename );
-    var uploadTask = storageRef.put( file );
+    var storageRef = firebase.storage().ref( 'response_images/' + filename2 );
+    var uploadTask = storageRef.put( file2 );
     uploadTask.on( 'state_changed', function( snapshot ) {
     }, function( error ) {
     }, function() {
@@ -656,3 +672,69 @@ function InProcessToRejected() {
     func();
   }
 
+  function showStatistics(){
+  /*var new_counter;
+  	var rootRef = firebase.database().ref();
+  	var counterRef = rootRef.child("Complain/Tashkent/Nam-gu/Trash/New/new_count");
+  	counterRef.once("value",function(snapshot){
+  		snapshot.forEach(function(child){
+  			new_counter = child.val();
+  			console.log("counter value using node.js " + new_counter);
+  		})
+  	})
+  	console.log("counter from node.js value " + new_counter);*/
+  	var ctx = document.getElementById("pieChart").getContext('2d');
+	var myChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ["New", "Completed", "Rejected", "In Process"],
+    datasets: [{
+      backgroundColor: [
+        "#2ecc71",
+        "#3498db",
+        "#95a5a6",
+        "#9b59b6"
+      ],
+      data: [5, 10, 2, 4]
+    }]
+  }
+});
+
+
+var ctx2 = document.getElementById("polarChart").getContext('2d');
+var myChart2 = new Chart(ctx2, {
+  type: 'polarArea',
+  data: {
+    labels: ["alredy done", "inacceptable complaint", "bad photo quality", "problem not found in located area"],
+    datasets: [{
+      backgroundColor: [
+        "#2ecc71",
+        "#3498db",
+        "#95a5a6",
+        "#9b59b6"
+      ],
+      data: [4, 5, 3, 3]
+    }]
+  }
+});
+
+var ctx3 = document.getElementById("barChart").getContext('2d');
+var myChart3 = new Chart(ctx3, {
+  type: 'bar',
+  data: {
+    labels: ["Sep", "Oct", "Nov", "Dec"],
+    datasets: [{
+      label: 'New',
+      data: [10, 12, 11, 0],
+      backgroundColor: "rgba(153,255,51,1)"
+    }, {
+      label: 'Completed',
+      data: [9, 10, 11, 0],
+      backgroundColor: "rgba(255,153,0,1)"
+    }]
+  }
+ });
+}
+
+
+  
