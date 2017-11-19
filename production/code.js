@@ -48,16 +48,16 @@ var marker = new google.maps.Marker({
     const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/Trash/' );
 
     counterFirebase.child( "New" ).on( "value", function( snapshot ) {
-      counter.text( snapshot.numChildren() );
+      counter.text( snapshot.val().new_count );
     } );
     counterFirebase.child( "Completed" ).on( "value", function( snapshot ) {
-      counterCompleted.text( snapshot.numChildren() );
+      counterCompleted.text( snapshot.val().completed_count );
     } );
     counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
-      counterProcess.text( snapshot.numChildren() );
+      counterProcess.text( snapshot.val().inProcess_count );
     } );
     counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
-      counterRejected.text( snapshot.numChildren() );
+      counterRejected.text( snapshot.val().rejected_count );
     } );
 
   firebase.database().ref( 'organization/employee/name' ).on( "value", function( snapshot ) {
@@ -80,111 +80,121 @@ var marker = new google.maps.Marker({
 
 function func() {
   var itemNew = $( '#listviewNew' );
- 
-  var queryToNew = firebase.database().ref( "Complain/Tashkent/Nam-gu/Trash/New/" ).orderByKey();
-  queryToNew.once( "value" ).then( function( snapshot ) {
-    snapshot.forEach( function( childSnapshot ) {
-      var key = childSnapshot.key;
-      var childData = childSnapshot.val();
-      
-
-      var comment = childData.comment;
-      var location = childData.location;
-      var photo = childData.photo;
-      var sender = childData.sender;
-      senderEmailNew = childData.emailCOMP;
-      var status = childData.status;
-      var time = childData.time;
-      var type = childData.type;
-      var contentDiv = document.createElement( 'div' );
-      contentDiv.id = key;
-      contentDiv.className = 'contentNew';
-      var itemActiveDiv = document.createElement( 'div' );
-      itemActiveDiv.className = 'item';
-      var avatar = document.createElement( 'span' );
-      avatar.className = 'avatar';
-      var img = document.createElement( 'img' );
-      var userRef = dbRef.ref( "user/" + senderEmailNew + "/" );
-      userRef.once( 'value' ).then( function( datashot ) {
-        img.setAttribute( 'src', datashot.val().photo );
-      } );
-      img.setAttribute( 'height', '60px' );
-      img.setAttribute( 'width', '60px' );
-      avatar.append( img );
-      var descDiv = document.createElement( 'div' );
-      descDiv.className = 'desc';
-      var h2 = document.createElement( 'h2' );
-      h2.innerHTML = sender;
-      var h6 = document.createElement( 'h6' );
-      h6.innerHTML = type;
-      var p = document.createElement( 'p' );
-      p.innerHTML = comment;
-      var timeSpan = document.createElement( 'span' );
-      timeSpan.className = 'time';
-      timeSpan.innerHTML = time;
-      descDiv.appendChild( h2 );
-      descDiv.appendChild( h6 );
-      descDiv.appendChild( p );
-      itemActiveDiv.appendChild( avatar );
-      itemActiveDiv.appendChild( descDiv );
-      itemActiveDiv.appendChild( timeSpan );
-      contentDiv.appendChild( itemActiveDiv );
-      itemNew.append( contentDiv );
-    } )
-  } );
-
+  var queryToNew = firebase.database()
+    .ref( "Complain/Tashkent/Nam-gu/Trash/New/" )
+    .orderByKey();
+  queryToNew.once( "value" )
+    .then( function( snapshot ) {
+        snapshot.forEach( function( childSnapshot ) {
+            var key = childSnapshot.key;
+            if ( key.localeCompare( "new_count" ) != 0 ) {
+              var childData = childSnapshot.val();
+              var comment = childData.comment;
+              var location = childData.location;
+              var photo = childData.photo;
+              var sender = childData.sender;
+              senderEmailNew = childData.emailCOMP;
+              var status = childData.status;
+              var time = childData.time;
+              var type = childData.type;
+              var contentDiv = document.createElement( 'div' );
+              contentDiv.id = key;
+              contentDiv.className = 'contentNew';
+              var itemActiveDiv = document.createElement( 'div' );
+              itemActiveDiv.className = 'item';
+              var avatar = document.createElement( 'span' );
+              avatar.className = 'avatar';
+              var img = document.createElement( 'img' );
+              var userRef = dbRef.ref( "user/" + senderEmailNew + "/" );
+              userRef.once( 'value' )
+                .then( function( datashot ) {
+                  img.setAttribute( 'src', datashot.val()
+                    .photo );
+                } );
+              img.setAttribute( 'height', '60px' );
+              img.setAttribute( 'width', '60px' );
+              avatar.append( img );
+              var descDiv = document.createElement( 'div' );
+              descDiv.className = 'desc';
+              var h2 = document.createElement( 'h2' );
+              h2.innerHTML = sender;
+              var h6 = document.createElement( 'h6' );
+              h6.innerHTML = type;
+              var p = document.createElement( 'p' );
+              p.innerHTML = comment;
+              var timeSpan = document.createElement( 'span' );
+              timeSpan.className = 'time';
+              timeSpan.innerHTML = time;
+              descDiv.appendChild( h2 );
+              descDiv.appendChild( h6 );
+              descDiv.appendChild( p );
+              itemActiveDiv.appendChild( avatar );
+              itemActiveDiv.appendChild( descDiv );
+              itemActiveDiv.appendChild( timeSpan );
+              contentDiv.appendChild( itemActiveDiv );
+              itemNew.append( contentDiv );
+            }
+          }
+                 )} );
   //////////// SAME STAFF FOR REJECTED
 
   var itemRejected = $( '#listviewRejected' );
-  var queryToRejected = firebase.database().ref( 'Complain/Tashkent/Nam-gu/Trash/Rejected/' ).orderByKey();
-  queryToRejected.once( "value" ).then( function( snapshot ) {
-    snapshot.forEach( function( childSnapshot ) {
-      var key = childSnapshot.key;
-      var childData = childSnapshot.val();
-      var comment = childData.comment;
-      var location = childData.location;
-      var photo = childData.photo;
-      var sender = childData.sender;
-      senderEmailRejected = childData.emailCOMP;
-      var status = childData.status;
-      var time = childData.time;
-      var type = childData.type;
-      var contentDiv = document.createElement( 'div' );
-      contentDiv.id = key;
-      contentDiv.className = 'contentRejected';
-      var itemActiveDiv = document.createElement( 'div' );
-      itemActiveDiv.className = 'item';
-      var avatar = document.createElement( 'span' );
-      avatar.className = 'avatar';
-      var img = document.createElement( 'img' );
-      var userRef = dbRef.ref( "user/" + senderEmailRejected + "/" );
-      userRef.once( 'value' ).then( function( datashot ) {
-        img.setAttribute( 'src', datashot.val().photo );
-      } );
-      img.setAttribute( 'height', '60px' );
-      img.setAttribute( 'width', '60px' );
-      avatar.append( img );
-      var descDiv = document.createElement( 'div' );
-      descDiv.className = 'desc';
-      var h2 = document.createElement( 'h2' );
-      h2.innerHTML = sender;
-      var h6 = document.createElement( 'h6' );
-      h6.innerHTML = type;
-      var p = document.createElement( 'p' );
-      p.innerHTML = comment;
-      var timeSpan = document.createElement( 'span' );
-      timeSpan.className = 'time';
-      timeSpan.innerHTML = time;
-      descDiv.appendChild( h2 );
-      descDiv.appendChild( h6 );
-      descDiv.appendChild( p );
-      itemActiveDiv.appendChild( avatar );
-      itemActiveDiv.appendChild( descDiv );
-      itemActiveDiv.appendChild( timeSpan );
-      contentDiv.appendChild( itemActiveDiv );
-      itemRejected.append( contentDiv );
-    } )
-  } );
+  var queryToRejected = firebase.database()
+    .ref( 'Complain/Tashkent/Nam-gu/Trash/Rejected/' )
+    .orderByKey();
+  queryToRejected.once( "value" )
+    .then( function( snapshot ) {
+      snapshot.forEach( function( childSnapshot ) {
+        var key = childSnapshot.key;
+        if ( key.localeCompare( "rejected_count" ) != 0 ) {
+          var childData = childSnapshot.val();
+          var comment = childData.comment;
+          var location = childData.location;
+          var photo = childData.photo;
+          var sender = childData.sender;
+          senderEmailRejected = childData.emailCOMP;
+          var status = childData.status;
+          var time = childData.time;
+          var type = childData.type;
+          var contentDiv = document.createElement( 'div' );
+          contentDiv.id = key;
+          contentDiv.className = 'contentRejected';
+          var itemActiveDiv = document.createElement( 'div' );
+          itemActiveDiv.className = 'item';
+          var avatar = document.createElement( 'span' );
+          avatar.className = 'avatar';
+          var img = document.createElement( 'img' );
+          var userRef = dbRef.ref( "user/" + senderEmailRejected + "/" );
+          userRef.once( 'value' )
+            .then( function( datashot ) {
+              img.setAttribute( 'src', datashot.val()
+                .photo );
+            } );
+          img.setAttribute( 'height', '60px' );
+          img.setAttribute( 'width', '60px' );
+          avatar.append( img );
+          var descDiv = document.createElement( 'div' );
+          descDiv.className = 'desc';
+          var h2 = document.createElement( 'h2' );
+          h2.innerHTML = sender;
+          var h6 = document.createElement( 'h6' );
+          h6.innerHTML = type;
+          var p = document.createElement( 'p' );
+          p.innerHTML = comment;
+          var timeSpan = document.createElement( 'span' );
+          timeSpan.className = 'time';
+          timeSpan.innerHTML = time;
+          descDiv.appendChild( h2 );
+          descDiv.appendChild( h6 );
+          descDiv.appendChild( p );
+          itemActiveDiv.appendChild( avatar );
+          itemActiveDiv.appendChild( descDiv );
+          itemActiveDiv.appendChild( timeSpan );
+          contentDiv.appendChild( itemActiveDiv );
+          itemRejected.append( contentDiv );
+        }
+      } )
+    } );
 
 
   /////////// ENDS HERE
@@ -195,10 +205,9 @@ function func() {
   
     var queryToCompleted = firebase.database().ref( "Complain/Tashkent/Nam-gu/Trash/Completed/" ).orderByKey();
     queryToCompleted.once( "value" ).then( function( snapshot ) {
-
     snapshot.forEach( function( childSnapshot ) {
-
       var key = childSnapshot.key;
+      if ( key.localeCompare( "completed_count" ) != 0 ) {
       var childData = childSnapshot.val();
       var comment = childData.comment;
       var location = childData.location;
@@ -242,7 +251,7 @@ function func() {
       itemActiveDiv.appendChild( timeSpan );
       contentDiv.appendChild( itemActiveDiv );
       itemCompleted.append( contentDiv );
-    } )
+    }} )
   } );
 
   /////////////////// ENDS HERE
@@ -251,10 +260,9 @@ function func() {
     var itemInProcess = $( '#listviewInProcess' );
     var queryToInProcess = firebase.database().ref( "Complain/Tashkent/Nam-gu/Trash/inProcess/" ).orderByKey();
     queryToInProcess.once( "value" ).then( function( snapshot ) {
-
     snapshot.forEach( function( childSnapshot ) {
-
       var key = childSnapshot.key;
+      if ( key.localeCompare( "inProcess_count" ) != 0 ) {
       var childData = childSnapshot.val();
       var comment = childData.comment;
       var location = childData.location;
@@ -298,7 +306,7 @@ function func() {
       itemActiveDiv.appendChild( timeSpan );
       contentDiv.appendChild( itemActiveDiv );
       itemInProcess.append( contentDiv );
-    } )
+    }} )
   } );
 
   /////////////////////// ENDS HERE
@@ -578,7 +586,7 @@ function NewToInProcess() {
     oldRef.child( "Organization" ).set( organName );
     oldRef.child( "Checked" ).set( "false" );
     oldRef.child( "ResponsiblePerson" ).set( responsible );
-    oldRef.child( "ExpectedDate" ).set( budjet );
+    oldRef.child( "ExpectedBudjet" ).set( budjet );
     oldRef.child( "Note" ).set( note );
     oldRef.child( "Checked" ).set( "false" );
     moveFbRecord( oldRef, newRef_inProcess );
