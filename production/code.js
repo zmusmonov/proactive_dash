@@ -5,7 +5,10 @@ const config = {
   storageBucket: "proactiveweb-1e68d.appspot.com",
 };
 
-
+var new_counter;
+var inProcess_counter;
+var rejected_counter;
+var completed_counter;
 firebase.initializeApp( config );
 const dbRef = firebase.database();
 var complaintId;
@@ -48,16 +51,20 @@ var marker = new google.maps.Marker({
     const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/Trash/' );
 
     counterFirebase.child( "New" ).on( "value", function( snapshot ) {
-      counter.text( snapshot.numChildren() );
+      counter.text(snapshot.val().new_count);
+      new_counter = counter.text(snapshot.val().new_count).text();
     } );
     counterFirebase.child( "Completed" ).on( "value", function( snapshot ) {
-      counterCompleted.text( snapshot.numChildren() );
+      counterCompleted.text(snapshot.val().completed_count);
+      completed_counter = counterCompleted.text(snapshot.val().completed_count ).text();
     } );
     counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
-      counterProcess.text( snapshot.numChildren() );
+      counterProcess.text( snapshot.val().inProcess_count);
+      inProcess_counter = counterProcess.text( snapshot.val().inProcess_count ).text();
     } );
     counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
-      counterRejected.text( snapshot.numChildren() );
+      counterRejected.text( snapshot.val().rejected_count);
+      rejected_counter =  counterRejected.text( snapshot.val().rejected_count).text();
     } );
 
   firebase.database().ref( 'organization/employee/name' ).on( "value", function( snapshot ) {
@@ -673,32 +680,27 @@ function InProcessToRejected() {
   }
 
   function showStatistics(){
-  /*var new_counter;
-  	var rootRef = firebase.database().ref();
-  	var counterRef = rootRef.child("Complain/Tashkent/Nam-gu/Trash/New/new_count");
-  	counterRef.once("value",function(snapshot){
-  		snapshot.forEach(function(child){
-  			new_counter = child.val();
-  			console.log("counter value using node.js " + new_counter);
-  		})
-  	})
-  	console.log("counter from node.js value " + new_counter);*/
+  	var new_counter;
+  	firebase.database().ref( 'Complain/Tashkent/Nam-gu/Trash/' ).child( "New" ).on( "value", function( snapshot ) {
+      new_counter = counter.text(snapshot.val().new_count).text();
+    } );
+  	console.log("node js value for counter " + new_counter);
   	var ctx = document.getElementById("pieChart").getContext('2d');
 	var myChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ["New", "Completed", "Rejected", "In Process"],
-    datasets: [{
-      backgroundColor: [
-        "#2ecc71",
-        "#3498db",
-        "#95a5a6",
-        "#9b59b6"
-      ],
-      data: [5, 10, 2, 4]
-    }]
-  }
-});
+	  type: 'doughnut',
+	  data: {
+	    labels: ["New", "Completed", "Rejected", "In Process"],
+	    datasets: [{
+	      backgroundColor: [
+	        "#2ecc71",
+	        "#3498db",
+	        "#95a5a6",
+	        "#9b59b6"
+	      ],
+	      data: [5, 10, 2, 4]
+	    }]
+	  }
+	});
 
 
 var ctx2 = document.getElementById("polarChart").getContext('2d');
