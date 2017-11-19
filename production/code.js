@@ -4,8 +4,7 @@ const config = {
   databaseURL: "https://proactiveweb-1e68d.firebaseio.com/",
   storageBucket: "proactiveweb-1e68d.appspot.com",
 };
-
-var new_counter;
+ var new_counter;
 var inProcess_counter;
 var rejected_counter;
 var completed_counter;
@@ -23,19 +22,19 @@ var pObject1 = $( '#name_of_employee1' );
 var titleObject = $( '#organization_name' );
 var posObject = $( '#get_position' );
 var numberObject = $( '#get_number' );
-var longitute=51.508742;
-var latitude=-0.120850;
-
+var longitute;
+var latitude;
 function myMap(latitude, longitute) {
-/*var mapProp= {
-    center:new google.maps.LatLng(latitude,longitute),
-    zoom:19,
-};
-var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  var mapProp= {lat: Number(latitude), lng: Number(longitute)};
+var map = new google.maps.Map(document.getElementById("googleMap"),{
+  zoom: 19,
+  center: mapProp
+  });
 var marker = new google.maps.Marker({
           position: mapProp,
-          map: map
-        });*/
+          map: map,
+          title: 'Hello World!'
+        });
 }
 
 
@@ -52,21 +51,25 @@ var marker = new google.maps.Marker({
 
     counterFirebase.child( "New" ).on( "value", function( snapshot ) {
       counter.text(snapshot.val().new_count);
-      new_counter = counter.text(snapshot.val().new_count).text();
+      new_counter = snapshot.val().new_count;
     } );
+    
     counterFirebase.child( "Completed" ).on( "value", function( snapshot ) {
       counterCompleted.text(snapshot.val().completed_count);
       completed_counter = counterCompleted.text(snapshot.val().completed_count ).text();
     } );
+
     counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
       counterProcess.text( snapshot.val().inProcess_count);
       inProcess_counter = counterProcess.text( snapshot.val().inProcess_count ).text();
     } );
+    
     counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
       counterRejected.text( snapshot.val().rejected_count);
       rejected_counter =  counterRejected.text( snapshot.val().rejected_count).text();
+      showStatistics();
     } );
-
+    
   firebase.database().ref( 'organization/employee/name' ).on( "value", function( snapshot ) {
     pObject.text( snapshot.val() );
     pObject1.text( snapshot.val() );
@@ -87,111 +90,121 @@ var marker = new google.maps.Marker({
 
 function func() {
   var itemNew = $( '#listviewNew' );
- 
-  var queryToNew = firebase.database().ref( "Complain/Tashkent/Nam-gu/Trash/New/" ).orderByKey();
-  queryToNew.once( "value" ).then( function( snapshot ) {
-    snapshot.forEach( function( childSnapshot ) {
-      var key = childSnapshot.key;
-      var childData = childSnapshot.val();
-      
-
-      var comment = childData.comment;
-      var location = childData.location;
-      var photo = childData.photo;
-      var sender = childData.sender;
-      senderEmailNew = childData.emailCOMP;
-      var status = childData.status;
-      var time = childData.time;
-      var type = childData.type;
-      var contentDiv = document.createElement( 'div' );
-      contentDiv.id = key;
-      contentDiv.className = 'contentNew';
-      var itemActiveDiv = document.createElement( 'div' );
-      itemActiveDiv.className = 'item';
-      var avatar = document.createElement( 'span' );
-      avatar.className = 'avatar';
-      var img = document.createElement( 'img' );
-      var userRef = dbRef.ref( "user/" + senderEmailNew + "/" );
-      userRef.once( 'value' ).then( function( datashot ) {
-        img.setAttribute( 'src', datashot.val().photo );
-      } );
-      img.setAttribute( 'height', '60px' );
-      img.setAttribute( 'width', '60px' );
-      avatar.append( img );
-      var descDiv = document.createElement( 'div' );
-      descDiv.className = 'desc';
-      var h2 = document.createElement( 'h2' );
-      h2.innerHTML = sender;
-      var h6 = document.createElement( 'h6' );
-      h6.innerHTML = type;
-      var p = document.createElement( 'p' );
-      p.innerHTML = comment;
-      var timeSpan = document.createElement( 'span' );
-      timeSpan.className = 'time';
-      timeSpan.innerHTML = time;
-      descDiv.appendChild( h2 );
-      descDiv.appendChild( h6 );
-      descDiv.appendChild( p );
-      itemActiveDiv.appendChild( avatar );
-      itemActiveDiv.appendChild( descDiv );
-      itemActiveDiv.appendChild( timeSpan );
-      contentDiv.appendChild( itemActiveDiv );
-      itemNew.append( contentDiv );
-    } )
-  } );
-
+  var queryToNew = firebase.database()
+    .ref( "Complain/Tashkent/Nam-gu/Trash/New/" )
+    .orderByKey();
+  queryToNew.once( "value" )
+    .then( function( snapshot ) {
+        snapshot.forEach( function( childSnapshot ) {
+            var key = childSnapshot.key;
+            if ( key.localeCompare( "new_count" ) != 0 ) {
+              var childData = childSnapshot.val();
+              var comment = childData.comment;
+              var location = childData.location;
+              var photo = childData.photo;
+              var sender = childData.sender;
+              senderEmailNew = childData.emailCOMP;
+              var status = childData.status;
+              var time = childData.time;
+              var type = childData.type;
+              var contentDiv = document.createElement( 'div' );
+              contentDiv.id = key;
+              contentDiv.className = 'contentNew';
+              var itemActiveDiv = document.createElement( 'div' );
+              itemActiveDiv.className = 'item';
+              var avatar = document.createElement( 'span' );
+              avatar.className = 'avatar';
+              var img = document.createElement( 'img' );
+              var userRef = dbRef.ref( "user/" + senderEmailNew + "/" );
+              userRef.once( 'value' )
+                .then( function( datashot ) {
+                  img.setAttribute( 'src', datashot.val()
+                    .photo );
+                } );
+              img.setAttribute( 'height', '60px' );
+              img.setAttribute( 'width', '60px' );
+              avatar.append( img );
+              var descDiv = document.createElement( 'div' );
+              descDiv.className = 'desc';
+              var h2 = document.createElement( 'h2' );
+              h2.innerHTML = sender;
+              var h6 = document.createElement( 'h6' );
+              h6.innerHTML = type;
+              var p = document.createElement( 'p' );
+              p.innerHTML = comment;
+              var timeSpan = document.createElement( 'span' );
+              timeSpan.className = 'time';
+              timeSpan.innerHTML = time;
+              descDiv.appendChild( h2 );
+              descDiv.appendChild( h6 );
+              descDiv.appendChild( p );
+              itemActiveDiv.appendChild( avatar );
+              itemActiveDiv.appendChild( descDiv );
+              itemActiveDiv.appendChild( timeSpan );
+              contentDiv.appendChild( itemActiveDiv );
+              itemNew.append( contentDiv );
+            }
+          }
+                 )} );
   //////////// SAME STAFF FOR REJECTED
 
   var itemRejected = $( '#listviewRejected' );
-  var queryToRejected = firebase.database().ref( 'Complain/Tashkent/Nam-gu/Trash/Rejected/' ).orderByKey();
-  queryToRejected.once( "value" ).then( function( snapshot ) {
-    snapshot.forEach( function( childSnapshot ) {
-      var key = childSnapshot.key;
-      var childData = childSnapshot.val();
-      var comment = childData.comment;
-      var location = childData.location;
-      var photo = childData.photo;
-      var sender = childData.sender;
-      senderEmailRejected = childData.emailCOMP;
-      var status = childData.status;
-      var time = childData.time;
-      var type = childData.type;
-      var contentDiv = document.createElement( 'div' );
-      contentDiv.id = key;
-      contentDiv.className = 'contentRejected';
-      var itemActiveDiv = document.createElement( 'div' );
-      itemActiveDiv.className = 'item';
-      var avatar = document.createElement( 'span' );
-      avatar.className = 'avatar';
-      var img = document.createElement( 'img' );
-      var userRef = dbRef.ref( "user/" + senderEmailRejected + "/" );
-      userRef.once( 'value' ).then( function( datashot ) {
-        img.setAttribute( 'src', datashot.val().photo );
-      } );
-      img.setAttribute( 'height', '60px' );
-      img.setAttribute( 'width', '60px' );
-      avatar.append( img );
-      var descDiv = document.createElement( 'div' );
-      descDiv.className = 'desc';
-      var h2 = document.createElement( 'h2' );
-      h2.innerHTML = sender;
-      var h6 = document.createElement( 'h6' );
-      h6.innerHTML = type;
-      var p = document.createElement( 'p' );
-      p.innerHTML = comment;
-      var timeSpan = document.createElement( 'span' );
-      timeSpan.className = 'time';
-      timeSpan.innerHTML = time;
-      descDiv.appendChild( h2 );
-      descDiv.appendChild( h6 );
-      descDiv.appendChild( p );
-      itemActiveDiv.appendChild( avatar );
-      itemActiveDiv.appendChild( descDiv );
-      itemActiveDiv.appendChild( timeSpan );
-      contentDiv.appendChild( itemActiveDiv );
-      itemRejected.append( contentDiv );
-    } )
-  } );
+  var queryToRejected = firebase.database()
+    .ref( 'Complain/Tashkent/Nam-gu/Trash/Rejected/' )
+    .orderByKey();
+  queryToRejected.once( "value" )
+    .then( function( snapshot ) {
+      snapshot.forEach( function( childSnapshot ) {
+        var key = childSnapshot.key;
+        if ( key.localeCompare( "rejected_count" ) != 0 ) {
+          var childData = childSnapshot.val();
+          var comment = childData.comment;
+          var location = childData.location;
+          var photo = childData.photo;
+          var sender = childData.sender;
+          senderEmailRejected = childData.emailCOMP;
+          var status = childData.status;
+          var time = childData.time;
+          var type = childData.type;
+          var contentDiv = document.createElement( 'div' );
+          contentDiv.id = key;
+          contentDiv.className = 'contentRejected';
+          var itemActiveDiv = document.createElement( 'div' );
+          itemActiveDiv.className = 'item';
+          var avatar = document.createElement( 'span' );
+          avatar.className = 'avatar';
+          var img = document.createElement( 'img' );
+          var userRef = dbRef.ref( "user/" + senderEmailRejected + "/" );
+          userRef.once( 'value' )
+            .then( function( datashot ) {
+              img.setAttribute( 'src', datashot.val()
+                .photo );
+            } );
+          img.setAttribute( 'height', '60px' );
+          img.setAttribute( 'width', '60px' );
+          avatar.append( img );
+          var descDiv = document.createElement( 'div' );
+          descDiv.className = 'desc';
+          var h2 = document.createElement( 'h2' );
+          h2.innerHTML = sender;
+          var h6 = document.createElement( 'h6' );
+          h6.innerHTML = type;
+          var p = document.createElement( 'p' );
+          p.innerHTML = comment;
+          var timeSpan = document.createElement( 'span' );
+          timeSpan.className = 'time';
+          timeSpan.innerHTML = time;
+          descDiv.appendChild( h2 );
+          descDiv.appendChild( h6 );
+          descDiv.appendChild( p );
+          itemActiveDiv.appendChild( avatar );
+          itemActiveDiv.appendChild( descDiv );
+          itemActiveDiv.appendChild( timeSpan );
+          contentDiv.appendChild( itemActiveDiv );
+          itemRejected.append( contentDiv );
+        }
+      } )
+    } );
 
 
   /////////// ENDS HERE
@@ -202,10 +215,9 @@ function func() {
   
     var queryToCompleted = firebase.database().ref( "Complain/Tashkent/Nam-gu/Trash/Completed/" ).orderByKey();
     queryToCompleted.once( "value" ).then( function( snapshot ) {
-
     snapshot.forEach( function( childSnapshot ) {
-
       var key = childSnapshot.key;
+      if ( key.localeCompare( "completed_count" ) != 0 ) {
       var childData = childSnapshot.val();
       var comment = childData.comment;
       var location = childData.location;
@@ -249,7 +261,7 @@ function func() {
       itemActiveDiv.appendChild( timeSpan );
       contentDiv.appendChild( itemActiveDiv );
       itemCompleted.append( contentDiv );
-    } )
+    }} )
   } );
 
   /////////////////// ENDS HERE
@@ -258,10 +270,9 @@ function func() {
     var itemInProcess = $( '#listviewInProcess' );
     var queryToInProcess = firebase.database().ref( "Complain/Tashkent/Nam-gu/Trash/inProcess/" ).orderByKey();
     queryToInProcess.once( "value" ).then( function( snapshot ) {
-
     snapshot.forEach( function( childSnapshot ) {
-
       var key = childSnapshot.key;
+      if ( key.localeCompare( "inProcess_count" ) != 0 ) {
       var childData = childSnapshot.val();
       var comment = childData.comment;
       var location = childData.location;
@@ -305,7 +316,7 @@ function func() {
       itemActiveDiv.appendChild( timeSpan );
       contentDiv.appendChild( itemActiveDiv );
       itemInProcess.append( contentDiv );
-    } )
+    }} )
   } );
 
   /////////////////////// ENDS HERE
@@ -466,14 +477,14 @@ function func() {
     readURL( this );
   });
 
-  var fileButton = document.getElementById( 'imgInput' );
-  fileButton.addEventListener( 'change', function( e ) {
+  var fileButton = $( '#imgInput' );
+  fileButton.on( 'change', function( e ) {
     file = e.target.files[ 0 ];
     filename = file.name;
   } );
 
-  var fileButton2 = document.getElementById( 'imgInput2' );
-  fileButton2.addEventListener( 'change', function( e ) {
+  var fileButton2 = $( '#imgInput2' );
+  fileButton2.on( 'change', function( e ) {
     file2 = e.target.files[ 0 ];
     filename2 = file2.name;
   } );
@@ -585,7 +596,7 @@ function NewToInProcess() {
     oldRef.child( "Organization" ).set( organName );
     oldRef.child( "Checked" ).set( "false" );
     oldRef.child( "ResponsiblePerson" ).set( responsible );
-    oldRef.child( "ExpectedDate" ).set( budjet );
+    oldRef.child( "ExpectedBudjet" ).set( budjet );
     oldRef.child( "Note" ).set( note );
     oldRef.child( "Checked" ).set( "false" );
     moveFbRecord( oldRef, newRef_inProcess );
@@ -628,14 +639,13 @@ function InProcessToCompleted() {
     uploadTask.on( 'state_changed', function( snapshot ) {
     }, function( error ) {
     }, function() {
-      var responsible_person = $( '#responsible_person' ).val();
+      var d = new Date();
+    var completion_date = d.getFullYear() + "/" + ( d.getMonth() + 1 ) + "/" + d.getDate();
       var downloadURL = uploadTask.snapshot.downloadURL;
-      var completion_date = $( '#completion_date' ).val();
       var e = document.getElementById( "scope_of_work" );
       var scope = e.options[ e.selectedIndex ].text;
       var finance_of_work = $( '#finance_of_work' ).val();
       var commentsOfOrg = $( '#message' ).val();
-      oldReference.child( "Checked" ).set( "false" );
       oldReference.child( "Organization" ).set( organName );
       oldReference.child( "latercomment" ).set( "" );
       oldReference.child( "RespondRateFromUser" ).set( 0 );
@@ -680,11 +690,6 @@ function InProcessToRejected() {
   }
 
   function showStatistics(){
-  	var new_counter;
-  	firebase.database().ref( 'Complain/Tashkent/Nam-gu/Trash/' ).child( "New" ).on( "value", function( snapshot ) {
-      new_counter = counter.text(snapshot.val().new_count).text();
-    } );
-  	console.log("node js value for counter " + new_counter);
   	var ctx = document.getElementById("pieChart").getContext('2d');
 	var myChart = new Chart(ctx, {
 	  type: 'doughnut',
@@ -697,7 +702,7 @@ function InProcessToRejected() {
 	        "#95a5a6",
 	        "#9b59b6"
 	      ],
-	      data: [5, 10, 2, 4]
+	      data: [new_counter, completed_counter, rejected_counter, inProcess_counter]
 	    }]
 	  }
 	});
