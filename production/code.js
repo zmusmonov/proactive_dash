@@ -4,8 +4,10 @@ const config = {
   databaseURL: "https://proactiveweb-1e68d.firebaseio.com/",
   storageBucket: "proactiveweb-1e68d.appspot.com",
 };
-
-
+ var new_counter;
+var inProcess_counter;
+var rejected_counter;
+var completed_counter;
 firebase.initializeApp( config );
 const dbRef = firebase.database();
 var complaintId;
@@ -48,18 +50,26 @@ var marker = new google.maps.Marker({
     const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/Trash/' );
 
     counterFirebase.child( "New" ).on( "value", function( snapshot ) {
-      counter.text( snapshot.val().new_count );
+      counter.text(snapshot.val().new_count);
+      new_counter = snapshot.val().new_count;
     } );
+    
     counterFirebase.child( "Completed" ).on( "value", function( snapshot ) {
-      counterCompleted.text( snapshot.val().completed_count );
-    } );
-    counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
-      counterProcess.text( snapshot.val().inProcess_count );
-    } );
-    counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
-      counterRejected.text( snapshot.val().rejected_count );
+      counterCompleted.text(snapshot.val().completed_count);
+      completed_counter = counterCompleted.text(snapshot.val().completed_count ).text();
     } );
 
+    counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
+      counterProcess.text( snapshot.val().inProcess_count);
+      inProcess_counter = counterProcess.text( snapshot.val().inProcess_count ).text();
+    } );
+    
+    counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
+      counterRejected.text( snapshot.val().rejected_count);
+      rejected_counter =  counterRejected.text( snapshot.val().rejected_count).text();
+      showStatistics();
+    } );
+    
   firebase.database().ref( 'organization/employee/name' ).on( "value", function( snapshot ) {
     pObject.text( snapshot.val() );
     pObject1.text( snapshot.val() );
@@ -541,14 +551,14 @@ function func() {
     readURL( this );
   });
 
-  var fileButton = document.getElementById( 'imgInput' );
-  fileButton.addEventListener( 'change', function( e ) {
+  var fileButton = $( '#imgInput' );
+  fileButton.on( 'change', function( e ) {
     file = e.target.files[ 0 ];
     filename = file.name;
   } );
 
-  var fileButton2 = document.getElementById( 'imgInput2' );
-  fileButton2.addEventListener( 'change', function( e ) {
+  var fileButton2 = $( '#imgInput2' );
+  fileButton2.on( 'change', function( e ) {
     file2 = e.target.files[ 0 ];
     filename2 = file2.name;
   } );
@@ -756,23 +766,23 @@ function InProcessToRejected() {
   }
 
   function showStatistics(){
-  
-  var ctx = document.getElementById("pieChart").getContext('2d');
-	var myChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ["New", "Completed", "Rejected", "In Process"],
-    datasets: [{
-      backgroundColor: [
-        "#2ecc71",
-        "#3498db",
-        "#95a5a6",
-        "#9b59b6"
-      ],
-      data: [5, 10, 2, 4]
-    }]
-  }
-});
+
+  	var ctx = document.getElementById("pieChart").getContext('2d');
+  	var myChart = new Chart(ctx, {
+	  type: 'doughnut',
+	  data: {
+	    labels: ["New", "Completed", "Rejected", "In Process"],
+	    datasets: [{
+	      backgroundColor: [
+	        "#2ecc71",
+	        "#3498db",
+	        "#95a5a6",
+	        "#9b59b6"
+	      ],
+	      data: [new_counter, completed_counter, rejected_counter, inProcess_counter]
+	    }]
+	  }
+	});
 
 
 var ctx2 = document.getElementById("polarChart").getContext('2d');
