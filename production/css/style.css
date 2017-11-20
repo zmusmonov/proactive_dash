@@ -661,6 +661,8 @@ textarea {
 }
 .complaint-image {
   border-radius: 8px;
+  width: 250px;
+  height: 300px;
 }
 
 .container_for_chart {
@@ -668,4 +670,9 @@ textarea {
   margin: 15px auto;
 }
 
+.userProfileInComplaint{
+    border-radius: 50%;
+    height: 128px;
+    width: 128px;
+}
 

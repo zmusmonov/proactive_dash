@@ -317,6 +317,15 @@ function func() {
     var sender;
     var ref = dbRef.ref( 'Complain/Tashkent/Nam-gu/Trash/New/' + id );
     ref.once( 'value' ).then( function( snapshot ) {
+
+      $( '#complainPhotoNew').show();
+
+      $( '#statusButtonCompletedInNewFolder').show();
+      $( '#statusButtonRejectedInNewFolder').show();
+      $( '#statusButtonInProcessInNewFolder').show();
+      $( '#userPhotoNew').show();
+
+
       $( '#complainCategoryNew1' ).show();
       $( '#complainCategoryNew' ).html( snapshot.val().type );
       $( '#userNameNew1' ).show();
@@ -351,21 +360,44 @@ function func() {
     var sender;
     var ref = dbRef.ref( 'Complain/Tashkent/Nam-gu/Trash/Rejected/' + id );
     ref.once( 'value' ).then( function( snapshot ) {
+
+      $( '#complainPhotoRejected' ).show();
+      
       $( '#complainCategoryRejected' ).html( snapshot.val().type );
+      $( '#complainCategoryRejected1' ).show();
+
+      $( '#commentRejected1' ).show;      
       $( '#commentRejected' ).html( snapshot.val().comment );
+
       sender = snapshot.val().sender;
       $( '#userNameRejected' ).html( sender );
+      
       senderEmailRejected=snapshot.val().emailCOMP;
+      $( '#userNameRejected1' ).show();
+
       $( '#locationRejected' ).html( snapshot.val().location );
+      $( '#locationRejected1' ).show();
+
       $( '#timeRejected' ).html( snapshot.val().time );
+      $( '#timeRejected1' ).show();
+
       $('#CompletionDateRejected').html(snapshot.val().CompletionDate);
+      $('#CompletionDateRejected1').show();
+
       $('#CommentsOfOrgRejected').html(snapshot.val().CommentsOfOrg);
+      $('#CommentsOfOrgRejected1').show();
+
       $('#reasonRejected').html(snapshot.val().reason);
+      $('#reasonRejected1').show();
+
       $( '#complainPhotoRejected' ).attr( 'src', snapshot.val().photo );
       var userRef = dbRef.ref( "user/" + senderEmailRejected + "/" );
       userRef.once( 'value' ).then( function( datashot ) {
         $( '#userPhoneNumberRejected' ).html( datashot.val().number );
+        $( '#userPhoneNumberRejected1' ).show();
         $( '#userPhotoRejected' ).attr( 'src', datashot.val().photo );
+        $( '#userPhotoRejected' ).show();
+
       } )
     } )
   } );
@@ -376,24 +408,57 @@ function func() {
     var sender;
     var ref = dbRef.ref( 'Complain/Tashkent/Nam-gu/Trash/Completed/' + id );
     ref.once( 'value' ).then( function( snapshot ) {
+
+      $( '#userPhotoCompleted1' ).show();
+      $( '#complainPhotoCompleted1' ).show();
+      $( '#responsePhotoCompleted' ).show();
+      $( '#complainPhotoCompleted' ).show();
+      
+
       $( '#complainCategoryCompleted' ).html( snapshot.val().type );
+      $( '#complainCategoryCompleted1' ).show();
+
       $( '#commentCompleted' ).html( snapshot.val().comment );
+      $( '#commentCompleted1' ).show();
+
       sender = snapshot.val().sender;
       $( '#userNameCompleted' ).html( sender );
+      $( '#userNameCompleted1' ).show();
+      
       senderEmailCompleted = snapshot.val().emailCOMP;
+      
       $('#responsePhotoCompleted').attr('src', snapshot.val().response_image);
+      
       $( '#locationCompleted' ).html( snapshot.val().location );
+      $( '#locationCompleted1' ).show();
+      
       $( '#timeCompleted' ).html( snapshot.val().time );
+      $( '#timeCompleted1' ).show();
+      
       $('#commentsOfOrgCompleted').html(snapshot.val().commentsOfOrg);
+      $('#commentsOfOrgCompleted1').show();
+      
       $('#completionDateCompleted').html(snapshot.val().completion_date);
+      $('#completionDateCompleted1').show();
+      
       $('#financeOfWorkCompleted').html(snapshot.val().finance_of_work);
+      $('#financeOfWorkCompleted1').show();
+      
       $('#organizationRateCompleted').html(snapshot.val().organization_rate);
+      $('#organizationRateCompleted1').show();
+      
       $('#scopeCompleted').html(snapshot.val().scope);
+      $('#scopeCompleted1').show();
+      
       $( '#complainPhotoCompleted' ).attr( 'src', snapshot.val().photo );
       var userRef = dbRef.ref( "user/" + senderEmailCompleted + "/" );
       userRef.once( 'value' ).then( function( datashot ) {
         $( '#userPhoneNumberCompleted' ).html( datashot.val().number );
+        $( '#userPhoneNumberCompleted1' ).show();
+
         $( '#userPhotoCompleted' ).attr( 'src', datashot.val().photo );
+        $( '#userPhotoCompleted' ).show();
+
       } )
     } )
   } );
@@ -405,6 +470,10 @@ function func() {
     var ref = dbRef.ref( 'Complain/Tashkent/Nam-gu/Trash/inProcess/' + id );
     ref.once( 'value' ).then( function( snapshot ) {
 
+      $( '#statusButtonCompletedInProcessFolder').show();
+      $( '#statusButtonRejectedInProcessFolder').show();
+
+
       $( '#complainCategoryInProcess1').show();
       $( '#complainCategoryInProcess').html(snapshot.val().type );
 
@@ -415,6 +484,9 @@ function func() {
       sender = snapshot.val().sender;
       $( '#userNameInProcess').html( sender );
 
+      $( '#userPhotoInProcess').show();
+
+
       $( '#locationInProcess1' ).show();
       senderEmailInProcess = snapshot.val().emailCOMP;
       $( '#locationInProcess' ).html( snapshot.val().location );
@@ -424,6 +496,8 @@ function func() {
 
       $( '#userPhoneNumberInProcess1' ).show();
       $( '#complainPhotoInProcess' ).attr( 'src', snapshot.val().photo );
+      $( '#complainPhotoInProcess' ).show();
+
       var userRef = dbRef.ref( "user/" + senderEmailInProcess+ "/" );
       userRef.once( 'value' ).then( function( datashot ) {
         $( '#userPhoneNumberInProcess' ).html( datashot.val().number );
@@ -587,6 +661,8 @@ function NewToInProcess() {
     oldRef.child( "Checked" ).set( "false" );
     oldRef.child( "ResponsiblePerson" ).set( responsible );
     oldRef.child( "ExpectedBudjet" ).set( budjet );
+    oldRef.child( "ExpectedDate" ).set( date );
+
     oldRef.child( "Note" ).set( note );
     oldRef.child( "Checked" ).set( "false" );
     moveFbRecord( oldRef, newRef_inProcess );
@@ -680,17 +756,8 @@ function InProcessToRejected() {
   }
 
   function showStatistics(){
-  /*var new_counter;
-  	var rootRef = firebase.database().ref();
-  	var counterRef = rootRef.child("Complain/Tashkent/Nam-gu/Trash/New/new_count");
-  	counterRef.once("value",function(snapshot){
-  		snapshot.forEach(function(child){
-  			new_counter = child.val();
-  			console.log("counter value using node.js " + new_counter);
-  		})
-  	})
-  	console.log("counter from node.js value " + new_counter);*/
-  	var ctx = document.getElementById("pieChart").getContext('2d');
+  
+  var ctx = document.getElementById("pieChart").getContext('2d');
 	var myChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
