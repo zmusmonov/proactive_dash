@@ -139,7 +139,7 @@
 									<h2 id="commentNew" class = "report-detail"></h2>
 									
 									<img id="complainPhotoNew" class="complaint-image"  width="300" >
-									<div id="googleMap" style="width:100%;height:400px;"></div>
+									<div id="googleMapNew" style="width:100%;height:400px;"></div>
 									<h6 id="long"></h6>
 									<h6 id="lat"></h6>
 									<h4 id="locationNew1" style="display: none">Location:</h4>
@@ -198,7 +198,8 @@
 												<br>
 												<label><b>Comments:</b></label> <input id="commentRejected" name="description" placeholder="Description" type="text">
 												<div class="clearfix">
-													<button class="cancelbtn" onclick="document.getElementById('id02').style.display='none'" type="button">Cancel</button> <button class="submitbtn" onclick="NewToRejected()" type="button">Submit</button>
+													<button class="cancelbtn" onclick="document.getElementById('id02').style.display='none'" type="button">Cancel</button> 
+													<button class="submitbtn" onclick="NewToRejected()" type="button">Submit</button>
 												</div>
 											</div>
 										</form>
@@ -237,6 +238,7 @@
 									<h6 id="commentRejected">Comment</h6>
 									<h6 id="locationRejected">Location</h6>
 									<h6 id="timeRejected">Time</h6>
+									<div class="googleMapRejected" style="width:100%;height:400px;"></div>
 									<h6 id="CompletionDateRejected">Completion Date</h6>
 									<h6 id="CommentsOfOrgRejected">Comments of Organization</h6>
 									<h6 id="reasonRejected">Reason why complaint was rejected</h6>
@@ -260,6 +262,7 @@
 									<h6 id="locationCompleted">Location</h6>
 									<img id="responsePhotoCompleted" class="complaint-image"  width="300" >
 									<h6 id="timeCompleted">Time</h6>
+									<div class="googleMapCompleted" style="width:100%;height:400px;"></div>
 									<h6 id="commentsOfOrgCompleted">Comments of Org</h6>
 									<h6 id="completionDateCompleted">Completion Date</h6>
 									<h6 id="financeOfWorkCompleted">Work expanse</h6>
@@ -299,7 +302,8 @@
 									<h4 id="locationInProcess1" style="display: none">Location:</h4>									
 									<h2 id="locationInProcess" class = "report-detail"></h2>
 
-									<h4 id="timeInProcess1" style="display: none">Time</h4>									
+									<h4 id="timeInProcess1" style="display: none">Time</h4>		
+									<div class="googleMapInProcess" style="width:100%;height:400px;"></div>							
 									<h2 id="timeInProcess" class = "report-detail"></h2><button onclick="document.getElementById('CompleteFormInProcess').style.display='block'" style="width:auto;">Completed</button>
 									<div class="modal" id="CompleteFormInProcess">
 										<span class="close" onclick="document.getElementById('CompleteFormInProcess').style.display='none'" title="Close Modal">×</span>
