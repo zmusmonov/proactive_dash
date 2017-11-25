@@ -149,13 +149,10 @@
 										<span class="close" onclick="document.getElementById('CompleteForm').style.display='none'" title="Close Modal">×</span>
 										<form action="/action_page.php" class="modal-content animate">
 											<div class="container">
-												<label><b>Organization:</b></label> <input id="organization_name_form" name="rate" placeholder="Organization" required="" type="text"> <label><b>Responsible Person:</b></label> <input id="responsible_person" name="rate" placeholder="Name" required="" type="text"> <label><b>Photo Attachment:</b></label><br>
+												<label><b>Responsible Person:</b></label> <input id="responsible_person" name="rate" placeholder="Name" required="" type="text"> <label><b>Photo Attachment:</b></label><br>
 												<div class="btn-group">
 												<input id="imgInput" type="file"> <img id="image" src="#"><br>
 												</div><br>
-												<label><b>Complation Date:</b></label><br>
-												<input id="completion_date" name="rate" placeholder="Date" required="" type="date"><br>
-												<br>
 												<label><b>Organization Rate:</b></label><br>
 												<div class="rating">
 													<label><input name="stars" type="radio" value="1"> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="2"> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="3"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="4"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="5"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label>
@@ -355,16 +352,16 @@
 									<h2 id="timeInProcess" class = "report-detail"></h2>
 									<div id="googleMapInProcess" style="width:100%;height:400px;"></div>			
 									<button id="statusButtonCompletedInProcessFolder" onclick="document.getElementById('CompleteFormInProcess').style.display='block'" style="width:auto;display: none;">Completed</button>
+
 									<div class="modal" id="CompleteFormInProcess">
 										<span class="close" onclick="document.getElementById('CompleteFormInProcess').style.display='none'" title="Close Modal">×</span>
 										<form action="/action_page.php" class="modal-content animate">
 											<div class="container">
-
 												<label><b>Photo Attachment:</b></label><br>
 												<div class="btn-group">
 													<input id="imgInput2" type="file"> <img id="image" src="#"><br>
 												</div><br>
-
+												
 												<label><b>Organization Rate:</b></label><br>
 												<div class="rating">
 													<label><input name="stars" type="radio" value="1"> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="2"> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="3"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="4"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="5"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label>
@@ -412,7 +409,6 @@
 												<br>
 												<label><b>Comments:</b></label> <input id="commentRejected" name="description" placeholder="Description" type="text">
 												<div class="clearfix">
-
 													<button class="cancelbtn" onclick="document.getElementById('RejectedForm').style.display='none'" type="button">Cancel</button> <button class="submitbtn" onclick="InProcessToRejected()" type="button">Submit</button>
 												</div>
 											</div>

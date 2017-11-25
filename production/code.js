@@ -18,46 +18,6 @@ var senderEmailRejected;
 var senderEmailCompleted;
 var senderEmailInProcess;
 var starRating;
-var filename;
-var file;
-func();
-var pObject = $( '#name_of_employee' );
-var pObject1 = $( '#name_of_employee1' );
-var titleObject = $( '#organization_name' );
-var posObject = $( '#get_position' );
-var numberObject = $( '#get_number' );
-
-
-var counter = $( '#newCom' );
-var counterCompleted = $( '#completedMess' );
-var counterProcess = $( '#in_Process' );
-var counterRejected = $( '#rejected' );
-
-const dbRefObject = firebase.database().ref( 'organization/employee/name/' );
-const nameObject = firebase.database().ref( 'organization/employee/name/' );
-const getPosition = firebase.database().ref( 'organization/employee/position/' );
-const getNumber = firebase.database().ref( 'organization/employee/number/' );
-const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/Trash/' );
-
-counterFirebase.child( "New" ).on( "value", function( snapshot ) {
-  counter.text( snapshot.numChildren() );
-} );
-counterFirebase.child( "Completed" ).on( "value", function( snapshot ) {
-  counterCompleted.text( snapshot.numChildren() );
-} );
-counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
-  counterProcess.text( snapshot.numChildren() );
-} );
-counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
-  counterRejected.text( snapshot.numChildren() );
-} );
-
-// Synchronizing object changes
-function func() {
-  var itemNew = $( '#listviewNew' );
-  var organName = $( '#organization_name' );
-  var queryToNew = firebase.database().ref( "Complain/Tashkent/Nam-gu/Trash/New/" ).orderByKey();
-  queryToNew.once( "value" ).then( function( snapshot ) {
 var longitute;
 var latitude;
 function myMapNew(latitude, longitute) {
@@ -171,7 +131,6 @@ function func() {
     ref.once( 'value' ).then( function( snapshot ) {
 
       $( '#complainPhotoNew').show();
-
       $( '#statusButtonCompletedInNewFolder').show();
       $( '#statusButtonRejectedInNewFolder').show();
       $( '#statusButtonInProcessInNewFolder').show();
@@ -389,27 +348,11 @@ function func() {
     starRating = this.value;
   } );
 
-<<<<<<< HEAD
-
-   function readURL( input ) {
-    if ( input.files && input.files[ 0 ] ) {
-      var reader = new FileReader();
-
-
-      reader.onload = function( e ) {
-        $( '#image' ).attr( 'src', e.target.result );
-      }
-
-      reader.readAsDataURL( input.files[ 0 ] );
-    }
-  }
-
-
-
+  // function for displaying image downloaded by the user
+  
   $( "#imgInput" ).change( function() {
     readURL( this );
   });
-
 
    $( "#imgInput2" ).change( function() {
     readURL( this );
@@ -418,7 +361,7 @@ function func() {
   var fileButton = $( '#imgInput' );
   fileButton.on( 'change', function( e ) {
     file = e.target.files[ 0 ];
-    filename =file.name;
+    filename = file.name;
   } );
 
   var fileButton2 = $( '#imgInput2' );
@@ -489,10 +432,6 @@ function newLoad(){
                  )} );
 console.log("NewLoad Function completed");
 
-  fileButtonInProcess.addEventListener( 'change', function( e ) {
-    file = e.target.files[ 0 ];
-    filename =file.name;
-  } );
 }
 function inProcessLoad(){
   ////////////////////// SAME STAFF FOR IN_PROCESS
@@ -550,6 +489,7 @@ function inProcessLoad(){
   } );
 console.log("inProcessLoad Function Completed");
 }
+
 function completedLoad(){
     var itemCompleted = $( '#listviewCompleted' );
     //itemCompleted.empty();
@@ -605,6 +545,7 @@ function completedLoad(){
   } );
   console.log("CompletedLoad Function Completed");
 }
+
 function rejectedLoad(){
     var itemRejected = $( '#listviewRejected' );
     //itemRejected.empty();
@@ -668,7 +609,16 @@ function rejectedLoad(){
 }
 
 
-
+function readURL( input ) {
+    if ( input.files && input.files[ 0 ] ) {
+      var reader = new FileReader();
+      
+      reader.onload = function( e ) {
+        $( '#image' ).attr( 'src', e.target.result );
+      }
+      reader.readAsDataURL( input.files[ 0 ] );
+    }
+  };
 /////////////////////////////////////
 ///OUTSIDE func /////////////////////
 /////////////////////////////////////
@@ -678,15 +628,14 @@ function NewToCompleted() {
     var newReference_completed = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/Completed/' + keygen + '/' );
     var newReferenceToCopy_completed = firebase.database().ref( 'user/' + senderEmailNew + '/complains/completed/' + keygen + '/' );
     var storageRef = firebase.storage().ref( 'response_images/' + filename );
-
     var uploadTask = storageRef.put( file );
-
     uploadTask.on( 'state_changed', function( snapshot ) {
     }, function( error ) {
     }, function() {
       var responsible_person = $( '#responsible_person' ).val();
       var downloadURL = uploadTask.snapshot.downloadURL;
-      var completion_date = $( '#completion_date' ).val();
+      var d = new Date();
+      var completion_date = d.getFullYear() + "/" + ( d.getMonth() + 1 ) + "/" + d.getDate();
       var e = document.getElementById( "scope_of_work" );
       var scope = e.options[ e.selectedIndex ].text;
       var finance_of_work = $( '#finance_of_work' ).val();
@@ -711,7 +660,9 @@ function NewToCompleted() {
       document.getElementById('complainDetailsNew').style.display='none';
       $('#'+complaintId).remove();
       $('.contentCompleted').remove();
+      
       completedLoad();
+      
     } );
   }
 
@@ -730,10 +681,8 @@ function NewToRejected() {
     var reason = $( '#reasonsRejected option:selected' ).text();
     var comment = $( '#commentRejected' ).val();
     var d = new Date();
-
     var rejectedDate = d.getFullYear() + "/" + ( d.getMonth() + 1 ) + "/" + d.getDate();  
     var oldRef = dbRef.ref( 'Complain/Tashkent/Nam-gu/'+category+'/New/' + complaintId + '/' );
-
     var newRef_rejected = dbRef.ref( "user/" + senderEmailNew + "/complains/rejected/" + keygen );
     var newRefToCopy_rejected = dbRef.ref( 'Complain/Tashkent/Nam-gu/'+category+'/Rejected/' + keygen );
     oldRef.child( "Organization" ).set( organName );
@@ -799,7 +748,6 @@ function copyFbRecord( oldRef, newRef ) {
     } );
   }
 
-
 function InProcessToCompleted() {
     var keygen = genKey();
     var oldReference = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/inProcess/' + complaintId + '/' );
@@ -819,26 +767,29 @@ function InProcessToCompleted() {
       var scope = e.options[ e.selectedIndex ].text;
       var finance_of_work = $( '#finance_of_work' ).val();
       var commentsOfOrg = $( '#message' ).val();
-
       oldReference.child( "Organization" ).set( organName );
       oldReference.child( "latercomment" ).set( "" );
       oldReference.child( "RespondRateFromUser" ).set( 0 );
-
       oldReference.child( "response_image" ).set( downloadURL );
       oldReference.child( "completion_date" ).set( completion_date );
       oldReference.child( "scope" ).set( scope );
       oldReference.child( "finance_of_work" ).set( finance_of_work );
       oldReference.child( "commentsOfOrg" ).set( commentsOfOrg );
       oldReference.child( "organization_rate" ).set( starRating );
-      oldReference.child( "Key" ).set( keygen );
+      oldReference.child( "Key" ).set( complaintId );
       oldReference.child( "Checked" ).set( "false" );
-
-      moveFbRecord( oldReference, newReference );
-      moveFbRecord( oldRefForUser, newRefForUser );
-      document.getElementById( 'CompleteForm' ).style.display = 'none';
+      moveFbRecord( oldReference, newReference_completed );
+      copyFbRecord( newReference_completed, newReferenceToCopy_completed );
+    $('#complainDetailsInProcess').css('display', 'none');
       document.getElementById( 'CompleteFormInProcess' ).style.display = 'none';
     } );
-  }
+    //$('#'+complaintId).remove();
+    $('.contentCompleted').remove();
+     $('.contentInProcess').remove();
+    completedLoad();
+    inProcessLoad();
+    }
+
 
 function InProcessToRejected() {
     var keygen = genKey();
@@ -852,13 +803,11 @@ function InProcessToRejected() {
     var newRef = dbRef.ref( 'Complain/Tashkent/Nam-gu/'+category+'/Rejected/' + keygen );
     oldRefForUser.remove();
     oldRef.child( "Organization" ).set( organName );
-
     oldRef.child( "Key" ).set( keygen );
     oldRef.child( "reason" ).set( reason );
     oldRef.child( "CommentsOfOrg" ).set( comment );
     oldRef.child( "CompletionDate" ).set( rejectedDate );
     oldRef.child( "Checked" ).set( "false" );
-
     moveFbRecord( oldRef, newRef );
     copyFbRecord( newRef, newRefForUser );
     $( '#id02' ).css( 'display', 'none' );
@@ -867,3 +816,8 @@ function InProcessToRejected() {
     $('#contentRejected').remove();
     rejectedLoad();
   }
+
+  
+
+
+  
