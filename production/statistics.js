@@ -34,8 +34,9 @@ firebase.database().ref('Complain/Tashkent/Nam-gu/'+category+'/Rejected/').once(
 			badQualityPhoto++;		
 		else if(reason.localeCompare("problem not found in located area")==0)
 			problemNotFound++;
-		showStatistics();
-	}})
+		
+	}showStatistics();}
+  )
 });
     var organName;
     const dbRefObject = firebase.database().ref( 'organization/employee/name/' );

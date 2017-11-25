@@ -5,7 +5,6 @@ const config = {
   storageBucket: "proactiveweb-1e68d.appspot.com",
 };
 var category='Trash';
-var cond=false;
  var new_counter;
 var inProcess_counter;
 var rejected_counter;
@@ -83,21 +82,25 @@ var marker = new google.maps.Marker({
     counterFirebase.child( "New" ).on( "value", function( snapshot ) {
       counter.text(snapshot.val().new_count);
       new_counter = snapshot.val().new_count;
+      newLoad();
     } );
     
     counterFirebase.child( "Completed" ).on( "value", function( snapshot ) {
       counterCompleted.text(snapshot.val().completed_count);
       completed_counter = counterCompleted.text(snapshot.val().completed_count ).text();
+      completedLoad();
     } );
 
     counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
       counterProcess.text( snapshot.val().inProcess_count);
       inProcess_counter = counterProcess.text( snapshot.val().inProcess_count ).text();
+      inProcessLoad();
     } );
     
     counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
       counterRejected.text( snapshot.val().rejected_count);
       rejected_counter =  counterRejected.text( snapshot.val().rejected_count).text();
+      rejectedLoad();
     } );
     
   firebase.database().ref( 'organization/employee/name' ).on( "value", function( snapshot ) {
@@ -119,10 +122,6 @@ var marker = new google.maps.Marker({
   func();
 
 function func() {
-  newLoad();
-  inProcessLoad();
-  completedLoad();
-  rejectedLoad();
   $( 'div' ).on( 'click', ".contentNew", function() {
     var id = $( this ).attr( "id" );
     complaintId = id;
@@ -163,6 +162,7 @@ function func() {
         $( '#userPhotoNew').show();
         $( '#userPhotoNew' ).attr( 'src', datashot.val().photo );
       } )
+      document.getElementById('complainDetailsNew').style.display='block';
     } )
   } );
 
@@ -213,6 +213,7 @@ function func() {
         $( '#userPhotoRejected' ).show();
 
       } )
+      document.getElementById('complainDetailsRejected').style.display='block';
     } )
   } );
 
@@ -276,6 +277,8 @@ function func() {
         $( '#userPhotoCompleted' ).show();
 
       } )
+      document.getElementById('complainDetailsCompleted').style.display='block';
+
     } )
   } );
 
@@ -321,6 +324,8 @@ function func() {
         $( '#userPhoneNumberInProcess' ).html( datashot.val().number );
         $( '#userPhotoInProcess' ).attr( 'src', datashot.val().photo );
       } )
+      document.getElementById('complainDetailsInProcess').style.display='block';
+
     } )
   } );
 
@@ -374,7 +379,7 @@ function func() {
 
 function newLoad(){
     var itemNew = $( '#listviewNew' );
-    //itemNew.empty();
+    itemNew.empty();
   var queryToNew = firebase.database()
     .ref( 'Complain/Tashkent/Nam-gu/'+category+'/New/' )
     .orderByKey();
@@ -437,7 +442,7 @@ console.log("NewLoad Function completed");
 function inProcessLoad(){
   ////////////////////// SAME STAFF FOR IN_PROCESS
     var itemInProcess = $( '#listviewInProcess' );
-    //itemInProcess.empty();
+    itemInProcess.empty();
     var queryToInProcess = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/inProcess/' ).orderByKey();
     queryToInProcess.once( "value" ).then( function( snapshot ) {
     snapshot.forEach( function( childSnapshot ) {
@@ -492,7 +497,7 @@ console.log("inProcessLoad Function Completed");
 }
 function completedLoad(){
     var itemCompleted = $( '#listviewCompleted' );
-    //itemCompleted.empty();
+    itemCompleted.empty();
     var queryToCompleted = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/Completed/' ).orderByKey();
     queryToCompleted.once( "value" ).then( function( snapshot ) {
     snapshot.forEach( function( childSnapshot ) {
@@ -547,7 +552,7 @@ function completedLoad(){
 }
 function rejectedLoad(){
     var itemRejected = $( '#listviewRejected' );
-    //itemRejected.empty();
+    itemRejected.empty();
   var queryToRejected = firebase.database()
     .ref( 'Complain/Tashkent/Nam-gu/'+category+'/Rejected/')
     .orderByKey();
@@ -633,7 +638,8 @@ function NewToCompleted() {
     }, function() {
       var responsible_person = $( '#responsible_person' ).val();
       var downloadURL = uploadTask.snapshot.downloadURL;
-      var completion_date = $( '#completion_date' ).val();
+      var d = new Date();
+      var completion_date = d.getFullYear() + "/" + ( d.getMonth() + 1 ) + "/" + d.getDate();
       var e = document.getElementById( "scope_of_work" );
       var scope = e.options[ e.selectedIndex ].text;
       var finance_of_work = $( '#finance_of_work' ).val();
@@ -656,9 +662,6 @@ function NewToCompleted() {
       copyFbRecord( newReference_completed, newReferenceToCopy_completed );
       document.getElementById( 'CompleteForm' ).style.display = 'none';
       document.getElementById('complainDetailsNew').style.display='none';
-      $('#'+complaintId).remove();
-      $('.contentCompleted').remove();
-      completedLoad();
     } );
   }
 
@@ -691,9 +694,6 @@ function NewToRejected() {
     copyFbRecord( newRefToCopy_rejected, newRef_rejected );
     $('#complainDetailsNew').css('display', 'none');
     $( '#id02' ).css( 'display', 'none' );
-    $('#'+complaintId).remove(); 
-    $('.contentRejected').remove();
-    rejectedLoad();
   }
 
 function NewToInProcess() {
@@ -707,7 +707,6 @@ function NewToInProcess() {
     var note = $( '#note' ).val();
     oldRef.child( "Key" ).set( complaintKey );
     oldRef.child( "Organization" ).set( organName );
-    oldRef.child( "Checked" ).set( "false" );
     oldRef.child( "ResponsiblePerson" ).set( responsible );
     oldRef.child( "ExpectedBudjet" ).set( budjet );
     oldRef.child( "ExpectedDate" ).set( date );
@@ -717,9 +716,6 @@ function NewToInProcess() {
     copyFbRecord( newRef_inProcess, newRefToCopy_inProcess );
     document.getElementById( 'id03' ).style.display = 'none';
     $('#complainDetailsNew').css('display', 'none');
-    $('#'+complaintId).remove();
-    $('#contentInProcess').remove();
-    inProcessLoad();
   }
 
  function moveFbRecord( oldRef, newRef ) {
@@ -763,7 +759,6 @@ function InProcessToCompleted() {
       var scope = e.options[ e.selectedIndex ].text;
       var finance_of_work = $( '#finance_of_work' ).val();
       var commentsOfOrg = $( '#message' ).val();
-      oldReference.child( "Organization" ).set( organName );
       oldReference.child( "latercomment" ).set( "" );
       oldReference.child( "RespondRateFromUser" ).set( 0 );
       oldReference.child( "response_image" ).set( downloadURL );
@@ -779,9 +774,6 @@ function InProcessToCompleted() {
     $('#complainDetailsInProcess').css('display', 'none');
       document.getElementById( 'CompleteFormInProcess' ).style.display = 'none';
     } );
-    $('#'+complaintId).remove();
-    $('#contentCompleted').remove();
-    completedLoad();
     }
 
 
@@ -796,7 +788,6 @@ function InProcessToRejected() {
     var newRefForUser = dbRef.ref( "user/" + senderEmailInProcess + "/complains/rejected/" + keygen );
     var newRef = dbRef.ref( 'Complain/Tashkent/Nam-gu/'+category+'/Rejected/' + keygen );
     oldRefForUser.remove();
-    oldRef.child( "Organization" ).set( organName );
     oldRef.child( "Key" ).set( keygen );
     oldRef.child( "reason" ).set( reason );
     oldRef.child( "CommentsOfOrg" ).set( comment );
@@ -806,12 +797,4 @@ function InProcessToRejected() {
     copyFbRecord( newRef, newRefForUser );
     $( '#id02' ).css( 'display', 'none' );
     $('#complainDetailsInProcess').css('display', 'none');
-    $('#'+complaintId).remove();
-    $('#contentRejected').remove();
-    rejectedLoad();
   }
-
-  
-
-
-  
