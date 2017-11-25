@@ -1,15 +1,15 @@
-const config = {
+/*const config = {
   apiKey: "AIzaSyClq2kdiDboyMJs1QxISwIMT5VpUZKOGVU",
   authDomain: "proactiveweb-1e68d.firebaseapp.com", 
   databaseURL: "https://proactiveweb-1e68d.firebaseio.com/",
   storageBucket: "proactiveweb-1e68d.appspot.com",
-};
+};*/
 var category='Trash';
- var new_counter;
+var new_counter;
 var inProcess_counter;
 var rejected_counter;
 var completed_counter;
-firebase.initializeApp( config );
+//firebase.initializeApp( config );
 const dbRef = firebase.database();
 var complaintId;
 var senderEmailNew;
@@ -103,21 +103,12 @@ var marker = new google.maps.Marker({
       rejectedLoad();
     } );
     
-  firebase.database().ref( 'organization/employee/name' ).on( "value", function( snapshot ) {
-    $( '#name_of_employee' ).text( snapshot.val() );
-    $( '#name_of_employee1' ).text( snapshot.val() );
-  } );
-  firebase.database().ref( 'organization/name/' ).on( 'value', snap => {
-    $( '#organization_name' ).text( snap.val() );
-    organName=snap.val();
-  } );
-  firebase.database().ref( 'organization/employee/position/' ).on( 'value', snap => {
-    $( '#get_position' ).text( snap.val() );
-  } );
-  firebase.database().ref( 'organization/employee/number/' ).on( 'value', snap => {
-    $( '#get_number' ).text( snap.val() );
-  } );
-  
+    $( '#name_of_employee' ).text( employeeFirstName );
+    $( '#name_of_employee1' ).text( employeeLastName );
+    $( '#organization_name' ).text( employeeOrganization );
+    $( '#get_position' ).text(employeePosition);
+    $( '#get_number' ).text( employeePhoneNumber );
+    $('.img-circle profile_img').attr('src', employeePhoto);
 // Synchronizing object changes
   func();
 
@@ -767,7 +758,7 @@ function InProcessToCompleted() {
       oldReference.child( "finance_of_work" ).set( finance_of_work );
       oldReference.child( "commentsOfOrg" ).set( commentsOfOrg );
       oldReference.child( "organization_rate" ).set( starRating );
-      oldReference.child( "Key" ).set( keygen );
+      oldReference.child( "Key" ).set( complaintId );
       oldReference.child( "Checked" ).set( "false" );
       moveFbRecord( oldReference, newReference_completed );
       copyFbRecord( newReference_completed, newReferenceToCopy_completed );
