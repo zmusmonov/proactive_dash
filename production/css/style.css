@@ -661,6 +661,18 @@ textarea {
 }
 .complaint-image {
   border-radius: 8px;
+  width: 250px;
+  height: 300px;
 }
 
+.container_for_chart {
+  width: 30%;
+  margin: 15px auto;
+}
+
+.userProfileInComplaint{
+    border-radius: 50%;
+    height: 128px;
+    width: 128px;
+}
 
