@@ -307,7 +307,70 @@
 									<h2 id="locationInProcess" class = "report-detail"></h2>
 
 									<h4 id="timeInProcess1" style="display: none">Time</h4>									
-									<h2 id="timeInProcess" class = "report-detail"></h2>
+									<h2 id="timeInProcess" class = "report-detail"></h2><button onclick="document.getElementById('CompleteFormInProcess').style.display='block'" style="width:auto;">Completed</button>
+									<div class="modal" id="CompleteFormInProcess">
+										<span class="close" onclick="document.getElementById('CompleteFormInProcess').style.display='none'" title="Close Modal">×</span>
+										<form action="/action_page.php" class="modal-content animate">
+											<div class="container">
+												<label><b>Organization:</b></label> <input id="organization_name_form" name="rate" placeholder="Organization" required="" type="text"> <label><b>Responsible Person:</b></label> <input id="responsible_person" name="rate" placeholder="Name" required="" type="text"> <label><b>Photo Attachment:</b></label><br>
+												<div class="btn-group">
+													<input id="imgInputInProcess" type="file"> <img id="image" src="#"><br>
+												</div><br>
+												<label><b>Complation Date:</b></label><br>
+												<input id="completion_date" name="rate" placeholder="Date" required="" type="date"><br>
+												<br>
+												<label><b>Organization Rate:</b></label><br>
+												<div class="rating">
+													<label><input name="stars" type="radio" value="1"> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="2"> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="3"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="4"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="5"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label>
+												</div><br>
+												<label><b>Scope:</b></label><br>
+												<select id="scope_of_work">
+													<option value="little">
+														Little
+													</option>
+													<option value="medium">
+														Medium
+													</option>
+													<option value="big">
+														Big
+													</option>
+												</select><br>
+												<br>
+												<label><b>Finance:</b></label><br>
+												<input id="finance_of_work" name="rate" placeholder="Finance" required="" type="text"> <label><b>Comment:</b></label> <input id="message" name="rate" placeholder="Comment" required="" type="text">
+												<div class="clearfix">
+													<button class="cancelbtn" onclick="document.getElementById('CompleteFormInProcess').style.display='none'" type="button">Cancel</button> <button class="submitbtn" onclick="FirebaseSubmitInProcess()" type="button">Submit</button>
+												</div>
+											</div>
+										</form>
+									</div><button onclick="document.getElementById('RejectedForm').style.display='block'" style="width:auto;">Rejected</button>
+									<div class="modal" id="RejectedForm">
+										<span class="close" onclick="document.getElementById('RejectedForm').style.display='none'" title="Close Modal">×</span>
+										<form class="modal-animate">
+											<div class="container">
+												<label><b>Reason for being rejected:</b></label> <select id="reasonsRejected">
+													<option value="1">
+														already done
+													</option>
+													<option value="2">
+														inacceptable complaint
+													</option>
+													<option value="3">
+														bad photo quality
+													</option>
+													<option value="4">
+														problem not found in located area
+													</option>
+												</select><br>
+												<br>
+												<label><b>Comments:</b></label> <input id="commentRejected" name="description" placeholder="Description" type="text">
+												<div class="clearfix">
+													<button class="cancelbtn" onclick="document.getElementById('RejectedForm').style.display='none'" type="button">Cancel</button> <button class="submitbtn" onclick="rejectedSubmitInProcess()" type="button">Submit</button>
+												</div>
+											</div>
+										</form>
+									</div>
+									
 								</div>
 							</div>
 						</div>
