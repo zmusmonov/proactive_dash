@@ -767,7 +767,7 @@ function InProcessToCompleted() {
       oldReference.child( "finance_of_work" ).set( finance_of_work );
       oldReference.child( "commentsOfOrg" ).set( commentsOfOrg );
       oldReference.child( "organization_rate" ).set( starRating );
-      oldReference.child( "Key" ).set( keygen );
+      oldReference.child( "Key" ).set( complaintId );
       oldReference.child( "Checked" ).set( "false" );
       moveFbRecord( oldReference, newReference_completed );
       copyFbRecord( newReference_completed, newReferenceToCopy_completed );
@@ -797,4 +797,41 @@ function InProcessToRejected() {
     copyFbRecord( newRef, newRefForUser );
     $( '#id02' ).css( 'display', 'none' );
     $('#complainDetailsInProcess').css('display', 'none');
+  }
+
+
+  function markeredMap(){
+      var locations = [
+      [ -33.890542, 151.274856],
+      [ -33.923036, 151.259052]
+    ];
+
+
+    var map = new google.maps.Map(document.getElementById('markeredMap'), {
+      zoom: 10,
+      center: new google.maps.LatLng(-33.92, 151.25),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][1]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+
+
+
+
   }
