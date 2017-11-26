@@ -4,17 +4,17 @@
   databaseURL: "https://proactiveweb-1e68d.firebaseio.com/",
   storageBucket: "proactiveweb-1e68d.appspot.com",
 };*/
-var org=localStorage.getItem("employeeOrganization");
+var organName=localStorage.getItem("employeeOrganization");
 var category;
-if(org.localeCompare("Ministry of Roads and Transportation")==0)
+if(organName.localeCompare("Ministry of Roads and Transportation")==0)
 {
   category='Road';
 }
-else if(org.localeCompare("Ministry of Communal Service")==0)
+else if(organName.localeCompare("Ministry of Communal Service")==0)
 {
     category='CommunalServices';
 }
-else if(org.localeCompare("Ministry of Housing")==0)
+else if(organName.localeCompare("Ministry of Housing")==0)
 {
   category='Trash';
 }
@@ -86,7 +86,6 @@ var marker = new google.maps.Marker({
     var counterCompleted = $( '#completedMess' );
     var counterProcess = $( '#in_Process' );
     var counterRejected = $( '#rejected' );
-    var organName;
     const dbRefObject = firebase.database().ref( 'organization/employee/name/' );
     const nameObject = firebase.database().ref( 'organization/employee/name/' );
     const getPosition = firebase.database().ref( 'organization/employee/position/' );
