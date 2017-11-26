@@ -6,7 +6,7 @@ const config = {
 };
 
 firebase.initializeApp( config );
-	var category='Trash';
+	var category=localStorage.getItem("category");
  	var counter = $( '#newCom' );
     var counterCompleted = $( '#completedMess' );
     var counterProcess = $( '#in_Process' );
@@ -15,7 +15,7 @@ firebase.initializeApp( config );
 var inProcess_counter;
 var rejected_counter;
 var completed_counter;
-
+$("#organization_name").html(localStorage.getItem("employeeOrganization"));
 var alreadyDone=0;
 var inacceptableComplaint=0;
 var badQualityPhoto=0;
@@ -38,11 +38,7 @@ firebase.database().ref('Complain/Tashkent/Nam-gu/'+category+'/Rejected/').once(
 	}showStatistics();}
   )
 });
-    var organName;
-    const dbRefObject = firebase.database().ref( 'organization/employee/name/' );
-    const nameObject = firebase.database().ref( 'organization/employee/name/' );
-    const getPosition = firebase.database().ref( 'organization/employee/position/' );
-    const getNumber = firebase.database().ref( 'organization/employee/number/' );
+    
     const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/' );
 
     counterFirebase.child( "New" ).on( "value", function( snapshot ) {

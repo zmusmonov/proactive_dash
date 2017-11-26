@@ -11,14 +11,8 @@ var employeePhoneNumber;
 var employeePosition;
 var employeeOrganization;
 var employeePhoto;
-var userName = $( '#txtUsername' )
-	.val();
-var password = $( '#txtPassword' )
-	.val();
 
 function login() {
-	console.log("username " +$( '#txtUsername' ).val());
-	console.log("password "+ $( '#txtPassword' ).val());
 	firebase.database()
 		.ref( "employee" )
 		.once( "value" )
@@ -29,7 +23,7 @@ function login() {
 						var childData = childSnapshot.val();
 						var passwd = childData.password;
 						console.log("pass "+passwd)
-						if ( ($( '#txtUsername' ).val()).localeCompare( key ) == 0 && ($( '#txtPassword' ).val()).localeCompare( password ) == 0 ) {
+						if ( ($( '#txtUsername' ).val()).localeCompare( key ) == 0 && ($( '#txtPassword' ).val()).localeCompare( passwd ) == 0 ) {
 							console.log("Inside if ");
 							employeeFirstName = childData.firstname;
 							employeeLastName = childData.lastname;
@@ -37,12 +31,16 @@ function login() {
 							employeePhoneNumber = childData.phonenumber;
 							employeePhoto = childData.photo;
 							employeePosition = childData.position;
-							window.location.assign( "file:///D:/INHA%20University/Senior/2%20semester/proactive/proactive_dash/production/index.html" );
-
+							localStorage.setItem("employeeFirstName", employeeFirstName);
+							localStorage.setItem("employeeLastName", employeeLastName);
+							localStorage.setItem("employeeOrganization", employeeOrganization);
+							localStorage.setItem("employeePhoneNumber", employeePhoneNumber);
+							localStorage.setItem("employeePhoto", employeePhoto);
+							localStorage.setItem("employeePosition", employeePosition);
+							window.location.assign( "index.html" );
 						}
 					
 	
 				}) 
 		} );
-
 }

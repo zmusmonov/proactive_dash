@@ -4,7 +4,21 @@
   databaseURL: "https://proactiveweb-1e68d.firebaseio.com/",
   storageBucket: "proactiveweb-1e68d.appspot.com",
 };*/
-var category='Trash';
+var org=localStorage.getItem("employeeOrganization");
+var category;
+if(org.localeCompare("Ministry of Roads and Transportation")==0)
+{
+  category='Road';
+}
+else if(org.localeCompare("Ministry of Communal Service")==0)
+{
+    category='CommunalServices';
+}
+else if(org.localeCompare("Ministry of Housing")==0)
+{
+  category='Trash';
+}
+localStorage.setItem("category", category);
 var new_counter;
 var inProcess_counter;
 var rejected_counter;
@@ -102,13 +116,12 @@ var marker = new google.maps.Marker({
       rejected_counter =  counterRejected.text( snapshot.val().rejected_count).text();
       rejectedLoad();
     } );
-    
-    $( '#name_of_employee' ).text( employeeFirstName );
-    $( '#name_of_employee1' ).text( employeeLastName );
-    $( '#organization_name' ).text( employeeOrganization );
-    $( '#get_position' ).text(employeePosition);
-    $( '#get_number' ).text( employeePhoneNumber );
-    $('.img-circle profile_img').attr('src', employeePhoto);
+    $( '#name_of_employee' ).text( localStorage.getItem("employeeFirstName")+ ' '+localStorage.getItem("employeeLastName") );
+    $( '#name_of_employee1' ).text( localStorage.getItem("employeeFirstName")+' '+localStorage.getItem("employeeLastName") );
+    $( '#organization_name' ).text( localStorage.getItem("employeeOrganization"));
+    $( '#get_position' ).text(localStorage.getItem("employeePosition"));
+    $( '#get_number' ).text( localStorage.getItem("employeePhoneNumber") );
+    $('.profile_img').attr('src', localStorage.getItem("employeePhoto"));
 // Synchronizing object changes
   func();
 
