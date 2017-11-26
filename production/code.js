@@ -19,6 +19,7 @@ var senderEmailInProcess;
 var starRating;
 var longitute;
 var latitude;
+
 function myMapNew(latitude, longitute) {
   var mapProp= {lat: Number(latitude), lng: Number(longitute)};
   var map = new google.maps.Map(document.getElementById("googleMapNew"),{
@@ -103,12 +104,14 @@ var marker = new google.maps.Marker({
       rejectedLoad();
     } );
     
-    $( '#name_of_employee' ).text( employeeFirstName );
-    $( '#name_of_employee1' ).text( employeeLastName );
-    $( '#organization_name' ).text( employeeOrganization );
-    $( '#get_position' ).text(employeePosition);
-    $( '#get_number' ).text( employeePhoneNumber );
-    $('.img-circle profile_img').attr('src', employeePhoto);
+
+    $( '#name_of_employee' ).text( localStorage.getItem("employeeFirstName"));
+    $( '#name_of_employee1' ).text( localStorage.getItem("employeeLastName"));
+    $( '#organization_name' ).text( localStorage.getItem("employeeOrganization"));
+    $( '#get_position' ).text(localStorage.getItem("employeePosition"));
+    $( '#get_number' ).text( localStorage.getItem("employeePhoneNumber"));
+    $('.img-circle').attr('src', localStorage.getItem("employeePhoto"));
+    $('.profile_img').attr('src', localStorage.getItem("employeePhoto"));
 // Synchronizing object changes
   func();
 
@@ -426,8 +429,8 @@ function newLoad(){
             }
           }
                  )} );
-console.log("NewLoad Function completed");
 
+console.log("NewLoad Function completed");
 }
 function inProcessLoad(){
   ////////////////////// SAME STAFF FOR IN_PROCESS
