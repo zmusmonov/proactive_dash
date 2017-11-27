@@ -138,8 +138,6 @@ counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
   showStatistics();
     } );
 
-
-   
   function showStatistics(){
     var ctx = document.getElementById("pieChart").getContext('2d');
   	var myChart = new Chart(ctx, {
