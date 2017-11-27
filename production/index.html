@@ -202,14 +202,14 @@
 										</form>
 									</div>
 
-									<button id="statusButtonInProcessInNewFolder" onclick="document.getElementById('id03').style.display='block'" style="width:auto; display: none;">In Process</button>
+									<button id="statusButtonInProcessInNewFolder" onclick="document.getElementById('id03').style.display='block'; showDate()" style="width:auto; display: none;">In Process</button>
 									<div class="modal" id="id03">
 										<span class="close" onclick="document.getElementById('id03').style.display='none'" title="Close Modal">×</span>
 										<form action="/action_page.php" class="modal-content animate">
 											<div class="container">
-												<label><b>Responsible Person:</b></label> <input id="responsible" name="rate" placeholder="Name" required="" type="text"> <label><b>Expected Date of Complation:</b></label><br>
-												<input id="expected_date" name="rate" placeholder="Date" required="" type="date"><br>
-												<br>
+												<label><b>Responsible Person:</b></label> <input id="responsible" name="rate" placeholder="Name" required="" type="text"> 
+												<label><b>Expected Date for Completion</b></label><br>
+												<input id="expected_date" name="rate" placeholder="Date" required="" type="date"><span id= "explanation_for_date"></span><br>
 												<label><b>Budjet:</b></label> <input id="budjet" name="rate" placeholder="Budjet" required="" type="text"> <label><b>Note:</b></label> <!-- <input type=text placeholder="Note" name="description" required> -->
 												 
 												<textarea cols="1010" id="note" name="Text1" rows="6"></textarea>
@@ -463,5 +463,8 @@
 	<script type="text/javascript">
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClq2kdiDboyMJs1QxISwIMT5VpUZKOGVU"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.print.css"/>
 </body>
 </html>
