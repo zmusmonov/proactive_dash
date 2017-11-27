@@ -16,6 +16,8 @@ var inProcess_counter;
 var rejected_counter;
 var completed_counter;
 $("#organization_name").html(localStorage.getItem("employeeOrganization"));
+$("#name_of_employee").html(localStorage.getItem("employeeFirstName")+ ' '+localStorage.getItem("employeeLastName"));
+$(".profile_img").attr('src', localStorage.getItem("employeePhoto"));
 var alreadyDone=0;
 var inacceptableComplaint=0;
 var badQualityPhoto=0;
@@ -39,64 +41,64 @@ firebase.database().ref('Complain/Tashkent/Nam-gu/'+category+'/Rejected/').once(
   )
 });
     
-    const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/' );
+const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/' );
 
-    counterFirebase.child( "New" ).on( "value", function( snapshot ) {
-      counter.text(snapshot.val().new_count);
-      new_counter = snapshot.val().new_count;
-       showStatistics();
+counterFirebase.child( "New" ).on( "value", function( snapshot ) {
+  counter.text(snapshot.val().new_count);
+  new_counter = snapshot.val().new_count;
+   showStatistics();
+} );
+
+counterFirebase.child( "Completed" ).on( "value", function( snapshot ) {
+  counterCompleted.text(snapshot.val().completed_count);
+  completed_counter = counterCompleted.text(snapshot.val().completed_count ).text();
+   showStatistics();
+} );
+
+counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
+  counterProcess.text( snapshot.val().inProcess_count);
+  inProcess_counter = counterProcess.text( snapshot.val().inProcess_count ).text();
+   showStatistics();
+} );
+
+counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
+  counterRejected.text( snapshot.val().rejected_count);
+  rejected_counter =  counterRejected.text( snapshot.val().rejected_count).text();
+  showStatistics();
     } );
-    
-    counterFirebase.child( "Completed" ).on( "value", function( snapshot ) {
-      counterCompleted.text(snapshot.val().completed_count);
-      completed_counter = counterCompleted.text(snapshot.val().completed_count ).text();
-       showStatistics();
-    } );
 
-    counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
-      counterProcess.text( snapshot.val().inProcess_count);
-      inProcess_counter = counterProcess.text( snapshot.val().inProcess_count ).text();
-       showStatistics();
-    } );
-    
-    counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
-      counterRejected.text( snapshot.val().rejected_count);
-      rejected_counter =  counterRejected.text( snapshot.val().rejected_count).text();
-      showStatistics();
-        } );
+firebase.database().ref( 'organization/employee/name' ).on( "value", function( snapshot ) {
+  $( '#name_of_employee' ).text( snapshot.val() );
+  $( '#name_of_employee1' ).text( snapshot.val() );
+} );
+firebase.database().ref( 'organization/name/' ).on( 'value', snap => {
+  $( '#organization_name' ).text( snap.val() );
+  organName=snap.val();
+} );
+firebase.database().ref( 'organization/employee/position/' ).on( 'value', snap => {
+  $( '#get_position' ).text( snap.val() );
+} );
+firebase.database().ref( 'organization/employee/number/' ).on( 'value', snap => {
+  $( '#get_number' ).text( snap.val() );
+} );
 
-    firebase.database().ref( 'organization/employee/name' ).on( "value", function( snapshot ) {
-    $( '#name_of_employee' ).text( snapshot.val() );
-    $( '#name_of_employee1' ).text( snapshot.val() );
-  } );
-  firebase.database().ref( 'organization/name/' ).on( 'value', snap => {
-    $( '#organization_name' ).text( snap.val() );
-    organName=snap.val();
-  } );
-  firebase.database().ref( 'organization/employee/position/' ).on( 'value', snap => {
-    $( '#get_position' ).text( snap.val() );
-  } );
-  firebase.database().ref( 'organization/employee/number/' ).on( 'value', snap => {
-    $( '#get_number' ).text( snap.val() );
-  } );
-
-  function showStatistics(){
-    var ctx = document.getElementById("pieChart").getContext('2d');
-  	var myChart = new Chart(ctx, {
-	  type: 'doughnut',
-	  data: {
-	    labels: ["New", "Completed", "Rejected", "In Process"],
-	    datasets: [{
-	      backgroundColor: [
-	        "#2ecc71",
-	        "#3498db",
-	        "#95a5a6",
-	        "#9b59b6"
-	      ],
-	      data: [new_counter, completed_counter, rejected_counter, inProcess_counter]
-	    }]
-	  }
-	});
+function showStatistics(){
+var ctx = document.getElementById("pieChart").getContext('2d');
+var myChart = new Chart(ctx, {
+type: 'doughnut',
+data: {
+  labels: ["New", "Completed", "Rejected", "In Process"],
+  datasets: [{
+      backgroundColor: [
+        "#2ecc71",
+        "#3498db",
+        "#95a5a6",
+        "#9b59b6"
+      ],
+      data: [new_counter, completed_counter, rejected_counter, inProcess_counter]
+    }]
+  }
+});
 
 var ctx2 = document.getElementById("polarChart").getContext('2d');
 var myChart2 = new Chart(ctx2, {
