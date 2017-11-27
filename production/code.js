@@ -33,6 +33,7 @@ var senderEmailInProcess;
 var starRating;
 var longitute;
 var latitude;
+
 function myMapNew(latitude, longitute) {
   var mapProp= {lat: Number(latitude), lng: Number(longitute)};
   var map = new google.maps.Map(document.getElementById("googleMapNew"),{
@@ -111,6 +112,7 @@ var marker = new google.maps.Marker({
       rejected_counter =  counterRejected.text( snapshot.val().rejected_count).text();
       rejectedLoad();
     } );
+
     $( '#name_of_employee' ).text( localStorage.getItem("employeeFirstName")+ ' '+localStorage.getItem("employeeLastName") );
     $( '#name_of_employee1' ).text( localStorage.getItem("employeeFirstName")+' '+localStorage.getItem("employeeLastName") );
     $( '#organization_name' ).text( localStorage.getItem("employeeOrganization"));
@@ -129,7 +131,6 @@ function func() {
     ref.once( 'value' ).then( function( snapshot ) {
 
       $( '#complainPhotoNew').show();
-
       $( '#statusButtonCompletedInNewFolder').show();
       $( '#statusButtonRejectedInNewFolder').show();
       $( '#statusButtonInProcessInNewFolder').show();
@@ -435,8 +436,8 @@ function newLoad(){
             }
           }
                  )} );
-console.log("NewLoad Function completed");
 
+console.log("NewLoad Function completed");
 }
 function inProcessLoad(){
   ////////////////////// SAME STAFF FOR IN_PROCESS
@@ -494,6 +495,7 @@ function inProcessLoad(){
   } );
 console.log("inProcessLoad Function Completed");
 }
+
 function completedLoad(){
     var itemCompleted = $( '#listviewCompleted' );
     itemCompleted.empty();
@@ -549,6 +551,7 @@ function completedLoad(){
   } );
   console.log("CompletedLoad Function Completed");
 }
+
 function rejectedLoad(){
     var itemRejected = $( '#listviewRejected' );
     itemRejected.empty();
@@ -661,6 +664,7 @@ function NewToCompleted() {
       copyFbRecord( newReference_completed, newReferenceToCopy_completed );
       document.getElementById( 'CompleteForm' ).style.display = 'none';
       document.getElementById('complainDetailsNew').style.display='none';
+
     } );
   }
 
@@ -772,6 +776,7 @@ function InProcessToCompleted() {
     $('#complainDetailsInProcess').css('display', 'none');
       document.getElementById( 'CompleteFormInProcess' ).style.display = 'none';
     } );
+
     }
 
 

@@ -17,11 +17,27 @@ var rejected_counter;
 var completed_counter;
 $("#organization_name").html(localStorage.getItem("employeeOrganization"));
 $("#name_of_employee").html(localStorage.getItem("employeeFirstName")+ ' '+localStorage.getItem("employeeLastName"));
-$(".profile_img").attr('src', localStorage.getItem("employeePhoto"));
+
+$("#name_of_employee1").html(localStorage.getItem("employeeFirstName")+ ' '+localStorage.getItem("employeeLastName"));
+$( '#get_position' ).html(localStorage.getItem("employeePosition"));
+$( '#get_number' ).html( localStorage.getItem("employeePhoneNumber") );
+$('.profile_img').attr('src', localStorage.getItem("employeePhoto"));
+
+
 var alreadyDone=0;
 var inacceptableComplaint=0;
 var badQualityPhoto=0;
 var problemNotFound=0;
+
+var november_new = 0;
+var october_new = 0;
+var december_new = 0;
+
+var november_completed = 0;
+var october_completed = 0;
+var december_completed = 0;
+
+
 
 firebase.database().ref('Complain/Tashkent/Nam-gu/'+category+'/Rejected/').once('value').then(function(snapshot){
 	snapshot.forEach(function(childSnapshot){
@@ -37,9 +53,64 @@ firebase.database().ref('Complain/Tashkent/Nam-gu/'+category+'/Rejected/').once(
 		else if(reason.localeCompare("problem not found in located area")==0)
 			problemNotFound++;
 		
-	}showStatistics();}
+	}showStatistics();
+}
   )
 });
+
+firebase.database().ref('Complain/Tashkent/Nam-gu/'+category+'/New/').once('value').then(function(snapshot){
+	snapshot.forEach(function(childSnapshot){
+		var key = childSnapshot.key;
+		if(key.localeCompare("new_count")!=0){
+			var date_new = childSnapshot.val().time;
+			var tempdate = "";
+			for (var i=3;i<5;i++){
+				tempdate=tempdate+date_new[i];
+			}
+			date_new = parseInt(tempdate);
+			if(date_new == 11){
+				november_new++;
+			}
+			else if (date_new == 10){
+				october_new++;
+			}
+			else if (date_new == 12){
+				december_new++;
+			}
+
+		}
+		showStatistics();
+	   })
+
+});
+
+
+firebase.database().ref('Complain/Tashkent/Nam-gu/'+category+'/Completed/').once('value').then(function(snapshot){
+	snapshot.forEach(function(childSnapshot){
+		var key = childSnapshot.key;
+		if(key.localeCompare("completed_count")!=0){
+			var date_completed = childSnapshot.val().time;
+			var tempdate_com = "";
+			for (var i=3;i<5;i++){
+				tempdate_com = tempdate_com + date_completed[i];
+			}
+			date_completed = parseInt(tempdate_com);
+			if(date_completed == 11){
+				november_completed++;
+			}
+			else if (date_completed == 10){
+				october_completed++;
+			}
+			else if (date_completed == 12){
+				december_completed++;
+			}
+
+		}
+		showStatistics();
+	   })
+
+});
+
     
 const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/' );
 
@@ -67,41 +138,28 @@ counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
   showStatistics();
     } );
 
-firebase.database().ref( 'organization/employee/name' ).on( "value", function( snapshot ) {
-  $( '#name_of_employee' ).text( snapshot.val() );
-  $( '#name_of_employee1' ).text( snapshot.val() );
-} );
-firebase.database().ref( 'organization/name/' ).on( 'value', snap => {
-  $( '#organization_name' ).text( snap.val() );
-  organName=snap.val();
-} );
-firebase.database().ref( 'organization/employee/position/' ).on( 'value', snap => {
-  $( '#get_position' ).text( snap.val() );
-} );
-firebase.database().ref( 'organization/employee/number/' ).on( 'value', snap => {
-  $( '#get_number' ).text( snap.val() );
-} );
+<<<<<<< HEAD
+   
+  function showStatistics(){
+    var ctx = document.getElementById("pieChart").getContext('2d');
+  	var myChart = new Chart(ctx, {
+	  type: 'doughnut',
+	  data: {
+	    labels: ["New", "Completed", "Rejected", "In Process"],
+	    datasets: [{
+	      backgroundColor: [
+	        "#2ecc71",
+	        "#3498db",
+	        "#95a5a6",
+	        "#9b59b6"
+	      ],
+	      data: [new_counter, completed_counter, rejected_counter, inProcess_counter]
+	    }]
+	  }
+	});
 
-function showStatistics(){
-var ctx = document.getElementById("pieChart").getContext('2d');
-var myChart = new Chart(ctx, {
-type: 'doughnut',
-data: {
-  labels: ["New", "Completed", "Rejected", "In Process"],
-  datasets: [{
-      backgroundColor: [
-        "#2ecc71",
-        "#3498db",
-        "#95a5a6",
-        "#9b59b6"
-      ],
-      data: [new_counter, completed_counter, rejected_counter, inProcess_counter]
-    }]
-  }
-});
-
-var ctx2 = document.getElementById("polarChart").getContext('2d');
-var myChart2 = new Chart(ctx2, {
+	var ctx2 = document.getElementById("polarChart").getContext('2d');
+	var myChart2 = new Chart(ctx2, {
   type: 'polarArea',
   data: {
     labels: ["alredy done", "inacceptable complaint", "bad photo quality", "problem not found in located area"],
@@ -124,11 +182,11 @@ var myChart3 = new Chart(ctx3, {
     labels: ["Sep", "Oct", "Nov", "Dec"],
     datasets: [{
       label: 'New',
-      data: [10, 12, 11, 0],
+      data: [1, october_new, november_new, december_new],
       backgroundColor: "rgba(153,255,51,1)"
     }, {
       label: 'Completed',
-      data: [9, 10, 11, 0],
+      data: [1, october_completed, november_completed, december_completed],
       backgroundColor: "rgba(255,153,0,1)"
     }]
   }
