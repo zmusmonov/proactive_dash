@@ -284,6 +284,18 @@ table.tile_info td p {
     border: 1px solid rgba(52, 73, 94, .44);
     padding: 4px
 }
+
+#pp_edited {
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    margin: 0;
+    z-index: 1000;
+    position: inherit;
+    border: 1px solid rgba(52, 73, 94, 0.44);
+    padding: 4px  
+}
+
 .profile_info {
     padding: 25px 10px 10px;
     width: 65%;
