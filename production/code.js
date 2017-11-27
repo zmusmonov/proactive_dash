@@ -21,6 +21,7 @@ else if(organName.localeCompare("Ministry of Housing")==0)
 localStorage.setItem("category", category);
 var new_counter;
 var inProcess_counter;
+var inProcess_counter_for_suggestion;
 var rejected_counter;
 var completed_counter;
 //firebase.initializeApp( config );
@@ -105,6 +106,7 @@ var marker = new google.maps.Marker({
       counterProcess.text( snapshot.val().inProcess_count);
       inProcess_counter = counterProcess.text( snapshot.val().inProcess_count ).text();
       inProcessLoad();
+
     } );
     
     counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
@@ -742,6 +744,24 @@ function copyFbRecord( oldRef, newRef ) {
       } );
     } );
   }
+
+Date.prototype.addDays = function(days) {
+      var dat = new Date(this.valueOf());
+      dat.setDate(dat.getDate() + days);
+      return dat;
+}
+
+function showDate(){
+  
+  counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
+      inProcess_counter_for_suggestion = counterProcess.text( snapshot.val().inProcess_count ).text();
+      var dat = new Date();
+      date_to_display = (dat.addDays(Math.ceil(inProcess_counter_for_suggestion/2)));
+      var date_for_suggestion = date_to_display.getFullYear() + "-" + ( date_to_display.getMonth() + 1 ) + "-" + date_to_display.getDate();
+      $('#expected_date').val(date_for_suggestion);
+      $('#explanation_for_date').text("   Recommended day for Completion is " + date_for_suggestion + " based on the number of complaints you have and days set");
+    });
+}
 
 function InProcessToCompleted() {
     var oldReference = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/inProcess/' + complaintId + '/' );

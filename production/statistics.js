@@ -137,7 +137,7 @@ counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
   rejected_counter =  counterRejected.text( snapshot.val().rejected_count).text();
   showStatistics();
     } );
-   
+
   function showStatistics(){
     var ctx = document.getElementById("pieChart").getContext('2d');
   	var myChart = new Chart(ctx, {
