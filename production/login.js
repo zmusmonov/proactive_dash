@@ -11,14 +11,8 @@ var employeePhoneNumber;
 var employeePosition;
 var employeeOrganization;
 var employeePhoto;
-var userName = $( '#txtUsername' )
-	.val();
-var password = $( '#txtPassword' )
-	.val();
 
 function login() {
-	console.log("username " +$( '#txtUsername' ).val());
-	console.log("password "+ $( '#txtPassword' ).val());
 	firebase.database()
 		.ref( "employee" )
 		.once( "value" )
@@ -28,6 +22,7 @@ function login() {
 						console.log("key " + key);
 						var childData = childSnapshot.val();
 						var passwd = childData.password;
+
 						console.log("pass "+passwd);
 						if ((($( '#txtUsername' ).val()).localeCompare( key )) == 0) {
 							if((($( '#txtPassword' ).val()).localeCompare( passwd )) == 0 ){
@@ -45,12 +40,11 @@ function login() {
 								localStorage.setItem("employeePosition",employeePosition);
 								window.location.assign( "index.html" );
 							}
+
 						}
 					
 	
 				}) 
 		} );
-
-		
 
 }

@@ -4,7 +4,21 @@
   databaseURL: "https://proactiveweb-1e68d.firebaseio.com/",
   storageBucket: "proactiveweb-1e68d.appspot.com",
 };*/
-var category='Trash';
+var organName=localStorage.getItem("employeeOrganization");
+var category;
+if(organName.localeCompare("Ministry of Roads and Transportation")==0)
+{
+  category='Road';
+}
+else if(organName.localeCompare("Ministry of Communal Service")==0)
+{
+    category='CommunalServices';
+}
+else if(organName.localeCompare("Ministry of Housing")==0)
+{
+  category='Trash';
+}
+localStorage.setItem("category", category);
 var new_counter;
 var inProcess_counter;
 var rejected_counter;
@@ -73,7 +87,6 @@ var marker = new google.maps.Marker({
     var counterCompleted = $( '#completedMess' );
     var counterProcess = $( '#in_Process' );
     var counterRejected = $( '#rejected' );
-    var organName;
     const dbRefObject = firebase.database().ref( 'organization/employee/name/' );
     const nameObject = firebase.database().ref( 'organization/employee/name/' );
     const getPosition = firebase.database().ref( 'organization/employee/position/' );
@@ -103,14 +116,12 @@ var marker = new google.maps.Marker({
       rejected_counter =  counterRejected.text( snapshot.val().rejected_count).text();
       rejectedLoad();
     } );
-    
 
-    $( '#name_of_employee' ).text( localStorage.getItem("employeeFirstName"));
-    $( '#name_of_employee1' ).text( localStorage.getItem("employeeLastName"));
+    $( '#name_of_employee' ).text( localStorage.getItem("employeeFirstName")+ ' '+localStorage.getItem("employeeLastName") );
+    $( '#name_of_employee1' ).text( localStorage.getItem("employeeFirstName")+' '+localStorage.getItem("employeeLastName") );
     $( '#organization_name' ).text( localStorage.getItem("employeeOrganization"));
     $( '#get_position' ).text(localStorage.getItem("employeePosition"));
-    $( '#get_number' ).text( localStorage.getItem("employeePhoneNumber"));
-    $('.img-circle').attr('src', localStorage.getItem("employeePhoto"));
+    $( '#get_number' ).text( localStorage.getItem("employeePhoneNumber") );
     $('.profile_img').attr('src', localStorage.getItem("employeePhoto"));
 // Synchronizing object changes
   func();
