@@ -35,15 +35,84 @@ var queryToRejected = firebase.database().ref('Complain/Tashkent/Nam-gu/' + cate
 queryToRejected.once("value").then(function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
             var key = childSnapshot.key;
-            if (key.localeCompare("rejected_count") != 0) {
+            if (key.localeCompare("new_count") != 0) {
               var childData = childSnapshot.val();
               var lng = childData.longitute;
               var lat = childData.latitude;
-              var infowindow = new google.maps.InfoWindow();
+              var photo=childData.photo;
+              var type=childData.type;
+              var sender=childData.sender;
+              var comment=childData.comment;
+              var time=childData.time;
+              //var infowindow = new google.maps.InfoWindow();
+              var content = '<div id="iw-container">' +
+                    '<div class="iw-title">'+type+'</div>' +
+                    '<div class="iw-content">' +
+                      '<div class="iw-subTitle">'+sender+'</div>' +
+                      '<img src="'+photo+'" alt="..." height="115" width="83">' +
+                      '<p>'+comment+'</p>' +'<br>'+'<p>'+time+'<p>'+
+                      '</div><div class="iw-bottom-gradient"></div>' +
+                  '</div>';
+                var infowindow = new google.maps.InfoWindow({
+                    content: content,
+                    width: 350
+                  });
               marker = new google.maps.Marker({
                 position: new google.maps.LatLng(Number(lat), Number(lng)),
-                map: map
-              });
+                map: map,
+                title: type
+                });
+              google.maps.event.addListener(marker, 'click', function() {
+                infowindow.open(map,marker);
+                });
+              google.maps.event.addListener(map, 'click', function() {
+                infowindow.close();
+                });
+              google.maps.event.addListener( infowindow, 'domready', function() {
+  var iwOuter = $( '.gm-style-iw' );
+  var iwBackground = iwOuter.prev();
+  iwBackground.children( ':nth-child(2)' )
+    .css( {
+      'display': 'none'
+    } );
+  iwBackground.children( ':nth-child(4)' )
+    .css( {
+      'display': 'none'
+    } );
+  /*iwOuter.parent()
+    .parent()
+    .css( {
+      left: '115px'
+    } );*/
+ iwBackground.children( ':nth-child(1)' ).attr( 'style', function( i, s ) {
+      return s + 'left: 76px !important;'
+    } );
+iwBackground.children( ':nth-child(3)' ).attr( 'style', function( i, s ) {
+      return s + 'left: 76px !important;'
+    } );
+iwBackground.children( ':nth-child(3)' ).find( 'div' )
+    .children()
+    .css( {
+      'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px',
+      'z-index': '1'
+    } );
+var iwCloseBtn = iwOuter.next();
+iwCloseBtn.css( {
+    opacity: '1',
+    right: '38px',
+    top: '3px',
+    border: '7px solid #48b5e9',
+    'border-radius': '13px',
+    'box-shadow': '0 0 5px #3990B9'
+  } );
+ iwCloseBtn.mouseout( function() {
+    $( this )
+      .css( {
+        opacity: '1'
+      } );
+  } );
+} );
+
           }})});
     }
 
@@ -57,7 +126,7 @@ var queryToRejected = firebase.database().ref('Complain/Tashkent/Nam-gu/' + cate
 queryToRejected.once("value").then(function(snapshot) {
   snapshot.forEach(function(childSnapshot) {
         var key = childSnapshot.key;
-        if (key.localeCompare("rejected_count") != 0) {
+        if (key.localeCompare("completed_count") != 0) {
           var childData = childSnapshot.val();
           var lng = childData.longitute;
           var lat = childData.latitude;
@@ -100,7 +169,7 @@ var queryToRejected = firebase.database().ref('Complain/Tashkent/Nam-gu/' + cate
 queryToRejected.once("value").then(function(snapshot) {
   snapshot.forEach(function(childSnapshot) {
         var key = childSnapshot.key;
-        if (key.localeCompare("rejected_count") != 0) {
+        if (key.localeCompare("inPsrocess_count") != 0) {
           var childData = childSnapshot.val();
           var lng = childData.longitute;
           var lat = childData.latitude;
