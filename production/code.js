@@ -87,10 +87,6 @@ var marker = new google.maps.Marker({
     var counterCompleted = $( '#completedMess' );
     var counterProcess = $( '#in_Process' );
     var counterRejected = $( '#rejected' );
-    const dbRefObject = firebase.database().ref( 'organization/employee/name/' );
-    const nameObject = firebase.database().ref( 'organization/employee/name/' );
-    const getPosition = firebase.database().ref( 'organization/employee/position/' );
-    const getNumber = firebase.database().ref( 'organization/employee/number/' );
     const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/' );
 
     counterFirebase.child( "New" ).on( "value", function( snapshot ) {
@@ -748,7 +744,6 @@ function copyFbRecord( oldRef, newRef ) {
   }
 
 function InProcessToCompleted() {
-    var keygen = genKey();
     var oldReference = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/inProcess/' + complaintId + '/' );
     var newReference_completed = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/Completed/' + complaintId + '/' );
     var newReferenceToCopy_completed = firebase.database().ref( 'user/' + senderEmailInProcess + '/complains/completed/' + complaintId + '/' );

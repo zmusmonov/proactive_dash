@@ -17,10 +17,12 @@ var rejected_counter;
 var completed_counter;
 $("#organization_name").html(localStorage.getItem("employeeOrganization"));
 $("#name_of_employee").html(localStorage.getItem("employeeFirstName")+ ' '+localStorage.getItem("employeeLastName"));
+
 $("#name_of_employee1").html(localStorage.getItem("employeeFirstName")+ ' '+localStorage.getItem("employeeLastName"));
 $( '#get_position' ).html(localStorage.getItem("employeePosition"));
 $( '#get_number' ).html( localStorage.getItem("employeePhoneNumber") );
 $('.profile_img').attr('src', localStorage.getItem("employeePhoto"));
+
 
 var alreadyDone=0;
 var inacceptableComplaint=0;
@@ -110,32 +112,33 @@ firebase.database().ref('Complain/Tashkent/Nam-gu/'+category+'/Completed/').once
 });
 
     
-    const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/' );
+const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/' );
 
-    counterFirebase.child( "New" ).on( "value", function( snapshot ) {
-      counter.text(snapshot.val().new_count);
-      new_counter = snapshot.val().new_count;
-       showStatistics();
-    } );
-    
-    counterFirebase.child( "Completed" ).on( "value", function( snapshot ) {
-      counterCompleted.text(snapshot.val().completed_count);
-      completed_counter = counterCompleted.text(snapshot.val().completed_count ).text();
-       showStatistics();
+counterFirebase.child( "New" ).on( "value", function( snapshot ) {
+  counter.text(snapshot.val().new_count);
+  new_counter = snapshot.val().new_count;
+   showStatistics();
+} );
+
+counterFirebase.child( "Completed" ).on( "value", function( snapshot ) {
+  counterCompleted.text(snapshot.val().completed_count);
+  completed_counter = counterCompleted.text(snapshot.val().completed_count ).text();
+   showStatistics();
+} );
+
+counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
+  counterProcess.text( snapshot.val().inProcess_count);
+  inProcess_counter = counterProcess.text( snapshot.val().inProcess_count ).text();
+   showStatistics();
+} );
+
+counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
+  counterRejected.text( snapshot.val().rejected_count);
+  rejected_counter =  counterRejected.text( snapshot.val().rejected_count).text();
+  showStatistics();
     } );
 
-    counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
-      counterProcess.text( snapshot.val().inProcess_count);
-      inProcess_counter = counterProcess.text( snapshot.val().inProcess_count ).text();
-       showStatistics();
-    } );
-    
-    counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
-      counterRejected.text( snapshot.val().rejected_count);
-      rejected_counter =  counterRejected.text( snapshot.val().rejected_count).text();
-      showStatistics();
-        } );
-
+<<<<<<< HEAD
    
   function showStatistics(){
     var ctx = document.getElementById("pieChart").getContext('2d');
@@ -155,8 +158,8 @@ firebase.database().ref('Complain/Tashkent/Nam-gu/'+category+'/Completed/').once
 	  }
 	});
 
-var ctx2 = document.getElementById("polarChart").getContext('2d');
-var myChart2 = new Chart(ctx2, {
+	var ctx2 = document.getElementById("polarChart").getContext('2d');
+	var myChart2 = new Chart(ctx2, {
   type: 'polarArea',
   data: {
     labels: ["alredy done", "inacceptable complaint", "bad photo quality", "problem not found in located area"],
