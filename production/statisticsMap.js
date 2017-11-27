@@ -55,7 +55,7 @@ queryToRejected.once("value").then(function(snapshot) {
                   '</div>';
                 var infowindow = new google.maps.InfoWindow({
                     content: content,
-                    width: 350
+                    maxWidth: 350
                   });
               marker = new google.maps.Marker({
                 position: new google.maps.LatLng(Number(lat), Number(lng)),
