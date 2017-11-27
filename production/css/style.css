@@ -675,6 +675,11 @@ textarea {
     height: 128px;
     width: 128px;
 }
+.imageUpload{
+    width: 256px;
+    height: 256px;
+}
+
 
 #markeredMap {
   margin: 0;
