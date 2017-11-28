@@ -232,17 +232,21 @@ queryToRejected.once("value").then(function(snapshot) {
 }
 
 function markeredMapInProcess() {
-var map = new google.maps.Map(document.getElementById('markeredMap'), {
+var map = new google.maps.Map( document.getElementById( 'markeredMap' ), {
     zoom: 19,
-    center: new google.maps.LatLng(37.4472124, 126.6595561),
+    center: new google.maps.LatLng( 37.4472124, 126.6595561 ),
     mapTypeId: google.maps.MapTypeId.ROADMAP
-});
-var queryToRejected = firebase.database().ref('Complain/Tashkent/Nam-gu/' + category + '/inProcess/').orderByKey();
-queryToRejected.once("value").then(function(snapshot) {
-  snapshot.forEach(function(childSnapshot) {
+  } );
+  var queryToRejected = firebase.database()
+    .ref( 'Complain/Tashkent/Nam-gu/' + category + '/inProcess/' )
+    .orderByKey();
+  queryToRejected.once( "value" )
+    .then( function( snapshot ) {
+      snapshot.forEach( function( childSnapshot ) {
         var key = childSnapshot.key;
-        if (key.localeCompare("rejected_count") != 0) {
-            var lng = childData.longitute;
+        if ( key.localeCompare( "inProcess_count" ) != 0 ) {
+          var childData = childSnapshot.val();
+          var lng = childData.longitute;
           var lat = childData.latitude;
           var photo = childData.photo;
           var type = childData.type;
@@ -325,7 +329,10 @@ queryToRejected.once("value").then(function(snapshot) {
                 } );
             } );
           } );
-      }})});
+        }
+
+      } )
+    } );
 }
 function markeredMapRejected() {
 var map = new google.maps.Map(document.getElementById('markeredMap'), {
@@ -337,7 +344,7 @@ var queryToRejected = firebase.database().ref('Complain/Tashkent/Nam-gu/' + cate
 queryToRejected.once("value").then(function(snapshot) {
   snapshot.forEach(function(childSnapshot) {
         var key = childSnapshot.key;
-        if (key.localeCompare("inPsrocess_count") != 0) {
+        if (key.localeCompare("rejected_count") != 0) {
             var lng = childData.longitute;
           var lat = childData.latitude;
           var photo = childData.photo;
