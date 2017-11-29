@@ -1,15 +1,30 @@
-const config = {
+/*const config = {
   apiKey: "AIzaSyClq2kdiDboyMJs1QxISwIMT5VpUZKOGVU",
   authDomain: "proactiveweb-1e68d.firebaseapp.com", 
   databaseURL: "https://proactiveweb-1e68d.firebaseio.com/",
   storageBucket: "proactiveweb-1e68d.appspot.com",
-};
-var category='Trash';
- var new_counter;
+};*/
+var organName=localStorage.getItem("employeeOrganization");
+var category;
+if(organName.localeCompare("Ministry of Roads and Transportation")==0)
+{
+  category='Road';
+}
+else if(organName.localeCompare("Ministry of Communal Service")==0)
+{
+    category='CommunalServices';
+}
+else if(organName.localeCompare("Ministry of Housing")==0)
+{
+  category='Trash';
+}
+localStorage.setItem("category", category);
+var new_counter;
 var inProcess_counter;
+var inProcess_counter_for_suggestion;
 var rejected_counter;
 var completed_counter;
-firebase.initializeApp( config );
+//firebase.initializeApp( config );
 const dbRef = firebase.database();
 var complaintId;
 var senderEmailNew;
@@ -19,6 +34,7 @@ var senderEmailInProcess;
 var starRating;
 var longitute;
 var latitude;
+
 function myMapNew(latitude, longitute) {
   var mapProp= {lat: Number(latitude), lng: Number(longitute)};
   var map = new google.maps.Map(document.getElementById("googleMapNew"),{
@@ -72,11 +88,6 @@ var marker = new google.maps.Marker({
     var counterCompleted = $( '#completedMess' );
     var counterProcess = $( '#in_Process' );
     var counterRejected = $( '#rejected' );
-    var organName;
-    const dbRefObject = firebase.database().ref( 'organization/employee/name/' );
-    const nameObject = firebase.database().ref( 'organization/employee/name/' );
-    const getPosition = firebase.database().ref( 'organization/employee/position/' );
-    const getNumber = firebase.database().ref( 'organization/employee/number/' );
     const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/' );
 
     counterFirebase.child( "New" ).on( "value", function( snapshot ) {
@@ -95,6 +106,7 @@ var marker = new google.maps.Marker({
       counterProcess.text( snapshot.val().inProcess_count);
       inProcess_counter = counterProcess.text( snapshot.val().inProcess_count ).text();
       inProcessLoad();
+
     } );
     
     counterFirebase.child( "Rejected" ).on( "value", function( snapshot ) {
@@ -102,22 +114,13 @@ var marker = new google.maps.Marker({
       rejected_counter =  counterRejected.text( snapshot.val().rejected_count).text();
       rejectedLoad();
     } );
-    
-  firebase.database().ref( 'organization/employee/name' ).on( "value", function( snapshot ) {
-    $( '#name_of_employee' ).text( snapshot.val() );
-    $( '#name_of_employee1' ).text( snapshot.val() );
-  } );
-  firebase.database().ref( 'organization/name/' ).on( 'value', snap => {
-    $( '#organization_name' ).text( snap.val() );
-    organName=snap.val();
-  } );
-  firebase.database().ref( 'organization/employee/position/' ).on( 'value', snap => {
-    $( '#get_position' ).text( snap.val() );
-  } );
-  firebase.database().ref( 'organization/employee/number/' ).on( 'value', snap => {
-    $( '#get_number' ).text( snap.val() );
-  } );
-  
+
+    $( '#name_of_employee' ).text( localStorage.getItem("employeeFirstName")+ ' '+localStorage.getItem("employeeLastName") );
+    $( '#name_of_employee1' ).text( localStorage.getItem("employeeFirstName")+' '+localStorage.getItem("employeeLastName") );
+    $( '#organization_name' ).text( localStorage.getItem("employeeOrganization"));
+    $( '#get_position' ).text(localStorage.getItem("employeePosition"));
+    $( '#get_number' ).text( localStorage.getItem("employeePhoneNumber") );
+    $('.profile_img').attr('src', localStorage.getItem("employeePhoto"));
 // Synchronizing object changes
   func();
 
@@ -130,7 +133,6 @@ function func() {
     ref.once( 'value' ).then( function( snapshot ) {
 
       $( '#complainPhotoNew').show();
-
       $( '#statusButtonCompletedInNewFolder').show();
       $( '#statusButtonRejectedInNewFolder').show();
       $( '#statusButtonInProcessInNewFolder').show();
@@ -436,8 +438,8 @@ function newLoad(){
             }
           }
                  )} );
-console.log("NewLoad Function completed");
 
+console.log("NewLoad Function completed");
 }
 function inProcessLoad(){
   ////////////////////// SAME STAFF FOR IN_PROCESS
@@ -495,6 +497,7 @@ function inProcessLoad(){
   } );
 console.log("inProcessLoad Function Completed");
 }
+
 function completedLoad(){
     var itemCompleted = $( '#listviewCompleted' );
     itemCompleted.empty();
@@ -550,6 +553,7 @@ function completedLoad(){
   } );
   console.log("CompletedLoad Function Completed");
 }
+
 function rejectedLoad(){
     var itemRejected = $( '#listviewRejected' );
     itemRejected.empty();
@@ -662,6 +666,7 @@ function NewToCompleted() {
       copyFbRecord( newReference_completed, newReferenceToCopy_completed );
       document.getElementById( 'CompleteForm' ).style.display = 'none';
       document.getElementById('complainDetailsNew').style.display='none';
+
     } );
   }
 
@@ -740,8 +745,25 @@ function copyFbRecord( oldRef, newRef ) {
     } );
   }
 
+Date.prototype.addDays = function(days) {
+      var dat = new Date(this.valueOf());
+      dat.setDate(dat.getDate() + days);
+      return dat;
+}
+
+function showDate(){
+  
+  counterFirebase.child( "inProcess" ).on( "value", function( snapshot ) {
+      inProcess_counter_for_suggestion = counterProcess.text( snapshot.val().inProcess_count ).text();
+      var dat = new Date();
+      date_to_display = (dat.addDays(Math.ceil(inProcess_counter_for_suggestion/2)));
+      var date_for_suggestion = date_to_display.getFullYear() + "-" + ( date_to_display.getMonth() + 1 ) + "-" + date_to_display.getDate();
+      $('#expected_date').val(date_for_suggestion);
+      $('#explanation_for_date').text("   Recommended day for Completion is " + date_for_suggestion + " based on the number of complaints you have and days set");
+    });
+}
+
 function InProcessToCompleted() {
-    var keygen = genKey();
     var oldReference = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/inProcess/' + complaintId + '/' );
     var newReference_completed = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/Completed/' + complaintId + '/' );
     var newReferenceToCopy_completed = firebase.database().ref( 'user/' + senderEmailInProcess + '/complains/completed/' + complaintId + '/' );
@@ -774,6 +796,7 @@ function InProcessToCompleted() {
     $('#complainDetailsInProcess').css('display', 'none');
       document.getElementById( 'CompleteFormInProcess' ).style.display = 'none';
     } );
+
     }
 
 
