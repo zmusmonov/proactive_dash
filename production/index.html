@@ -14,22 +14,25 @@
 	<link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"><!-- bootstrap-daterangepicker -->
 	<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"><!-- Custom Theme Style -->
 	<link href="../build/css/custom.min.css" rel="stylesheet"><!-- // Sweet Alert -->
-	<!-- <script src="../vendors/sweetalert2/dist/sweetalert2.all.min.js"></script> -->
-
 	<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a class="site_title" href="index.html"><i class="fa fa-paw"></i> <span>ProActive</span></a>
+						<a class="site_title" href="index.html">
+							<img src="images/logo.png" style="height: 46px;width: 46px;">
+							<span>ProActive</span></a>
 					</div>
 					<div class="clearfix"></div><!-- menu profile quick info -->
 					<div class="profile clearfix">
-						<div class="profile_pic"><img alt="..." class="img-circle profile_img" src="images/ava.jpg"></div>
+						<div class="profile_pic">
+							<img alt="profile_image" class="img-circle profile_img" >
+						</div>
 						<div class="profile_info">
 							<span>Welcome</span>
 							<p id="name_of_employee"></p>
@@ -43,41 +46,35 @@
 									<a><i class="fa fa-home"></i> Complaints <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li>
-											<a class="notif" onclick="document.getElementById('NewDiv').style.display='block'; document.getElementById('RejectedDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none';">New<span class="num" id="newCom"></span></a>
+											<a class="notif" onclick="document.getElementById('NewDiv').style.display='block'; document.getElementById('RejectedDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none'; document.getElementById('InProcessDiv').style.display='none';">New<span class="num" id="newCom"></span></a>
 										</li>
 										<li>
-											<a class="notif">In Process<span class="num_process" id="in_Process"></span></a>
+											<a class="notif" onclick ="document.getElementById('InProcessDiv').style.display='block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none';document.getElementById('RejectedDiv').style.display='none';">In Process<span class="num_process" id="in_Process"></span></a>
 										</li>
 										<li>
-											<!-- <a class="notif" onclick= "document.getElementById('CompletedDiv').style.display= 'block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('RejectedDiv').style.display='none';" >Completed<span class="num_completed" id="completedMess"></span></a> -->
-											<a class = "notif" onclick="document.getElementById('CompletedDiv').style.display='block';document.getElementById('listviewCompleted').style.display='block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('RejectedDiv').style.display = 'none';">Completed<span class = "num_completed" id = "completedMess"></span></a>
+											<a class = "notif" onclick="document.getElementById('CompletedDiv').style.display='block';document.getElementById('NewDiv').style.display='none'; document.getElementById('RejectedDiv').style.display = 'none';document.getElementById('InProcessDiv').style.display='none';">Completed<span class = "num_completed" id = "completedMess"></span></a>
 										</li>
 										<li>
-										    <a class="notif" onclick="document.getElementById('RejectedDiv').style.display='block'; document.getElementById('listviewRejected').style.display='block';document.getElementById('NewDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none';">Rejected<span class="num_rejected" id="rejected"></span></a>
+										    <a class="notif" onclick="document.getElementById('RejectedDiv').style.display='block'; document.getElementById('NewDiv').style.display='none'; document.getElementById('CompletedDiv').style.display='none'; document.getElementById('InProcessDiv').style.display='none';">Rejected<span class="num_rejected" id="rejected"></span></a>
 										</li>
 									</ul>
 								</li>
 								<li>
-									<a><i class="fa fa-edit"></i> Statistics <span class="fa"></span></a>
+									<a href = "statistics.html"><i class="fa fa-edit"></i> Statistics <span class="fa"></span></a>
 								</li>
 								<li>
-									<a><i class="fa fa-desktop"></i>About<span class="fa"></span></a>
+									<a href="statisticsMap.html"><i class="fa fa-desktop" ></i>Map<span class="fa"></span></a>
 								</li>
 								<li>
-									<a><i class="fa fa-table"></i> Addational <span class="fa"></span></a>
+									<a><i class="fa fa-table"></i> About Us <span class="fa"></span></a>
 								</li>
-								<li>
-									<a><i class="fa fa-bar-chart-o"></i>Settings<span class="fa"></span></a>
-								</li>
+
 							</ul>
 						</div>
 					</div><!-- /sidebar menu -->
-					<!-- /menu footer buttons -->
-					<div class="sidebar-footer hidden-small">
-						<a data-placement="top" data-toggle="tooltip" title="Settings"><span aria-hidden="true" class="glyphicon glyphicon-cog"></span></a> <a data-placement="top" data-toggle="tooltip" title="FullScreen"><span aria-hidden="true" class="glyphicon glyphicon-fullscreen"></span></a> <a data-placement="top" data-toggle="tooltip" title="Lock"><span aria-hidden="true" class="glyphicon glyphicon-eye-close"></span></a> <a data-placement="top" data-toggle="tooltip" href="login.html" title="Logout"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></a>
-					</div><!-- /menu footer buttons -->
 				</div>
 			</div><!-- top navigation -->
+
 			<div class="top_nav">
 				<div class="nav_menu">
 					<nav>
@@ -89,7 +86,10 @@
 						</div>
 						<ul class="nav navbar-nav navbar-right">
 							<li class="">
-								<a aria-expanded="false" class="user-profile dropdown-toggle" data-toggle="dropdown" href="javascript:;"><img alt="" src="images/ava.jpg"> <span class=" fa fa-angle-down"></span></a>
+								<a aria-expanded="false" class="user-profile dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+									<span><img class="img-circle profile_img hello" id="pp_edited"> </span>
+									
+									<span class=" fa fa-angle-down"></span></a>
 								<ul class="dropdown-menu dropdown-usermenu pull-right">
 									<li class="user_info">Name:</li>
 									<li style="list-style: none; display: inline">
@@ -124,23 +124,40 @@
 							<div class="row" id="contain">
 								<div class="col-md-3" id="listviewNew"></div>
 								<div class="col-md-9" id="complainDetailsNew">
-									<h4 id="complainCategoryNew">Complain Category</h4><img id="userPhotoNew">
-									<h2 id="userNameNew">User Name</h2>
-									<h6 id="userPhoneNumberNew">User Phone Number</h6><img id="complainPhotoNew">
-									<h6 id="commentNew">Comment</h6>
-									<h6 id="locationNew">Location</h6>
-									<h6 id="timeNew">Time</h6><button onclick="document.getElementById('CompleteForm').style.display='block'" style="width:auto;">Completed</button>
+
+									<h4 id="complainCategoryNew1" style="display: none">Complaint Category:</h4>
+									<h2 id="complainCategoryNew" class = "report-detail" ></h2>
+									
+									<h4 id="userNameNew1" style="display: none" >User Name:</h4>
+									<h2 id="userNameNew" class = "report-detail"></h2>
+
+									<img id="userPhotoNew" class="userProfileInComplaint" style="display: none;">
+
+									<h4 id="userPhoneNumberNew1" style="display: none">User Phone Number:</h4>
+									<h2 id="userPhoneNumberNew" class = "report-detail"></h2>
+									
+									<h4 id="commentNew1" style="display: none">Comment:</h4>
+									<h2 id="commentNew" class = "report-detail"></h2>
+									<img id="complainPhotoNew" class="complaint-image" style="display: none;" >
+									<h4 id="locationNew1" style="display: none">Location:</h4>
+									<h2 id="locationNew" class = "report-detail"></h2>
+									<div id="googleMapNew" style="width:100%;height:400px;"></div>
+									<h6 id="long"></h6>
+									<h6 id="lat"></h6>
+
+									<h4 id="timeNew1" style="display: none">Time:</h4>
+									<h2 id="timeNew" class = "report-detail"></h2>
+
+									<button id="statusButtonCompletedInNewFolder" onclick="document.getElementById('CompleteForm').style.display='block'" style="width:auto; display: none;">Completed</button>
 									<div class="modal" id="CompleteForm">
 										<span class="close" onclick="document.getElementById('CompleteForm').style.display='none'" title="Close Modal">×</span>
 										<form action="/action_page.php" class="modal-content animate">
 											<div class="container">
-												<label><b>Organization:</b></label> <input id="organization_name_form" name="rate" placeholder="Organization" required="" type="text"> <label><b>Responsible Person:</b></label> <input id="responsible_person" name="rate" placeholder="Name" required="" type="text"> <label><b>Photo Attachment:</b></label><br>
+												<label><b>Responsible Person:</b></label> <input id="responsible_person" name="rate" placeholder="Name" required="" type="text"> <label><b>Photo Attachment:</b></label><br>
 												<div class="btn-group">
-													<input id="imgInput" type="file"> <img id="image" src="#"><br>
+												<input id="imgInput" type="file"> <br>
+												<img src="images/photo.png" id="image" class="imageUpload" src="#"><br>
 												</div><br>
-												<label><b>Complation Date:</b></label><br>
-												<input id="completion_date" name="rate" placeholder="Date" required="" type="date"><br>
-												<br>
 												<label><b>Organization Rate:</b></label><br>
 												<div class="rating">
 													<label><input name="stars" type="radio" value="1"> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="2"> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="3"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="4"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="5"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label>
@@ -161,14 +178,224 @@
 												<label><b>Finance:</b></label><br>
 												<input id="finance_of_work" name="rate" placeholder="Finance" required="" type="text"> <label><b>Comment:</b></label> <input id="message" name="rate" placeholder="Comment" required="" type="text">
 												<div class="clearfix">
-													<button class="cancelbtn" onclick="document.getElementById('CompleteForm').style.display='none'" type="button">Cancel</button> <button class="submitbtn" onclick="FirebaseSubmit()" type="button">Submit</button>
+													<button class="cancelbtn" onclick="document.getElementById('CompleteForm').style.display='none'" type="button">Cancel</button> <button class="submitbtn" onclick="NewToCompleted()" type="button">Submit</button>
 												</div>
 											</div>
 										</form>
-									</div><button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Rejected</button>
+									</div>
+
+									<button id="statusButtonRejectedInNewFolder" onclick="document.getElementById('id02').style.display='block'" style="width:auto; display: none">Rejected</button>
 									<div class="modal" id="id02">
 										<span class="close" onclick="document.getElementById('id02').style.display='none'" title="Close Modal">×</span>
-										<form class="modal-animate">
+										<form action="/action_page.php" class="modal-content animate">
+											<div class="container">
+												<label><b>Reason for being rejected:</b></label> <select id="reasonsRejected">
+													<option value="1">already done</option>
+													<option value="2">inacceptable complaint</option>
+													<option value="3">bad photo quality</option>
+													<option value="4">problem not found in located area</option>
+												</select><br>
+												<br>
+												<label><b>Comments:</b></label> <input id="commentRejected" name="description" placeholder="Description" type="text">
+												<div class="clearfix">
+													<button class="cancelbtn" onclick="document.getElementById('id02').style.display='none'" type="button">Cancel</button> 
+													<button class="submitbtn" onclick="NewToRejected()" type="button">Submit</button>
+												</div>
+											</div>
+										</form>
+									</div>
+
+									<button id="statusButtonInProcessInNewFolder" onclick="document.getElementById('id03').style.display='block'; showDate()" style="width:auto; display: none;">In Process</button>
+									<div class="modal" id="id03">
+										<span class="close" onclick="document.getElementById('id03').style.display='none'" title="Close Modal">×</span>
+										<form action="/action_page.php" class="modal-content animate">
+											<div class="container">
+												<label><b>Responsible Person:</b></label> <input id="responsible" name="rate" placeholder="Name" required="" type="text"> 
+												<label><b>Expected Date for Completion</b></label><br>
+												<input id="expected_date" name="rate" placeholder="Date" required="" type="date"><span id= "explanation_for_date"></span><br>
+												<label><b>Budjet:</b></label> <input id="budjet" name="rate" placeholder="Budjet" required="" type="text"> <label><b>Note:</b></label> <!-- <input type=text placeholder="Note" name="description" required> -->
+												 
+												<textarea cols="1010" id="note" name="Text1" rows="6"></textarea>
+												<div class="clearfix">
+													<button class="cancelbtn" onclick="document.getElementById('id03').style.display='none'" type="button">Cancel</button> <button class="submitbtn" onclick="NewToInProcess()" type="button">Submit</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-12 col-sm-12 col-xs-12" id="RejectedDiv">
+						<div class="dashboard_graph">
+							<h1>Rejected</h1>
+							<div class="row" id="contain">
+								<div class="col-md-3" id="listviewRejected"></div>
+								<div class="col-md-9" id="complainDetailsRejected">
+			
+									<h4 id="complainCategoryRejected1" style="display: none">Complain Category:</h4>
+									<h2 id="complainCategoryRejected" class = "report-detail"></h2>
+
+
+									<h4 id="userNameRejected1" style="display: none">User Name:</h4>
+									<h2 id="userNameRejected" class = "report-detail" ></h2>
+
+									<img id="userPhotoRejected" class="userProfileInComplaint" style="display: none;">
+
+									<h4 id="userPhoneNumberRejected1" style="display: none">User Phone Number:</h4>
+									<h2 id="userPhoneNumberRejected" class = "report-detail"></h2>
+
+									<img id="complainPhotoRejected" class="complaint-image" style="display: none;">
+
+									<h6 id="commentRejected1" style="display: none">Comment:</h4>
+									<h6 id="commentRejected" class = "report-detail"></h2>
+									
+									<h4 id="locationRejected1" style="display: none">Location:</h4>
+									<h2 id="locationRejected" class = "report-detail"></h2>
+									
+									<h4 id="timeRejected1"style="display: none">Time:</h4>
+									<h2 id="timeRejected" class = "report-detail"></h2>
+									<div id="googleMapRejected" style="width:100%;height:400px;"></div>
+									<h4 id="CompletionDateRejected1" style="display: none">Completion Date:</h4>
+									<h2 id="CompletionDateRejected" class = "report-detail"></h2>
+									
+									<h4 id="CommentsOfOrgRejected1" style="display: none">Comments of Organization:</h4>
+									<h2 id="CommentsOfOrgRejected" class = "report-detail"></h2>
+									
+									<h4 id="reasonRejected1" style="display: none">Reason why complaint was rejected:</h4>
+									<h2 id="reasonRejected" class = "report-detail ></h2>
+									<h6 id=""></h6>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="col-md-12 col-sm-12 col-xs-12" id="CompletedDiv">
+						<div class="dashboard_graph">
+							<h1>Completed</h1>
+							<div class="row" id="contain">
+								<div class="col-md-3" id="listviewCompleted"></div>
+								<div class="col-md-9" id="complainDetailsCompleted">	
+									<h4 id="complainCategoryCompleted1" style="display: none">Complain Category:</h4>
+									<h2 id="complainCategoryCompleted" class = "report-detail"></h2>
+
+									<img id="userPhotoCompleted" class="userProfileInComplaint" style="display: none;">
+									
+									<h4 id="userNameCompleted1" style="display: none">User Name:</h4>
+									<h2 id="userNameCompleted" class = "report-detail"></h2>
+									
+									<h4 id="userPhoneNumberCompleted1" style="display: none">User Phone Number:</h4>
+									<h2 id="userPhoneNumberCompleted" class = "report-detail"></h2>
+
+
+									<h4 id="userPhotoCompleted1" style="display: none">User Complaint Photo:</h4>
+									<img id="complainPhotoCompleted" class="complaint-image" style="display: none;">
+									
+									<h4 id="commentCompleted1" style="display: none">Comment:</h4>
+									<h2 id="commentCompleted" class = "report-detail"></h2>
+									
+									<h4 id="locationCompleted1" style="display: none">Location:</h4>
+									<h2 id="locationCompleted" class = "report-detail"></h2>
+									
+									<h4 id="complainPhotoCompleted1" style="display: none">User Complaint Photo:</h4>						
+									<img id="responsePhotoCompleted" class="complaint-image" style="display: none;" >
+									
+									<h4 id="timeCompleted1" style="display: none">Time:</h4>
+									<h2 id="timeCompleted" class = "report-detail"></h2>
+									<div id="googleMapCompleted" style="width:100%;height:400px;"></div>
+									<h4 id="commentsOfOrgCompleted1" style="display: none">Comments of Organization:</h4>
+									<h2 id="commentsOfOrgCompleted" class = "report-detail"></h2>
+									
+									<h4 id="completionDateCompleted1" style="display: none">Completion Date:</h4>
+									<h2 id="completionDateCompleted" class = "report-detail"></h2>
+									
+									<h4 id="financeOfWorkCompleted1" style="display: none">Work expanse:</h4>
+									<h2 id="financeOfWorkCompleted" class = "report-detail"></h2>
+									
+									<h4 id="organizationRateCompleted1" style="display: none">Organization rated complaint for:</h4>
+									<h2 id="organizationRateCompleted" class = "report-detail"></h2>
+									
+									<h4 id="scopeCompleted1" style="display: none">Scope:</h4>
+									<h2 id="scopeCompleted" class = "report-detail"></h2>
+
+								</div>
+							</div>
+						</div>
+						
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="col-md-12 col-sm-12 col-xs-12" id="InProcessDiv">
+						<div class="dashboard_graph">
+							<h1>In Process</h1>
+							<div class="row" id="contain">
+								<div class="col-md-3" id="listviewInProcess"></div>
+								<div class="col-md-9" id="complainDetailsInProcess">
+
+									<h4 id="complainCategoryInProcess1" style="display: none">Complain Category:</h4>
+									<h2 id="complainCategoryInProcess" class = "report-detail"></h2>
+
+									<h4 id="userNameInProcess1" style="display: none">User Name:</h4>
+									<h2 id="userNameInProcess" class = "report-detail"></h2>
+
+									<img id="userPhotoInProcess" class="userProfileInComplaint" style="display: none">
+
+									<h4 id="userPhoneNumberInProcess1" style="display: none">User Phone Number:</h4>
+									<h2 id="userPhoneNumberInProcess" class = "report-detail"></h2>
+
+									<img id="complainPhotoInProcess" class="complaint-image"  style="display: none;">
+
+									<h4 id="commentInProcess1"  style="display: none">Comment:</h4>									
+									<h2 id="commentInProcess" class = "report-detail"></h2>
+
+									<h4 id="locationInProcess1" style="display: none">Location:</h4>									
+									<h2 id="locationInProcess" class = "report-detail"></h2>
+
+									<h4 id="timeInProcess1" style="display: none">Time</h4>									
+									<h2 id="timeInProcess" class = "report-detail"></h2>
+									<div id="googleMapInProcess" style="width:100%;height:400px;"></div>			
+									<button id="statusButtonCompletedInProcessFolder" onclick="document.getElementById('CompleteFormInProcess').style.display='block'" style="width:auto;display: none;">Completed</button>
+
+									<div class="modal" id="CompleteFormInProcess">
+										<span class="close" onclick="document.getElementById('CompleteFormInProcess').style.display='none'" title="Close Modal">×</span>
+										<form action="/action_page.php" class="modal-content animate">
+											<div class="container">
+												<label><b>Photo Attachment:</b></label><br>
+												<div class="btn-group">
+													<input id="imgInput2" type="file"> <img id="image" src="#"><br>
+												</div><br>
+												
+												<label><b>Organization Rate:</b></label><br>
+												<div class="rating">
+													<label><input name="stars" type="radio" value="1"> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="2"> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="3"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="4"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label> <label><input name="stars" type="radio" value="5"> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span> <span class="icon">★</span></label>
+												</div><br>
+												<label><b>Scope:</b></label><br>
+												<select id="scope_of_work">
+													<option value="little">
+														Little
+													</option>
+													<option value="medium">
+														Medium
+													</option>
+													<option value="big">
+														Big
+													</option>
+												</select><br>
+												<br>
+												<label><b>Finance:</b></label><br>
+												<input id="finance_of_work" name="rate" placeholder="Finance" required="" type="text"> <label><b>Comment:</b></label> <input id="message" name="rate" placeholder="Comment" required="" type="text">
+												<div class="clearfix">
+													<button class="cancelbtn" onclick="document.getElementById('CompleteFormInProcess').style.display='none'" type="button">Cancel</button> <button class="submitbtn" onclick="InProcessToCompleted()" type="button">Submit</button>
+												</div>
+											</div>
+										</form>
+									</div>
+									<button id="statusButtonRejectedInProcessFolder" onclick="document.getElementById('RejectedForm').style.display='block'" style="width:auto; display: none;">Rejected</button>
+									<div class="modal" id="RejectedForm">
+										<span class="close" onclick="document.getElementById('RejectedForm').style.display='none'" title="Close Modal">×</span>
+										<form action="/action_page.php" class="modal-content animate">
 											<div class="container">
 												<label><b>Reason for being rejected:</b></label> <select id="reasonsRejected">
 													<option value="1">
@@ -187,138 +414,60 @@
 												<br>
 												<label><b>Comments:</b></label> <input id="commentRejected" name="description" placeholder="Description" type="text">
 												<div class="clearfix">
-													<button class="cancelbtn" onclick="document.getElementById('id02').style.display='none'" type="button">Cancel</button> <button class="submitbtn" onclick="rejectedSubmit()" type="button">Submit</button>
+													<button class="cancelbtn" onclick="document.getElementById('RejectedForm').style.display='none'" type="button">Cancel</button> <button class="submitbtn" onclick="InProcessToRejected()" type="button">Submit</button>
 												</div>
 											</div>
 										</form>
-									</div><button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">In Process</button>
-									<div class="modal" id="id03">
-										<span class="close" onclick="document.getElementById('id03').style.display='none'" title="Close Modal">×</span>
-										<form action="/action_page.php" class="modal-content animate">
-											<div class="container">
-												<label><b>Responsible Person:</b></label> <input id="responsible" name="rate" placeholder="Name" required="" type="text"> <label><b>Expected Date of Complation:</b></label><br>
-												<input id="expected_date" name="rate" placeholder="Date" required="" type="date"><br>
-												<br>
-												<label><b>Budjet:</b></label> <input id="budjet" name="rate" placeholder="Budjet" required="" type="text"> <label><b>Note:</b></label> <!-- <input type=text placeholder="Note" name="description" required> -->
-												 
-												<textarea cols="1010" id="note" name="Text1" rows="6"></textarea>
-												<div class="clearfix">
-													<button class="cancelbtn" onclick="document.getElementById('id03').style.display='none'" type="button">Cancel</button> <button class="submitbtn" onclick="inProcessSubmit()" type="button">Submit</button>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-md-12 col-sm-12 col-xs-12" id="RejectedDiv">
-						<div class="dashboard_graph">
-							<h1>Rejected</h1>
-							<div class="row" id="contain">
-								<div class="col-md-3" id="listviewRejected"></div>
-								<div class="col-md-9" id="complainDetailsRejected">
-									<h4 id="complainCategoryRejected">Complain Category</h4><img id="userPhotoRejected">
-									<h2 id="userNameRejected">User Name</h2>
-									<h6 id="userPhoneNumberRejected">User Phone Number</h6><img id="complainPhotoRejected">
-									<h6 id="commentRejected">Comment</h6>
-									<h6 id="locationRejected">Location</h6>
-									<h6 id="timeRejected">Time</h6>
-								</div>
-							</div>
-						</div>
-						<!-- <link href="css/style.css" rel="stylesheet" type="text/css">
-						<script src="code.js"></script> -->
-						<div class="clearfix"></div>
-					</div>
-
-					<div class="col-md-12 col-sm-12 col-xs-12" id="CompletedDiv">
-						<div class="dashboard_graph">
-							<h1>Completed</h1>
-							<div class="row" id="contain">
-								<div class="col-md-3" id="listviewCompleted"></div>
-								<div class="col-md-9" id="complainDetailsCompleted">
-									<h4 id="complainCategoryCompleted">Complain Category</h4><img id="userPhotoCompleted">
-									<h2 id="userNameCompleted">User Name</h2>
-									<h6 id="userPhoneNumberCompleted">User Phone Number</h6><img id="complainPhotoCompleted">
-									<h6 id="commentCompleted">Comment</h6>
-									<h6 id="locationCompleted">Location</h6>
-									<h6 id="timeCompleted">Time</h6>
+									</div>							
+								
 								</div>
 							</div>
 						</div>
 						<link href="css/style.css" rel="stylesheet" type="text/css">
-						<script src="code.js"></script>
+						<script type="text/javascript" src="login.js"></script>
+						<script type="text/javascript" src="code.js"></script>
 						<div class="clearfix"></div>
 					</div>
-
 				</div>				
 			</div>
-		</div><!-- /page content -->
+		</div>
 	</div>
-	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js">
 	</script> <!-- Bootstrap -->
-	 
 	<script src="../vendors/bootstrap/dist/js/bootstrap.min.js">
 	</script> <!-- FastClick -->
-	 
 	<script src="../vendors/fastclick/lib/fastclick.js">
 	</script> <!-- NProgress -->
-	 
 	<script src="../vendors/nprogress/nprogress.js">
 	</script> <!-- Chart.js -->
-	 
 	<script src="../vendors/Chart.js/dist/Chart.min.js">
 	</script> <!-- gauge.js -->
-	 
 	<script src="../vendors/gauge.js/dist/gauge.min.js">
 	</script> <!-- bootstrap-progressbar -->
-	 
-	<script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js">
-	</script> <!-- iCheck -->
-	 
-	<script src="../vendors/iCheck/icheck.min.js">
-	</script> <!-- Skycons -->
-	 
-	<script src="../vendors/skycons/skycons.js">
-	</script> <!-- Flot -->
-	 
-	<script src="../vendors/Flot/jquery.flot.js">
-	</script> 
-	<script src="../vendors/Flot/jquery.flot.pie.js">
-	</script> 
-	<script src="../vendors/Flot/jquery.flot.time.js">
-	</script> 
-	<script src="../vendors/Flot/jquery.flot.stack.js">
-	</script> 
-	<script src="../vendors/Flot/jquery.flot.resize.js">
-	</script> <!-- Flot plugins -->
-	 
-	<script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js">
-	</script> 
-	<script src="../vendors/flot-spline/js/jquery.flot.spline.min.js">
-	</script> 
-	<script src="../vendors/flot.curvedlines/curvedLines.js">
-	</script> <!-- DateJS -->
-	 
-	<script src="../vendors/DateJS/build/date.js">
-	</script> <!-- JQVMap -->
-	 
-	<script src="../vendors/jqvmap/dist/jquery.vmap.js">
-	</script> 
-	<script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js">
-	</script> 
-	<script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js">
-	</script> <!-- bootstrap-daterangepicker -->
-	 
-	<script src="../vendors/moment/min/moment.min.js">
-	</script> 
-	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js">
-	</script> <!-- Custom Theme Scripts -->
-	 
-	<script src="../build/js/custom.min.js">
-	</script><!-- oxirgisi -->
+	<script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script> <!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<script src="../vendors/skycons/skycons.js"></script>
+	<script src="../vendors/Flot/jquery.flot.js"></script> 
+	<script src="../vendors/Flot/jquery.flot.pie.js"></script> 
+	<script src="../vendors/Flot/jquery.flot.time.js"></script> 
+	<script src="../vendors/Flot/jquery.flot.stack.js"></script> 
+	<script src="../vendors/Flot/jquery.flot.resize.js"></script>
+	<script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script> 
+	<script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script> 
+	<script src="../vendors/flot.curvedlines/curvedLines.js"></script>
+	<script src="../vendors/DateJS/build/date.js"></script>
+	<script src="../vendors/jqvmap/dist/jquery.vmap.js"></script> 
+	<script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script> 
+	<script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+	<script src="../vendors/moment/min/moment.min.js"></script> 
+	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="../vendors/sweetalert2/dist/sweetalert2.all.min.js"></script> 
+	<script src="../build/js/custom.min.js"></script>
+	<script type="text/javascript">
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClq2kdiDboyMJs1QxISwIMT5VpUZKOGVU"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.print.css"/>
 </body>
 </html>
