@@ -12,12 +12,7 @@ const config = {
     ];
 
 firebase.initializeApp( config );
-<<<<<<< HEAD
-
-	var category='Trash';
-=======
 	var category=localStorage.getItem("category");
->>>>>>> 41198e6b628b2c4b49f6e257c407348f4a7fc79c
  	var counter = $( '#newCom' );
     var counterCompleted = $( '#completedMess' );
     var counterProcess = $( '#in_Process' );
@@ -40,19 +35,13 @@ var inacceptableComplaint=0;
 var badQualityPhoto=0;
 var problemNotFound=0;
 
-<<<<<<< HEAD
-  markeredMap();
-  // doMarker();
-=======
+
 var november_new = 0;
 var october_new = 0;
 var december_new = 0;
-
 var november_completed = 0;
 var october_completed = 0;
 var december_completed = 0;
-
->>>>>>> 41198e6b628b2c4b49f6e257c407348f4a7fc79c
 
 
 firebase.database().ref('Complain/Tashkent/Nam-gu/'+category+'/Rejected/').once('value').then(function(snapshot){
@@ -69,33 +58,12 @@ firebase.database().ref('Complain/Tashkent/Nam-gu/'+category+'/Rejected/').once(
 		else if(reason.localeCompare("problem not found in located area")==0)
 			problemNotFound++;
 		
-<<<<<<< HEAD
-	}
-
-  showStatistics();
-
-
-=======
 	}showStatistics();
->>>>>>> 41198e6b628b2c4b49f6e257c407348f4a7fc79c
 }
   )
 });
 
-<<<<<<< HEAD
-    var organName;
-    const dbRefObject = firebase.database().ref( 'organization/employee/name/' );
-    const nameObject = firebase.database().ref( 'organization/employee/name/' );
-    const getPosition = firebase.database().ref( 'organization/employee/position/' );
-    const getNumber = firebase.database().ref( 'organization/employee/number/' );
-    const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/' );
 
-    counterFirebase.child( "New" ).on( "value", function( snapshot ) {
-      counter.text(snapshot.val().new_count);
-      new_counter = snapshot.val().new_count;
-       showStatistics();
-    } );
-=======
 firebase.database().ref('Complain/Tashkent/Nam-gu/'+category+'/New/').once('value').then(function(snapshot){
 	snapshot.forEach(function(childSnapshot){
 		var key = childSnapshot.key;
@@ -149,7 +117,6 @@ firebase.database().ref('Complain/Tashkent/Nam-gu/'+category+'/Completed/').once
 
 });
 
->>>>>>> 41198e6b628b2c4b49f6e257c407348f4a7fc79c
     
 const counterFirebase = firebase.database().ref( 'Complain/Tashkent/Nam-gu/'+category+'/' );
 
@@ -229,67 +196,4 @@ var myChart3 = new Chart(ctx3, {
   }
  });
 }
-
-
-
-function markeredMap() {
-  var map = new google.maps.Map(document.getElementById('markeredMap'), {
-    zoom: 10,
-    center: new google.maps.LatLng(37.4472124, 126.6595561),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  });
-  var queryToRejected = firebase.database().ref('Complain/Tashkent/Nam-gu/' + category + '/Rejected/').orderByKey();
-  queryToRejected.once("value").then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-              var key = childSnapshot.key;
-              if (key.localeCompare("rejected_count") != 0) {
-                var childData = childSnapshot.val();
-                var lng = childData.longitute;
-                var lat = childData.latitude;
-                console.log(lng + " and " + lat);
-                //locations.push([lng, lat]);
-                var infowindow = new google.maps.InfoWindow();
-                marker = new google.maps.Marker({
-                  position: new google.maps.LatLng(Number(lat), Number(lng)),
-                  map: map
-                });
-                // google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                //     return function() {
-                //       infowindow.setContent(locations[i][0] + " and " + locations[i][1]);
-                //       infowindow.open(map, marker);
-                //     }
-                //   })
-                // );
-            }})});}
-
-// function doMarker(){
-// console.log("KIrdin");  
-// console.log("Henbjkclaksl: "+ locations.length);  
-     
-
-    
-
-//     var marker, i;
-//     for (i = 0; i < locations.length; i++) {  
-        
-
-      
-//       })(marker, i));
-//       }
-//   }
-
-
-// function myMapNew(latitude, longitute) {
-//   var mapProp= {lat: Number(latitude), lng: Number(longitute)};
-//   var map = new google.maps.Map(document.getElementById("markeredMap"),{
-//   zoom: 18,
-//   center: mapProp
-//   });
-//   var marker = new google.maps.Marker({
-//           position: mapProp,
-//           map: map,
-//           title: 'Hello World!'
-//         });
-// }
-//       myMapNew(-33.890542, 151.274856);
 
